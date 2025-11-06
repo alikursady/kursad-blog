@@ -1,0 +1,7 @@
+baseURL = "https://kursadyanik.com/"
+languageCode = "tr-tr"
+title = "Kürşat'ın Blogu"
+theme = "PaperMod"
+
+[pagination]
+  pagerSize = 5
