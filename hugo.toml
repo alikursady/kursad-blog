@@ -2,6 +2,32 @@ baseURL = "https://kursadyanik.com/"
 languageCode = "tr-tr"
 title = "kursadyanik.com"
 theme = "PaperMod"
+buildFuture = true
+
 [params]
   mainSections = ["posts"]
-buildFuture = true
+  homeInfoParams = { Title = "", Content = "Cybersecurity & Notes." }
+  ShowReadingTime = true
+  ShowPostNavLinks = true
+  ShowShareButtons = false
+  defaultTheme = "dark"
+  disableThemeToggle = true
+
+[menu]
+  [[menu.main]]
+    identifier = "home"
+    name = "Ana Sayfa"
+    url = "/"
+    weight = 1
+
+  [[menu.main]]
+    identifier = "about"
+    name = "Hakkında"
+    url = "/about/"
+    weight = 2
+
+  [[menu.main]]
+    identifier = "contact"
+    name = "İletişim"
+    url = "/contact/"
+    weight = 3
