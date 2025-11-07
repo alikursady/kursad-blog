@@ -1,6 +1,6 @@
 ---
 title: "Fotoğrafın Nerede Çekildiğini Bulmak"
-date: 2025-11-07T23:15:00+03:00
+date: 2025-11-06T12:00:00+03:00
 draft: false
 ---
 
