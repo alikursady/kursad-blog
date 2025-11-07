@@ -2,3 +2,6 @@ baseURL = "https://kursadyanik.com/"
 languageCode = "tr-tr"
 title = "kursadyanik.com"
 theme = "PaperMod"
+[params]
+  mainSections = ["posts"]
+buildFuture = true
