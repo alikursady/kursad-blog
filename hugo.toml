@@ -3,6 +3,12 @@ languageCode = "tr-tr"
 title = "kursadyanik.com"
 theme = "PaperMod"
 buildFuture = true
+enableRobotsTXT = true
+
+[sitemap]
+  changefreq = "monthly"
+  priority = 0.5
+  filename = "sitemap.xml"
 
 [params]
   mainSections = ["posts"]
@@ -12,6 +18,11 @@ buildFuture = true
   ShowShareButtons = false
   defaultTheme = "dark"
   disableThemeToggle = true
+
+  # SEO bilgileri
+  description = "Cyber Security - kursadyanik.com"
+  author = "kursad."
+  keywords = ["siber güvenlik", "cybersecurity", "osint", "bilgi güvenliği", "kursadyanik", "blog" , "ctf"]
 
 [menu]
   [[menu.main]]

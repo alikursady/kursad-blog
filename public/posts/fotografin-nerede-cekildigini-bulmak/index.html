@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" dir="auto" data-theme="dark">
 
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="noindex, nofollow">
+<meta name="robots" content="index, follow">
 <title>Fotoğrafın Nerede Çekildiğini Bulmak | kursadyanik.com</title>
 <meta name="keywords" content="">
 <meta name="description" content="Merhabalar dostlar 👋
@@ -13,17 +13,17 @@ Bu ilk yazım ve ilk yazımda bir fotoğrafın hangi konumda, hangi koşullarda 
 🧭 Fotoğraflar bilgi taşır
 Fotoğraf dosyaları; çekim tarihi, koordinatları, odak uzaklığı, zoom, hangi cihazla çekildiği, hangi modda çekildiği ve hangi modun açık veya kapalı olduğu gibi bilgiler içerir.
 Örnek vermek gerekirse, telefonlar ve kameralarda yerleşik GPS alıcıları mevcuttur ve fotoğraf çekilirken koordinatları EXIF meta verisine ekler.">
-<meta name="author" content="">
-<link rel="canonical" href="http://localhost:1313/posts/fotografin-nerede-cekildigini-bulmak/">
+<meta name="author" content="kursad.">
+<link rel="canonical" href="https://kursadyanik.com/posts/fotografin-nerede-cekildigini-bulmak/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.fd5566c526ae48aadabd950798a2dc3568536401560eae5caac3765a42a9e7b5.css" integrity="sha256-/VVmxSauSKravZUHmKLcNWhTZAFWDq5cqsN2WkKp57U=" rel="preload stylesheet" as="style">
-<link rel="icon" href="http://localhost:1313/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
-<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
-<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<link rel="icon" href="https://kursadyanik.com/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://kursadyanik.com/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://kursadyanik.com/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://kursadyanik.com/apple-touch-icon.png">
+<link rel="mask-icon" href="https://kursadyanik.com/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="http://localhost:1313/posts/fotografin-nerede-cekildigini-bulmak/">
+<link rel="alternate" hreflang="en" href="https://kursadyanik.com/posts/fotografin-nerede-cekildigini-bulmak/">
 <noscript>
     <style>
         #theme-toggle,
@@ -32,29 +32,103 @@ Fotoğraf dosyaları; çekim tarihi, koordinatları, odak uzaklığı, zoom, han
         }
 
     </style>
-</noscript>
+</noscript><meta property="og:url" content="https://kursadyanik.com/posts/fotografin-nerede-cekildigini-bulmak/">
+  <meta property="og:site_name" content="kursadyanik.com">
+  <meta property="og:title" content="Fotoğrafın Nerede Çekildiğini Bulmak">
+  <meta property="og:description" content="Merhabalar dostlar 👋
+Bu ilk yazım ve ilk yazımda bir fotoğrafın hangi konumda, hangi koşullarda çekildiğini, yani bir diğer deyişle OSINT (Açık Kaynak İstihbaratı) ve elde edebildiğimiz tüm ayrıntılarını ele alacağım.
+🧭 Fotoğraflar bilgi taşır Fotoğraf dosyaları; çekim tarihi, koordinatları, odak uzaklığı, zoom, hangi cihazla çekildiği, hangi modda çekildiği ve hangi modun açık veya kapalı olduğu gibi bilgiler içerir.
+Örnek vermek gerekirse, telefonlar ve kameralarda yerleşik GPS alıcıları mevcuttur ve fotoğraf çekilirken koordinatları EXIF meta verisine ekler.">
+  <meta property="og:locale" content="tr-tr">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-11-07T12:00:00+03:00">
+    <meta property="article:modified_time" content="2025-11-07T12:00:00+03:00">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Fotoğrafın Nerede Çekildiğini Bulmak">
+<meta name="twitter:description" content="Merhabalar dostlar 👋
+Bu ilk yazım ve ilk yazımda bir fotoğrafın hangi konumda, hangi koşullarda çekildiğini, yani bir diğer deyişle OSINT (Açık Kaynak İstihbaratı) ve elde edebildiğimiz tüm ayrıntılarını ele alacağım.
+
+🧭 Fotoğraflar bilgi taşır
+Fotoğraf dosyaları; çekim tarihi, koordinatları, odak uzaklığı, zoom, hangi cihazla çekildiği, hangi modda çekildiği ve hangi modun açık veya kapalı olduğu gibi bilgiler içerir.
+Örnek vermek gerekirse, telefonlar ve kameralarda yerleşik GPS alıcıları mevcuttur ve fotoğraf çekilirken koordinatları EXIF meta verisine ekler.">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://kursadyanik.com/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Fotoğrafın Nerede Çekildiğini Bulmak",
+      "item": "https://kursadyanik.com/posts/fotografin-nerede-cekildigini-bulmak/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Fotoğrafın Nerede Çekildiğini Bulmak",
+  "name": "Fotoğrafın Nerede Çekildiğini Bulmak",
+  "description": "Merhabalar dostlar 👋\nBu ilk yazım ve ilk yazımda bir fotoğrafın hangi konumda, hangi koşullarda çekildiğini, yani bir diğer deyişle OSINT (Açık Kaynak İstihbaratı) ve elde edebildiğimiz tüm ayrıntılarını ele alacağım.\n🧭 Fotoğraflar bilgi taşır Fotoğraf dosyaları; çekim tarihi, koordinatları, odak uzaklığı, zoom, hangi cihazla çekildiği, hangi modda çekildiği ve hangi modun açık veya kapalı olduğu gibi bilgiler içerir.\nÖrnek vermek gerekirse, telefonlar ve kameralarda yerleşik GPS alıcıları mevcuttur ve fotoğraf çekilirken koordinatları EXIF meta verisine ekler.\n",
+  "keywords": [
+    
+  ],
+  "articleBody": "Merhabalar dostlar 👋\nBu ilk yazım ve ilk yazımda bir fotoğrafın hangi konumda, hangi koşullarda çekildiğini, yani bir diğer deyişle OSINT (Açık Kaynak İstihbaratı) ve elde edebildiğimiz tüm ayrıntılarını ele alacağım.\n🧭 Fotoğraflar bilgi taşır Fotoğraf dosyaları; çekim tarihi, koordinatları, odak uzaklığı, zoom, hangi cihazla çekildiği, hangi modda çekildiği ve hangi modun açık veya kapalı olduğu gibi bilgiler içerir.\nÖrnek vermek gerekirse, telefonlar ve kameralarda yerleşik GPS alıcıları mevcuttur ve fotoğraf çekilirken koordinatları EXIF meta verisine ekler.\n🧾 EXIF örneği resim1.jpg dosyasında çıkan EXIF verileri: Bu fotoğraf Xiaomi Redmi Note 9 cihazı ile çekilmiş.\nEXIF verileri, çekimin tamamen otomatik modda gerçekleştirildiğini ve HDR özelliğinin kapalı olduğunu gösteriyor.\nTeknik Veriler:\nKoordinatlar: 37°33'11.74\" N, 36°55'12.27\" E Diyafram: f/1.8 Enstantane: 1/428 sn Odak Uzaklığı: 4.7 mm (35mm karşılığı: 28 mm) Beyaz Dengesi: Otomatik Pozlama Modu: Otomatik Ölçüm Modu: Merkez ağırlıklı Dijital Zoom: 1x HDR: Kapalı Çekim Zamanı: 13 Aralık 2021, saat 16:23 (yerel saat) Çözünürlük: 4000 × 2992 piksel 📍 Google Haritalar kullanılarak fotoğrafın çekildiği tam konumu görebiliriz.\n🔒 Sosyal medya ve gizlilik Ancak bunun da sınırlılıkları mevcuttur.\nTüm sosyal medya ve mesajlaşma uygulamaları, güvenlik ve gizlilik gerekçesiyle kullanıcıların yüklediği fotoğrafların EXIF verilerini otomatik olarak temizler ve konum bilgisini siler.\nAncak tam olarak gizlilik mümkün değildir — bunun nedenini yazının devamında anlatacağım.\n🧩 Görsel içerikten analiz Hiçbir dijital veriye dayanmadan sadece fotoğraf içeriğinden, çevresel ipuçlarından yararlanarak çıkarımlar da yapılabilir.\nBina mimarisi, yazı dili, trafik işaretleri, bitki örtüsü veya coğrafi özelliklerden bahsediyorum.\nGökyüzünün rengi ve güneş açısı dahi bizlere fikir verebilir.\n🤖 Yapay zekâ destekli sistemler Ayrıca yapay zekâ tabanlı sistemlerden yararlanılıp yer belirlenebilir.\nGeospy, Picarta.ai, Google Lens ve Yandex Vision benzeri genel amaçlı görsel arama AI sistemleri, fotoğraflardaki nesneleri ve yerleri tanıyıp kullanıcının arama yapmasına olanak tanır.\nBu tür sistemlerin avantajı kolay ulaşılır olmasıdır.\nAyrıca burada Reddit’in WhereIsThis topluluğunu kullanmanın konumu bulmakta fayda sağlayacağını düşünmekteyim.\n🧰 Analiz araçları ExifTool → “Bu fotoğraf nerede, neyle, ne zaman çekildi?”\nIdentify → “Bu fotoğrafın içeriği ve yapısı nasıl oluşturulmuş?”\n📊 Görsel İçerik Analizi (Identify’nin Ekstra Verileri) Identify çıktısında ExifTool’da olmayan, doğrudan görüntünün piksel verisinden hesaplanan bilgiler vardır.\nChannel statistics: Her renk kanalının (R, G, B) ortalaması, sapması, eğikliği, entropisi — yani fotoğrafın kontrast ve ton dağılımını verir. Entropy: Görseldeki bilgi yoğunluğunu ölçer. 0.9 civarı değer, orta karmaşıklıkta doğal sahne demektir. Mean / Median / Std. Deviation: Görüntünün genel parlaklığı ve dinamik aralığı hakkında fikir verir. Gamma, Chromaticity: Renk profili ve beyaz nokta ayarları (renk doğruluğu için önemli). Quality: 96 — JPEG sıkıştırma kalitesi neredeyse maksimum, yani dosya neredeyse kayıpsız. Signature: Dosyanın SHA256 benzeri benzersiz dijital parmak izi (değişirse anında tespit edilir). Rendering intent / Interlace / Sampling factor: Görüntü tarayıcılar veya yazılımlar tarafından nasıl işleneceğini tanımlar. 🧠 ExifTool bunları göstermez çünkü EXIF verisinde değil, dosyanın piksel katmanında saklıdır.\nKullanımı: identify -verbose resim2.jpg\n🕵️ Steganografi ve gizli veriler Ek olarak binwalk ve strings gibi araçlarla görüntü dosyası içindeki gömülü metinler veya olası steganografik içerikler aranabilir.\nÖrneğin, fotoğrafta steganografi (gizli veri saklama) şüphesi varsa Steghide, zsteg gibi programlarla dosya içinde saklı mesaj olup olmadığına bakılabilir.\nBir fotoğraf yalnızca bir görüntü değildir.\nDoğru araçlar ve analiz yöntemleriyle, geçmişine dair bir hikâye anlatır — nerede, ne zaman, nasıl çekildiğini fısıldar.\n",
+  "wordCount" : "520",
+  "inLanguage": "en",
+  "datePublished": "2025-11-07T12:00:00+03:00",
+  "dateModified": "2025-11-07T12:00:00+03:00",
+  "author":{
+    "@type": "Person",
+    "name": "kursad."
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://kursadyanik.com/posts/fotografin-nerede-cekildigini-bulmak/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "kursadyanik.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://kursadyanik.com/favicon.ico"
+    }
+  }
+}
+</script>
 </head>
 <body id="top">
     <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="http://localhost:1313/" accesskey="h" title="kursadyanik.com (Alt + H)">kursadyanik.com</a>
+            <a href="https://kursadyanik.com/" accesskey="h" title="kursadyanik.com (Alt + H)">kursadyanik.com</a>
             <div class="logo-switches">
             </div>
         </div>
         <ul id="menu">
             <li>
-                <a href="http://localhost:1313/" title="Ana Sayfa">
+                <a href="https://kursadyanik.com/" title="Ana Sayfa">
                     <span>Ana Sayfa</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/about/" title="Hakkında">
+                <a href="https://kursadyanik.com/about/" title="Hakkında">
                     <span>Hakkında</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/contact/" title="İletişim">
+                <a href="https://kursadyanik.com/contact/" title="İletişim">
                     <span>İletişim</span>
                 </a>
             </li>
@@ -69,7 +143,7 @@ Fotoğraf dosyaları; çekim tarihi, koordinatları, odak uzaklığı, zoom, han
     <h1 class="post-title entry-hint-parent">
       Fotoğrafın Nerede Çekildiğini Bulmak
     </h1>
-    <div class="post-meta"><span title='2025-11-07 12:00:00 +0300 +03'>November 7, 2025</span>&nbsp;·&nbsp;<span>3 min</span>
+    <div class="post-meta"><span title='2025-11-07 12:00:00 +0300 +03'>November 7, 2025</span>&nbsp;·&nbsp;<span>3 min</span>&nbsp;·&nbsp;<span>kursad.</span>
 
 </div>
   </header> 
