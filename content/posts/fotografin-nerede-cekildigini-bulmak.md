@@ -96,6 +96,5 @@ Ek olarak `binwalk` ve `strings` gibi araçlarla görüntü dosyası içindeki g
 
 ---
 
-📍 **Sonuç:**  
 Bir fotoğraf yalnızca bir görüntü değildir.  
 Doğru araçlar ve analiz yöntemleriyle, geçmişine dair bir **hikâye anlatır** — nerede, ne zaman, nasıl çekildiğini fısıldar.
