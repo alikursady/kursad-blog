@@ -1,0 +1,45 @@
+<section class="home-hero">
+  <div class="hero-card">
+    <h1 class="hero-title">シメジ •</h1>
+    <p class="hero-sub">/security/notes/overthink</p>
+    <p class="hero-body">
+      Usually someone below average overthinks, curious, and mediocre. Lacks motivation and doesn’t strive for anything. Not eager to learn anything, just obsessive and fixated. 
+    </p>
+  </div>
+</section>
+
+<style>
+  .home-hero {
+    margin: 4rem auto 3rem;
+    max-width: 56rem;
+    padding: 0 1.5rem;
+  }
+  .hero-card {
+    background: rgba(255, 255, 255, 0.015);
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    border-radius: 1rem;
+    padding: 2rem 2.3rem 2.1rem;
+    backdrop-filter: blur(6px);
+  }
+  .hero-title {
+    font-size: 2.2rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin-bottom: .25rem;
+  }
+  .hero-sub {
+    font-size: .9rem;
+    opacity: .65;
+    margin-bottom: 1.2rem;
+  }
+  .hero-body {
+    font-size: .95rem;
+    line-height: 1.6;
+    opacity: .9;
+  }
+
+  /* dark tema için PaperMod zaten dark, o yüzden aşırı parlak olmasın */
+  :root[color-mode="dark"] .hero-card {
+    background: rgba(16, 16, 16, 0.35);
+  }
+</style>
