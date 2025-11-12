@@ -22,6 +22,10 @@ enableRobotsTXT = true
   author = "kursad."
   keywords = ["siber güvenlik", "cybersecurity", "osint", "bilgi güvenliği", "kursadyanik", "blog", "ctf"]
 
+
+[params.assets]
+  favicon = "favicon.ico"
+
 [menu]
   [[menu.main]]
     identifier = "home"
