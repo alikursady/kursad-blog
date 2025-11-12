@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Posts on kursadyanik.com</title>
-    <link>https://kursadyanik.com/posts/</link>
+    <link>http://localhost:1313/posts/</link>
     <description>Recent content in Posts on kursadyanik.com</description>
     <generator>Hugo -- 0.152.2</generator>
     <language>tr-tr</language>
     <lastBuildDate>Fri, 07 Nov 2025 12:00:00 +0300</lastBuildDate>
-    <atom:link href="https://kursadyanik.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Fotoğrafın Nerede Çekildiğini Bulmak</title>
-      <link>https://kursadyanik.com/posts/fotografin-nerede-cekildigini-bulmak/</link>
+      <link>http://localhost:1313/posts/fotografin-nerede-cekildigini-bulmak/</link>
       <pubDate>Fri, 07 Nov 2025 12:00:00 +0300</pubDate>
-      <guid>https://kursadyanik.com/posts/fotografin-nerede-cekildigini-bulmak/</guid>
+      <guid>http://localhost:1313/posts/fotografin-nerede-cekildigini-bulmak/</guid>
       <description>&lt;p&gt;Merhabalar dostlar 👋&lt;br&gt;
 Bu ilk yazım ve ilk yazımda bir fotoğrafın &lt;strong&gt;hangi konumda, hangi koşullarda çekildiğini&lt;/strong&gt;, yani bir diğer deyişle &lt;strong&gt;OSINT (Açık Kaynak İstihbaratı)&lt;/strong&gt; ve elde edebildiğimiz tüm ayrıntılarını ele alacağım.&lt;/p&gt;
 &lt;hr&gt;

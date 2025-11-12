@@ -1,0 +1,33 @@
+.intro-card {
+  background: rgba(20, 21, 23, 0.7);
+  border: 1px solid #2d2f31;
+  border-radius: 10px;
+  padding: 25px;
+  width: min(700px, 90vw);
+  margin: 80px auto;
+  text-align: left;
+  backdrop-filter: blur(8px);
+}
+
+.intro-card h1 {
+  font-size: 2rem;
+  letter-spacing: 0.03em;
+  margin-bottom: 6px;
+}
+
+.intro-card .subtitle {
+  color: #9ca3af;
+  font-size: 0.95rem;
+  margin-bottom: 14px;
+}
+
+.social-links a {
+  color: #aaa;
+  margin-right: 14px;
+  font-size: 1.4rem;
+  transition: color 0.3s;
+}
+
+.social-links a:hover {
+  color: #1da1f2;
+}

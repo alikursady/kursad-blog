@@ -12,33 +12,31 @@ enableRobotsTXT = true
 
 [params]
   mainSections = ["posts"]
-  homeInfoParams = { Title = "", Content = "Cybersecurity & Notes." }
   ShowReadingTime = true
   ShowPostNavLinks = true
   ShowShareButtons = false
   defaultTheme = "dark"
   disableThemeToggle = true
 
-  # SEO bilgileri
   description = "Cyber Security - kursadyanik.com"
   author = "kursad."
-  keywords = ["siber güvenlik", "cybersecurity", "osint", "bilgi güvenliği", "kursadyanik", "blog" , "ctf"]
+  keywords = ["siber güvenlik", "cybersecurity", "osint", "bilgi güvenliği", "kursadyanik", "blog", "ctf"]
 
 [menu]
   [[menu.main]]
     identifier = "home"
-    name = "Ana Sayfa"
+    name = "Home"
     url = "/"
     weight = 1
 
   [[menu.main]]
     identifier = "about"
-    name = "Hakkında"
+    name = "About"
     url = "/about/"
     weight = 2
 
   [[menu.main]]
     identifier = "contact"
-    name = "İletişim"
+    name = "Contact"
     url = "/contact/"
     weight = 3
