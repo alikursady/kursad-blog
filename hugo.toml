@@ -20,7 +20,7 @@ enableRobotsTXT = true
   ShowReadingTime = true
   ShowPostNavLinks = true
   ShowShareButtons = false
-  defaultTheme = "dark"
+  defaultTheme = "light"
   disableThemeToggle = true
 
   description = "Cyber Security - kursadyanik.com"
