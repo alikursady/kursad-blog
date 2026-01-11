@@ -100,10 +100,32 @@ a:hover {
     color: var(--primary);
 }
 
-.entry-content {
+/* === Blog List Entry Content (sadece liste sayfasında) === */
+.post-entry .entry-content {
     font-size: 1.05rem;
     color: var(--content);
     line-height: 1.7;
+    /* line-clamp'ı 2'den 10'a çıkarıyoruz - sadece liste kartlarında */
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 10;
+    line-clamp: 10;
+}
+
+.first-entry .entry-content {
+    /* İlk yazı için de aynı şekilde 10 satır */
+    -webkit-line-clamp: 10;
+    line-clamp: 10;
+}
+
+/* Detay sayfasında (.post-entry yok) kesinlikle line-clamp yok */
+.post-content,
+.post-content .entry-content {
+    -webkit-line-clamp: unset !important;
+    line-clamp: unset !important;
+    display: block !important;
+    overflow: visible !important;
 }
 
 .entry-footer {
