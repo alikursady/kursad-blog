@@ -100,23 +100,50 @@ a:hover {
     color: var(--primary);
 }
 
-/* === Blog List Entry Content (sadece liste sayfasında) === */
-.post-entry .entry-content {
-    font-size: 1.05rem;
-    color: var(--content);
-    line-height: 1.7;
-    /* line-clamp'ı 2'den 10'a çıkarıyoruz - sadece liste kartlarında */
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 10;
-    line-clamp: 10;
+/* === Blog List Entry - Tüm kartlar aynı tasarımda === */
+/* İlk yazıyı da normal post-entry gibi yap */
+.first-entry {
+    position: relative;
+    display: block;
+    min-height: auto;
+    margin: 0 0 32px 0;
+}
+
+.first-entry .entry-header {
+    overflow: visible;
+    display: block;
+    -webkit-box-orient: unset;
+    -webkit-line-clamp: unset;
+    line-clamp: unset;
+}
+
+.first-entry .entry-header h1,
+.first-entry .entry-header h2 {
+    font-size: 1.75rem;
+    line-height: 1.3;
 }
 
 .first-entry .entry-content {
-    /* İlk yazı için de aynı şekilde 10 satır */
-    -webkit-line-clamp: 10;
-    line-clamp: 10;
+    margin: 12px 0;
+    font-size: 1.05rem;
+}
+
+/* === Blog List Entry Content - Kısa özet göster === */
+.post-entry .entry-content,
+.first-entry .entry-content {
+    color: var(--content);
+    line-height: 1.7;
+    /* Özet 3 satırla sınırlı, sonunda "..." gösterilecek */
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+}
+
+.first-entry .entry-footer {
+    font-size: 0.9rem;
+    margin-top: 16px;
 }
 
 /* Detay sayfasında (.post-entry yok) kesinlikle line-clamp yok */

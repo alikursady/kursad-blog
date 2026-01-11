@@ -22,6 +22,7 @@ enableRobotsTXT = true
   ShowShareButtons = false
   defaultTheme = "light"
   disableThemeToggle = true
+  disableSpecial1stPost = true
 
   description = "Cyber Security - kursadyanik.com"
   author = "kursad."
