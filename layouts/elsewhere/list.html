@@ -22,9 +22,18 @@
     <h2 class="elsewhere-links-title">Profiles &amp; pages</h2>
     <ul class="elsewhere-links-grid">
       {{- range $links }}
-      {{- $isExternal := hasPrefix (lower .url) "http" }}
+      {{- $rawUrl := .url | default "" }}
+      {{- $normalized := lower $rawUrl }}
+      {{- $isEmail := and (in $rawUrl "@") (not (hasPrefix $normalized "mailto:")) }}
+      {{- $href := $rawUrl }}
+      {{- if $isEmail }}
+        {{- $href = printf "mailto:%s" $rawUrl }}
+      {{- else if and (not (hasPrefix $normalized "http://")) (not (hasPrefix $normalized "https://")) (not (hasPrefix $rawUrl "/")) }}
+        {{- $href = printf "https://%s" $rawUrl }}
+      {{- end }}
+      {{- $isExternal := or (hasPrefix (lower $href) "http://") (hasPrefix (lower $href) "https://") }}
       <li class="elsewhere-link-card">
-        <a href="{{ .url | safeURL }}" class="elsewhere-link-card-inner" {{ if $isExternal }}target="_blank" rel="noopener noreferrer"{{ end }}>
+        <a href="{{ $href | safeURL }}" class="elsewhere-link-card-inner" {{ if $isExternal }}target="_blank" rel="noopener noreferrer"{{ end }}>
           <span class="elsewhere-link-name">{{ .name }}</span>
           {{- with .description }}
           <span class="elsewhere-link-desc">{{ . }}</span>

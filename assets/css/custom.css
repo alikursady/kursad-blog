@@ -534,6 +534,88 @@ button#theme-toggle:focus-visible {
 }
 
 /* ---------------------------------------------------------------------------
+   About page terminal prompt
+   --------------------------------------------------------------------------- */
+.about-terminal {
+    margin: 0.25rem 0 1.75rem;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: color-mix(in srgb, var(--entry) 88%, var(--code-bg) 12%);
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.06);
+    overflow: hidden;
+}
+
+:root[data-theme="dark"] .about-terminal {
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.25);
+}
+
+.about-terminal-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.55rem 0.8rem;
+    border-bottom: 1px solid var(--border);
+    background: color-mix(in srgb, var(--code-bg) 82%, var(--entry) 18%);
+}
+
+.terminal-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.terminal-dot-red { background: #f87171; }
+.terminal-dot-amber { background: #fbbf24; }
+.terminal-dot-green { background: #34d399; }
+
+.about-terminal-line {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    padding: 0.85rem 1rem 0.4rem;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 0.88rem;
+}
+
+.about-terminal-prompt {
+    color: var(--secondary);
+}
+
+.about-terminal-command {
+    color: var(--primary);
+    font-weight: 500;
+}
+
+.about-terminal-cursor {
+    width: 0.56ch;
+    height: 1.05em;
+    background: var(--accent);
+    border-radius: 1px;
+    animation: terminal-cursor-blink 1.2s steps(1, end) infinite;
+}
+
+.about-terminal-output {
+    margin: 0 1rem 0.95rem;
+    color: var(--content);
+    font-size: 0.9rem;
+    line-height: 1.55;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+}
+
+@keyframes terminal-cursor-blink {
+    0%, 48% { opacity: 1; }
+    50%, 100% { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .about-terminal-cursor {
+        animation: none;
+    }
+}
+
+/* ---------------------------------------------------------------------------
    Elsewhere / Links page
    --------------------------------------------------------------------------- */
 .elsewhere-page .post-content.elsewhere-intro {
@@ -735,6 +817,17 @@ button#theme-toggle:focus-visible {
     .post-content pre code {
         padding: 0.75rem 1rem;
         font-size: 0.8rem;
+    }
+
+    .about-terminal-line {
+        padding: 0.75rem 0.85rem 0.35rem;
+        font-size: 0.82rem;
+        gap: 0.35rem;
+    }
+
+    .about-terminal-output {
+        margin: 0 0.85rem 0.85rem;
+        font-size: 0.84rem;
     }
 
     .elsewhere-links-grid {

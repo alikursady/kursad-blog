@@ -4,7 +4,11 @@ description: "Where my work and presence live online."
 layout: "elsewhere"
 hideMeta: true
 elsewhere_links:
+  - name: Email
+    url: "kursad@keemail.me"
+    description: "General mailbox."
   - name: GitHub
+<<<<<<< Current (Your changes)
     url: "https://github.com/"
     description: "Code, experiments, and tools."
   - name: LinkedIn
@@ -15,9 +19,21 @@ elsewhere_links:
     description: "CTF competitions and rankings."
   - name: X
     url: "https://x.com/"
+=======
+    url: "github.com"
+    description: "Code, experiments, and tools."
+  - name: LinkedIn
+    url: "linkedin.com"
+    description: "Professional profile."
+  - name: CTFtime
+    url: "ctftime.org"
+    description: "CTF competitions and rankings."
+  - name: X
+    url: "x.com"
+>>>>>>> Incoming (Background Agent changes)
     description: "Short updates and notes."
   - name: Blog RSS
-    url: "/index.xml"
+    url: "kursadyanik.com"
     description: "Writeups and technical notes."
 ---
 
