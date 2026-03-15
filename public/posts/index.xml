@@ -1,24 +1,9 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
-  <channel>
-    <title>Posts on kursadyanik.com</title>
-    <link>http://localhost:1313/posts/</link>
-    <description>Recent content in Posts on kursadyanik.com</description>
-    <generator>Hugo -- 0.152.2</generator>
-    <language>tr-tr</language>
-    <lastBuildDate>Fri, 07 Nov 2025 12:00:00 +0300</lastBuildDate>
-    <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Fotoğrafın Nerede Çekildiğini Bulmak</title>
-      <link>http://localhost:1313/posts/fotografin-nerede-cekildigini-bulmak/</link>
-      <pubDate>Fri, 07 Nov 2025 12:00:00 +0300</pubDate>
-      <guid>http://localhost:1313/posts/fotografin-nerede-cekildigini-bulmak/</guid>
-      <description>&lt;p&gt;Merhabalar dostlar 👋&lt;br&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Posts on kursadyanik.com</title><link>https://kursadyanik.com/posts/</link><description>Recent content in Posts on kursadyanik.com</description><generator>Hugo -- 0.152.2</generator><language>tr-tr</language><lastBuildDate>Fri, 07 Nov 2025 12:00:00 +0300</lastBuildDate><atom:link href="https://kursadyanik.com/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Fotoğrafın Nerede Çekildiğini Bulmak</title><link>https://kursadyanik.com/posts/fotografin-nerede-cekildigini-bulmak/</link><pubDate>Fri, 07 Nov 2025 12:00:00 +0300</pubDate><guid>https://kursadyanik.com/posts/fotografin-nerede-cekildigini-bulmak/</guid><description>&lt;p&gt;Merhabalar dostlar 👋&lt;br&gt;
 Bu ilk yazım ve ilk yazımda bir fotoğrafın &lt;strong&gt;hangi konumda, hangi koşullarda çekildiğini&lt;/strong&gt;, yani bir diğer deyişle &lt;strong&gt;OSINT (Açık Kaynak İstihbaratı)&lt;/strong&gt; ve elde edebildiğimiz tüm ayrıntılarını ele alacağım.&lt;/p&gt;
 &lt;hr&gt;
-&lt;h3 id=&#34;-fotoğraflar-bilgi-taşır&#34;&gt;🧭 Fotoğraflar bilgi taşır&lt;/h3&gt;
+&lt;h3 id="-fotoğraflar-bilgi-taşır"&gt;🧭 Fotoğraflar bilgi taşır&lt;/h3&gt;
 &lt;p&gt;Fotoğraf dosyaları; &lt;strong&gt;çekim tarihi, koordinatları, odak uzaklığı, zoom&lt;/strong&gt;, hangi cihazla çekildiği, hangi modda çekildiği ve hangi modun açık veya kapalı olduğu gibi bilgiler içerir.&lt;br&gt;
-Örnek vermek gerekirse, telefonlar ve kameralarda yerleşik GPS alıcıları mevcuttur ve fotoğraf çekilirken koordinatları &lt;strong&gt;EXIF meta verisine&lt;/strong&gt; ekler.&lt;/p&gt;</description>
-    </item>
-  </channel>
-</rss>
+Örnek vermek gerekirse, telefonlar ve kameralarda yerleşik GPS alıcıları mevcuttur ve fotoğraf çekilirken koordinatları &lt;strong&gt;EXIF meta verisine&lt;/strong&gt; ekler.&lt;/p&gt;</description></item><item><title>ApoorvCTF 2026 - Utopia OSINT Writeup</title><link>https://kursadyanik.com/posts/apoorvctf-writeup/</link><pubDate>Mon, 27 Jan 2025 12:00:00 +0300</pubDate><guid>https://kursadyanik.com/posts/apoorvctf-writeup/</guid><description>&lt;p&gt;Soru : johnbuck69420 believes he is a big consipiracy theorist. His recent ramblings have been about a strange artist whose works supposedly predict the future. Most people think he&amp;rsquo;s crazy but John insists otherwise. He believes that the artist is warning us about a new disease.
+flag format: apoorvctf{artist&amp;rsquo;sName_diseaseName}&lt;/p&gt;
+&lt;p&gt;Sorunun türkçesi ile şöyleydi &amp;ndash; johnbuck69420 kendisinin büyük bir komplo teorisyeni olduğuna inanıyor. Son zamanlardaki saçmalıkları, eserlerinin sözde geleceği önceden haber verdiği tuhaf bir sanatçı hakkında. Çoğu insan onun deli olduğunu düşünüyor ama John ısrarla aksini savunuyor. O, bu sanatçının bizi yeni bir hastalık konusunda uyardığına inanıyor.&lt;/p&gt;</description></item><item><title>Midnightflag - Where_Was_chine OSINT Writeup</title><link>https://kursadyanik.com/posts/where-was-chine-midnightflag/</link><pubDate>Mon, 27 Jan 2025 12:00:00 +0300</pubDate><guid>https://kursadyanik.com/posts/where-was-chine-midnightflag/</guid><description>&lt;p&gt;Soru : Where_Was_chine 379
+&amp;ldquo;A Chinese student who had been living in France for a year to study French recently returned to her home country for a short one-week vacation. A few days later, her body was found lifeless in a park in China. Local authorities are struggling to understand what happened to her. Before her disappearance, the young woman was very active on social media. Your mission is to retrace her steps and discover which park her body was found in. The victim’s name was Lin Xiayu, and she used the username LinXiayu35170 on social media. Flag format: MCTF{Xxxx_Xxxxx}&amp;rdquo;&lt;/p&gt;</description></item></channel></rss>

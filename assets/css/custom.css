@@ -1,22 +1,60 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+/*
+ * Custom styles – modern, minimal cybersecurity/personal tech blog
+ * Overrides PaperMod; preserves Hugo structure and semantics.
+ */
 
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* ---------------------------------------------------------------------------
+   Design tokens (override theme vars where needed)
+   --------------------------------------------------------------------------- */
 :root {
-    --theme: #ffffff;
+    --theme: #fafafa;
     --entry: #ffffff;
     --primary: #1a1a1a;
-    --secondary: #666666;
-    --tertiary: #e5e5e5;
-    --content: #333333;
-    --code-block-bg: #f5f5f5;
-    --code-bg: #f9f9f9;
-    --border: #e0e0e0;
+    --secondary: #5c5c5c;
+    --tertiary: #e8e8e8;
+    --content: #2d2d2d;
+    --code-block-bg: #1e1e1e;
+    --code-bg: #f0f0f0;
+    --border: #e5e5e5;
+    --accent: #2563eb;
+    --accent-soft: rgba(37, 99, 235, 0.08);
+    --container-max: 720px;
+    --header-height: 64px;
+    --gap: 24px;
+    --content-gap: 24px;
+    --radius: 10px;
+    --transition: 0.2s ease;
     color-scheme: light;
 }
 
-/* === Global === */
+:root[data-theme="dark"] {
+    --theme: #0f0f10;
+    --entry: #18181b;
+    --primary: #f4f4f5;
+    --secondary: #a1a1aa;
+    --tertiary: #27272a;
+    --content: #d4d4d8;
+    --code-block-bg: #18181b;
+    --code-bg: #27272a;
+    --border: #27272a;
+    --accent: #60a5fa;
+    --accent-soft: rgba(96, 165, 250, 0.12);
+    color-scheme: dark;
+}
+
+/* List page background */
+.list {
+    background: var(--theme);
+}
+
+/* ---------------------------------------------------------------------------
+   Base – typography & body
+   --------------------------------------------------------------------------- */
 body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    background-color: var(--theme);
+    font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--theme);
     color: var(--content);
     line-height: 1.7;
     font-size: 17px;
@@ -24,89 +62,185 @@ body {
     padding: 0;
 }
 
-/* Arka plan resmini ve efektleri kaldırdım */
 body::before,
 body::after {
     display: none;
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: 'Inter', sans-serif;
+    font-family: 'DM Sans', sans-serif;
     color: var(--primary);
     font-weight: 600;
     line-height: 1.3;
-    margin-bottom: 1rem;
+    margin-top: 0;
+    margin-bottom: 0.75em;
 }
 
 a {
     color: var(--primary);
     text-decoration: none;
-    transition: color 0.2s ease;
+    transition: color var(--transition);
 }
 
 a:hover {
-    color: var(--secondary);
+    color: var(--accent);
 }
 
-/* === Header === */
+a:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------------------
+   Layout – centered container
+   --------------------------------------------------------------------------- */
+.main {
+    max-width: calc(var(--container-max) + var(--gap) * 2);
+    margin-left: auto;
+    margin-right: auto;
+    padding: var(--gap);
+    min-height: calc(100vh - var(--header-height) - 60px);
+}
+
+/* ---------------------------------------------------------------------------
+   Header / Navbar – sticky, minimal, professional
+   --------------------------------------------------------------------------- */
 .header {
-    background: var(--theme);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(250, 250, 250, 0.9);
     border-bottom: 1px solid var(--border);
-    box-shadow: none;
-    backdrop-filter: none;
+    backdrop-filter: saturate(180%) blur(12px);
+    -webkit-backdrop-filter: saturate(180%) blur(12px);
+}
+
+:root[data-theme="dark"] .header {
+    background: rgba(15, 15, 16, 0.9);
+}
+
+.nav {
+    max-width: calc(var(--container-max) + var(--gap) * 2);
+    margin: 0 auto;
+    padding: 0 var(--gap);
+    line-height: var(--header-height);
 }
 
 .logo a {
-    font-family: 'Inter', sans-serif;
-    font-weight: 600;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    font-size: 1.15rem;
     color: var(--primary);
-    text-transform: none;
-    letter-spacing: 0;
+    letter-spacing: -0.02em;
+    transition: color var(--transition);
 }
 
-.menu a {
-    font-family: 'Inter', sans-serif;
-    font-size: 15px;
-    color: var(--secondary);
-    text-transform: none;
-    letter-spacing: 0;
+.logo a:hover {
+    color: var(--accent);
+}
+
+#menu {
+    list-style: none;
+    display: flex;
+    gap: 0.5rem;
+}
+
+#menu a {
+    font-size: 0.9rem;
     font-weight: 500;
+    color: var(--secondary);
+    padding: 0.4rem 0.6rem;
+    border-radius: 6px;
+    transition: color var(--transition), background var(--transition);
 }
 
-.menu a:hover {
+#menu a:hover {
     color: var(--primary);
+    background: var(--accent-soft);
+}
+
+#menu a span.active {
+    color: var(--primary);
+    font-weight: 600;
+}
+
+#menu .active {
     border-bottom: none;
 }
 
-/* === Post Entry === */
-.post-entry {
-    background: var(--entry);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 32px;
-    margin-bottom: 32px;
-    transition: box-shadow 0.2s ease;
+#menu a span.active {
+    position: relative;
 }
 
-.post-entry:hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    transform: none;
-    border-color: var(--border);
+#menu a span.active::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -2px;
+    height: 2px;
+    background: var(--accent);
+    border-radius: 1px;
 }
 
-.entry-header h2 {
-    font-size: 1.75rem;
-    margin-bottom: 12px;
+button#theme-toggle {
+    color: var(--secondary);
+    transition: color var(--transition), transform var(--transition);
+}
+
+button#theme-toggle:hover {
     color: var(--primary);
 }
 
-/* === Blog List Entry - Tüm kartlar aynı tasarımda === */
-/* İlk yazıyı da normal post-entry gibi yap */
-.first-entry {
+button#theme-toggle:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------------------
+   Homepage / Blog list – premium cards
+   --------------------------------------------------------------------------- */
+.first-entry,
+.post-entry {
     position: relative;
     display: block;
+    background: var(--entry);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.75rem 1.75rem;
+    margin-bottom: 1.5rem;
+    transition: box-shadow var(--transition), border-color var(--transition), transform var(--transition);
+    overflow: hidden;
+}
+
+.first-entry {
     min-height: auto;
-    margin: 0 0 32px 0;
+    margin: 0 0 1.5rem 0;
+}
+
+.post-entry:hover,
+.first-entry:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+    border-color: var(--tertiary);
+}
+
+:root[data-theme="dark"] .post-entry:hover,
+:root[data-theme="dark"] .first-entry:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+}
+
+.post-entry:active,
+.first-entry:active {
+    transform: scale(0.995);
+}
+
+.entry-header h1,
+.entry-header h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1.35;
+    margin-bottom: 0.5rem;
+    color: var(--primary);
 }
 
 .first-entry .entry-header {
@@ -119,21 +253,14 @@ a:hover {
 
 .first-entry .entry-header h1,
 .first-entry .entry-header h2 {
-    font-size: 1.75rem;
-    line-height: 1.3;
+    font-size: 1.5rem;
 }
 
-.first-entry .entry-content {
-    margin: 12px 0;
-    font-size: 1.05rem;
-}
-
-/* === Blog List Entry Content - Kısa özet göster === */
-.post-entry .entry-content,
-.first-entry .entry-content {
-    color: var(--content);
-    line-height: 1.7;
-    /* Özet 3 satırla sınırlı, sonunda "..." gösterilecek */
+.entry-content {
+    color: var(--secondary);
+    font-size: 0.95rem;
+    line-height: 1.65;
+    margin: 0.5rem 0 0;
     overflow: hidden;
     display: -webkit-box;
     -webkit-box-orient: vertical;
@@ -141,12 +268,34 @@ a:hover {
     line-clamp: 3;
 }
 
-.first-entry .entry-footer {
-    font-size: 0.9rem;
-    margin-top: 16px;
+.first-entry .entry-content {
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
 }
 
-/* Detay sayfasında (.post-entry yok) kesinlikle line-clamp yok */
+.entry-footer {
+    margin-top: 1rem;
+    font-size: 0.8rem;
+    color: var(--secondary);
+    font-weight: 500;
+    letter-spacing: 0;
+    text-transform: none;
+}
+
+.entry-footer span {
+    opacity: 0.9;
+}
+
+.entry-link {
+    position: absolute;
+    inset: 0;
+}
+
+.entry-hint {
+    color: var(--secondary);
+}
+
+/* Ensure single post content is never clamped */
 .post-content,
 .post-content .entry-content {
     -webkit-line-clamp: unset !important;
@@ -155,58 +304,245 @@ a:hover {
     overflow: visible !important;
 }
 
-.entry-footer {
-    margin-top: 16px;
-    font-size: 0.9rem;
-    color: var(--secondary);
-    text-transform: none;
-    letter-spacing: 0;
+/* Home info block (if used) */
+.first-entry.home-info {
+    text-align: left;
+    max-width: 100%;
 }
 
-/* === Footer === */
+/* ---------------------------------------------------------------------------
+   Page header (non-home list pages)
+   --------------------------------------------------------------------------- */
+.page-header {
+    margin-bottom: var(--content-gap);
+}
+
+.page-header h1 {
+    font-size: 1.75rem;
+    font-weight: 700;
+}
+
+/* ---------------------------------------------------------------------------
+   Single post – readability & polish
+   --------------------------------------------------------------------------- */
+.post-single {
+    max-width: var(--container-max);
+    margin: 0 auto;
+}
+
+.post-header {
+    margin: 0 auto var(--content-gap) auto;
+}
+
+.post-title {
+    font-size: 2.25rem;
+    font-weight: 700;
+    line-height: 1.25;
+    margin-bottom: 0.5rem;
+}
+
+.post-description {
+    font-size: 1.05rem;
+    color: var(--secondary);
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+}
+
+.post-meta,
+.breadcrumbs {
+    color: var(--secondary);
+    font-size: 0.85rem;
+    margin-top: 0.75rem;
+}
+
+.post-content {
+    color: var(--content);
+    margin: 2rem 0;
+    font-size: 1.0625rem;
+}
+
+.post-content h1 { font-size: 1.85rem; margin: 2rem 0 1rem; }
+.post-content h2 { font-size: 1.5rem; margin: 1.75rem 0 0.75rem; }
+.post-content h3 { font-size: 1.25rem; margin: 1.5rem 0 0.5rem; }
+.post-content h4, .post-content h5, .post-content h6 { font-size: 1.1rem; margin: 1.25rem 0 0.5rem; }
+
+.post-content p,
+.post-content ul,
+.post-content ol {
+    margin-bottom: 1.25rem;
+}
+
+.post-content ul,
+.post-content ol {
+    padding-left: 1.5rem;
+}
+
+.post-content li {
+    margin-top: 0.35rem;
+}
+
+.post-content blockquote {
+    margin: 1.5rem 0;
+    padding: 0.75rem 1rem 0.75rem 1.25rem;
+    border-left: 3px solid var(--accent);
+    background: var(--accent-soft);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    color: var(--content);
+}
+
+.post-content code {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 0.88em;
+    padding: 0.2em 0.4em;
+    background: var(--code-bg);
+    border-radius: 4px;
+    border: 1px solid var(--border);
+}
+
+.post-content pre {
+    margin: 1.5rem 0;
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--border);
+}
+
+.post-content pre code {
+    display: block;
+    padding: 1rem 1.25rem;
+    margin: 0;
+    background: var(--code-block-bg) !important;
+    color: var(--content);
+    font-size: 0.875rem;
+    line-height: 1.6;
+    border: none;
+    overflow-x: auto;
+}
+
+.post-content .highlight pre code {
+    background: transparent !important;
+}
+
+.post-content table {
+    width: 100%;
+    margin: 1.5rem 0;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+}
+
+.post-content table th,
+.post-content table:not(.highlighttable, .highlight table, .gist .highlight) td {
+    padding: 0.6rem 0.75rem;
+    border-bottom: 1px solid var(--border);
+    text-align: left;
+}
+
+.post-content table th {
+    font-weight: 600;
+    color: var(--primary);
+    background: var(--code-bg);
+}
+
+.post-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--radius);
+    margin: 1.25rem 0;
+}
+
+.post-content hr {
+    margin: 2rem 0;
+    border: 0;
+    height: 1px;
+    background: var(--border);
+}
+
+.post-content a {
+    box-shadow: 0 1px 0 currentColor;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+}
+
+.post-content a:hover {
+    box-shadow: 0 2px 0 var(--accent);
+}
+
+.post-footer {
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+}
+
+.post-tags a {
+    font-size: 0.8rem;
+    padding: 0.35rem 0.65rem;
+    background: var(--code-bg);
+    border-radius: 6px;
+    color: var(--secondary);
+    transition: background var(--transition), color var(--transition);
+}
+
+.post-tags a:hover {
+    background: var(--tertiary);
+    color: var(--primary);
+}
+
+/* Copy code button in code blocks */
+.copy-code {
+    font-family: 'DM Sans', sans-serif;
+    border-radius: 6px;
+    padding: 0.35rem 0.6rem;
+    font-size: 0.75rem;
+}
+
+/* ---------------------------------------------------------------------------
+   Pagination
+   --------------------------------------------------------------------------- */
+.pagination a {
+    border-radius: 6px;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    transition: opacity var(--transition);
+}
+
+.pagination a:hover {
+    opacity: 0.9;
+}
+
+/* ---------------------------------------------------------------------------
+   Footer
+   --------------------------------------------------------------------------- */
 .footer {
     background: var(--theme);
     border-top: 1px solid var(--border);
-    padding: 40px 0;
+    padding: 2rem var(--gap);
     text-align: center;
     color: var(--secondary);
-    font-size: 0.9rem;
-}
-
-.footer a {
-    color: var(--secondary);
+    font-size: 0.875rem;
 }
 
 .footer a:hover {
     color: var(--primary);
 }
 
-/* === Intro Card === */
-.intro-card {
-    background: transparent;
-    border: none;
-    padding: 0;
-    margin: 60px auto;
-    text-align: left;
-    max-width: 800px;
+.top-link {
+    transition: transform var(--transition), opacity var(--transition);
 }
 
-.intro-card h1 {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: var(--primary);
-    margin-bottom: 16px;
+.top-link:hover {
+    opacity: 0.9;
 }
 
-.intro-card .subtitle {
-    font-size: 1.15rem;
-    color: var(--secondary);
-    line-height: 1.6;
+.top-link:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
 }
 
-/* === Scrollbar === */
+/* ---------------------------------------------------------------------------
+   Scrollbar & selection
+   --------------------------------------------------------------------------- */
 ::-webkit-scrollbar {
     width: 10px;
+    height: 8px;
     background: var(--theme);
 }
 
@@ -220,6 +556,83 @@ a:hover {
 }
 
 ::selection {
-    background: var(--tertiary);
+    background: var(--accent-soft);
     color: var(--primary);
+}
+
+/* ---------------------------------------------------------------------------
+   Responsive
+   --------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+    :root {
+        --gap: 16px;
+        --header-height: 56px;
+    }
+
+    .main {
+        padding: var(--gap);
+    }
+
+    .nav {
+        padding: 0 var(--gap);
+    }
+
+    #menu {
+        gap: 0.25rem;
+    }
+
+    #menu a {
+        font-size: 0.85rem;
+        padding: 0.35rem 0.5rem;
+    }
+
+    .first-entry,
+    .post-entry {
+        padding: 1.25rem 1.25rem;
+        margin-bottom: 1.25rem;
+    }
+
+    .entry-header h1,
+    .entry-header h2 {
+        font-size: 1.25rem;
+    }
+
+    .entry-content {
+        font-size: 0.9rem;
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+    }
+
+    .post-title {
+        font-size: 1.75rem;
+    }
+
+    .post-content {
+        font-size: 1rem;
+        margin: 1.5rem 0;
+    }
+
+    .post-content h1 { font-size: 1.5rem; }
+    .post-content h2 { font-size: 1.3rem; }
+    .post-content h3 { font-size: 1.15rem; }
+
+    .post-content pre code {
+        padding: 0.75rem 1rem;
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo a {
+        font-size: 1rem;
+    }
+
+    .entry-header h1,
+    .entry-header h2 {
+        font-size: 1.15rem;
+    }
+
+    .post-title {
+        font-size: 1.5rem;
+    }
 }

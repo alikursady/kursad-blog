@@ -21,7 +21,7 @@ enableRobotsTXT = true
   ShowPostNavLinks = true
   ShowShareButtons = false
   defaultTheme = "light"
-  disableThemeToggle = true
+  disableThemeToggle = false
   disableSpecial1stPost = true
 
   description = "Cyber Security - kursadyanik.com"
