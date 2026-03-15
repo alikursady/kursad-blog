@@ -28,6 +28,9 @@ enableRobotsTXT = true
   author = "kursad."
   keywords = ["siber güvenlik", "cybersecurity", "osint", "bilgi güvenliği", "kursadyanik", "blog", "ctf"]
 
+  # Tarih formatı: gönderi ve listelerde (gg.aa.yyyy)
+  DateFormat = "02.01.2006"
+
 
 [params.assets]
   favicon = "favicon.ico"
@@ -46,7 +49,7 @@ enableRobotsTXT = true
     weight = 3
 
   [[menu.main]]
-    identifier = "contact"
-    name = "Contact"
-    url = "/contact/"
+    identifier = "elsewhere"
+    name = "Elsewhere"
+    url = "/elsewhere/"
     weight = 4

@@ -1,0 +1,42 @@
+{{- define "main" -}}
+<article class="post-single elsewhere-page">
+  <header class="post-header">
+    {{ partial "breadcrumbs.html" . }}
+    <h1 class="post-title">{{ .Title }}</h1>
+    {{- with .Description }}
+    <div class="post-description">{{ . }}</div>
+    {{- end }}
+  </header>
+
+  {{- if .Content }}
+  <div class="post-content elsewhere-intro">
+    {{- if not (.Param "disableAnchoredHeadings") }}
+    {{- partial "anchored_headings.html" .Content -}}
+    {{- else }}{{ .Content }}{{ end }}
+  </div>
+  {{- end }}
+
+  {{- $links := .Param "elsewhere_links" | default slice }}
+  {{- if $links }}
+  <section class="elsewhere-links" aria-label="Profiles and links">
+    <h2 class="elsewhere-links-title">Profiles &amp; pages</h2>
+    <ul class="elsewhere-links-grid">
+      {{- range $links }}
+      {{- $isExternal := hasPrefix (lower .url) "http" }}
+      <li class="elsewhere-link-card">
+        <a href="{{ .url | safeURL }}" class="elsewhere-link-card-inner" {{ if $isExternal }}target="_blank" rel="noopener noreferrer"{{ end }}>
+          <span class="elsewhere-link-name">{{ .name }}</span>
+          {{- with .description }}
+          <span class="elsewhere-link-desc">{{ . }}</span>
+          {{- end }}
+          <span class="elsewhere-link-arrow" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><path d="M15 3h6v6"></path><path d="M10 14 21 3"></path></svg>
+          </span>
+        </a>
+      </li>
+      {{- end }}
+    </ul>
+  </section>
+  {{- end }}
+</article>
+{{- end -}}
