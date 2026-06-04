@@ -2,6 +2,10 @@
 title: "Fotoğrafın Nerede Çekildiğini Bulmak"
 date: 2025-11-07T12:00:00+03:00
 draft: false
+description: "Fotoğraflardaki EXIF verileri ve görsel ipuçlarıyla konum analizi yapmaya giriş."
+tags: ["OSINT", "EXIF", "siber güvenlik", "fotoğraf analizi"]
+keywords: ["fotoğraf konum bulma", "EXIF analizi", "OSINT", "görsel analiz", "siber güvenlik"]
+images: ["/images/resim1.jpg"]
 ---
 
 Merhabalar dostlar 👋  

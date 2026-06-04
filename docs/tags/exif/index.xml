@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>EXIF on kursadyanik.com</title>
+    <link>https://kursadyanik.com/tags/exif/</link>
+    <description>Recent content in EXIF on kursadyanik.com</description>
+    <image>
+      <title>kursadyanik.com</title>
+      <url>https://kursadyanik.com/images/anime-bg.jpg</url>
+      <link>https://kursadyanik.com/images/anime-bg.jpg</link>
+    </image>
+    <generator>Hugo</generator>
+    <language>tr-TR</language>
+    <copyright>2026 kursadyanik.com</copyright>
+    <lastBuildDate>Fri, 07 Nov 2025 12:00:00 +0300</lastBuildDate>
+    <atom:link href="https://kursadyanik.com/tags/exif/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Fotoğrafın Nerede Çekildiğini Bulmak</title>
+      <link>https://kursadyanik.com/posts/fotografin-nerede-cekildigini-bulmak/</link>
+      <pubDate>Fri, 07 Nov 2025 12:00:00 +0300</pubDate>
+      <guid>https://kursadyanik.com/posts/fotografin-nerede-cekildigini-bulmak/</guid>
+      <description>Fotoğraflardaki EXIF verileri ve görsel ipuçlarıyla konum analizi yapmaya giriş.</description>
+    </item>
+  </channel>
+</rss>

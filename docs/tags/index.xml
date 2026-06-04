@@ -4,8 +4,43 @@
     <title>Tags on kursadyanik.com</title>
     <link>https://kursadyanik.com/tags/</link>
     <description>Recent content in Tags on kursadyanik.com</description>
+    <image>
+      <title>kursadyanik.com</title>
+      <url>https://kursadyanik.com/images/anime-bg.jpg</url>
+      <link>https://kursadyanik.com/images/anime-bg.jpg</link>
+    </image>
     <generator>Hugo</generator>
-    <language>tr-tr</language>
+    <language>tr-TR</language>
+    <copyright>2026 kursadyanik.com</copyright>
+    <lastBuildDate>Fri, 07 Nov 2025 12:00:00 +0300</lastBuildDate>
     <atom:link href="https://kursadyanik.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>EXIF</title>
+      <link>https://kursadyanik.com/tags/exif/</link>
+      <pubDate>Fri, 07 Nov 2025 12:00:00 +0300</pubDate>
+      <guid>https://kursadyanik.com/tags/exif/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Fotoğraf Analizi</title>
+      <link>https://kursadyanik.com/tags/foto%C4%9Fraf-analizi/</link>
+      <pubDate>Fri, 07 Nov 2025 12:00:00 +0300</pubDate>
+      <guid>https://kursadyanik.com/tags/foto%C4%9Fraf-analizi/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>OSINT</title>
+      <link>https://kursadyanik.com/tags/osint/</link>
+      <pubDate>Fri, 07 Nov 2025 12:00:00 +0300</pubDate>
+      <guid>https://kursadyanik.com/tags/osint/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Siber Güvenlik</title>
+      <link>https://kursadyanik.com/tags/siber-g%C3%BCvenlik/</link>
+      <pubDate>Fri, 07 Nov 2025 12:00:00 +0300</pubDate>
+      <guid>https://kursadyanik.com/tags/siber-g%C3%BCvenlik/</guid>
+      <description></description>
+    </item>
   </channel>
 </rss>

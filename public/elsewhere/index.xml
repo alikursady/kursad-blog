@@ -4,8 +4,14 @@
     <title>Elsewhere on kursadyanik.com</title>
     <link>https://kursadyanik.com/elsewhere/</link>
     <description>Recent content in Elsewhere on kursadyanik.com</description>
-    <generator>Hugo -- 0.152.2</generator>
-    <language>tr-tr</language>
+    <image>
+      <title>kursadyanik.com</title>
+      <url>https://kursadyanik.com/images/anime-bg.jpg</url>
+      <link>https://kursadyanik.com/images/anime-bg.jpg</link>
+    </image>
+    <generator>Hugo</generator>
+    <language>tr-TR</language>
+    <copyright>2026 kursadyanik.com</copyright>
     <atom:link href="https://kursadyanik.com/elsewhere/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>

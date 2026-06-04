@@ -4,8 +4,14 @@
     <title>Posts on kursadyanik.com</title>
     <link>https://kursadyanik.com/posts/</link>
     <description>Recent content in Posts on kursadyanik.com</description>
+    <image>
+      <title>kursadyanik.com</title>
+      <url>https://kursadyanik.com/images/anime-bg.jpg</url>
+      <link>https://kursadyanik.com/images/anime-bg.jpg</link>
+    </image>
     <generator>Hugo</generator>
-    <language>tr-tr</language>
+    <language>tr-TR</language>
+    <copyright>2026 kursadyanik.com</copyright>
     <lastBuildDate>Fri, 07 Nov 2025 12:00:00 +0300</lastBuildDate>
     <atom:link href="https://kursadyanik.com/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
@@ -13,12 +19,7 @@
       <link>https://kursadyanik.com/posts/fotografin-nerede-cekildigini-bulmak/</link>
       <pubDate>Fri, 07 Nov 2025 12:00:00 +0300</pubDate>
       <guid>https://kursadyanik.com/posts/fotografin-nerede-cekildigini-bulmak/</guid>
-      <description>&lt;p&gt;Merhabalar dostlar 👋&lt;br&gt;
-Bu ilk yazım ve ilk yazımda bir fotoğrafın &lt;strong&gt;hangi konumda, hangi koşullarda çekildiğini&lt;/strong&gt;, yani bir diğer deyişle &lt;strong&gt;OSINT (Açık Kaynak İstihbaratı)&lt;/strong&gt; ve elde edebildiğimiz tüm ayrıntılarını ele alacağım.&lt;/p&gt;
-&lt;hr&gt;
-&lt;h3 id=&#34;-fotoğraflar-bilgi-taşır&#34;&gt;🧭 Fotoğraflar bilgi taşır&lt;/h3&gt;
-&lt;p&gt;Fotoğraf dosyaları; &lt;strong&gt;çekim tarihi, koordinatları, odak uzaklığı, zoom&lt;/strong&gt;, hangi cihazla çekildiği, hangi modda çekildiği ve hangi modun açık veya kapalı olduğu gibi bilgiler içerir.&lt;br&gt;
-Örnek vermek gerekirse, telefonlar ve kameralarda yerleşik GPS alıcıları mevcuttur ve fotoğraf çekilirken koordinatları &lt;strong&gt;EXIF meta verisine&lt;/strong&gt; ekler.&lt;/p&gt;</description>
+      <description>Fotoğraflardaki EXIF verileri ve görsel ipuçlarıyla konum analizi yapmaya giriş.</description>
     </item>
   </channel>
 </rss>

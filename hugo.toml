@@ -1,9 +1,11 @@
 baseURL = "https://kursadyanik.com/"
-languageCode = "tr-tr"
+languageCode = "tr-TR"
+defaultContentLanguage = "tr"
 title = "kursadyanik.com"
 theme = "PaperMod"
 buildFuture = true
 enableRobotsTXT = true
+copyright = "© 2026 kursadyanik.com"
 
 [markup]
   [markup.goldmark]
@@ -16,6 +18,8 @@ enableRobotsTXT = true
   filename = "sitemap.xml"
 
 [params]
+  env = "production"
+  title = "kursadyanik.com"
   mainSections = ["posts"]
   ShowReadingTime = true
   ShowPostNavLinks = true
@@ -24,9 +28,10 @@ enableRobotsTXT = true
   disableThemeToggle = false
   disableSpecial1stPost = true
 
-  description = "Cyber Security - kursadyanik.com"
+  description = "Siber güvenlik, OSINT, bilgi güvenliği ve araştırma notları."
   author = "kursad."
-  keywords = ["siber güvenlik", "cybersecurity", "osint", "bilgi güvenliği", "kursadyanik", "blog", "ctf"]
+  keywords = ["siber güvenlik", "cybersecurity", "osint", "bilgi güvenliği", "kursadyanik", "blog", "ctf", "güvenlik araştırması"]
+  images = ["images/anime-bg.jpg"]
 
   # Tarih formatı: gönderi ve listelerde (gg.aa.yyyy)
   DateFormat = "02.01.2006"
@@ -34,6 +39,15 @@ enableRobotsTXT = true
 
 [params.assets]
   favicon = "favicon.ico"
+  favicon16x16 = "favicon.ico"
+  favicon32x32 = "favicon.ico"
+  apple_touch_icon = "favicon.ico"
+  safari_pinned_tab = "safari-pinned-tab.svg"
+  theme_color = "#fafafa"
+  msapplication_TileColor = "#fafafa"
+
+[params.schema]
+  publisherType = "Person"
 
 [menu]
   [[menu.main]]
