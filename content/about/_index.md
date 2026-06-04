@@ -2,6 +2,7 @@
 title: "About"
 date: 2025-11-07T16:00:00+03:00
 draft: false
+description: "kursadyanik.com hakkında kısa bilgi, iletişim ve bağlantılar."
 ---
 
 <div class="about-terminal" role="group" aria-label="Terminal prompt introduction">

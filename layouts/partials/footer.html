@@ -1,33 +1,233 @@
+{{- if not (.Param "hideFooter") }}
 <footer class="footer">
-    <div class="footer-brand">
-        kursadyanik.com
-    </div>
-    <div class="footer-meta">
-        Information Security & Research · {{ now.Year }}
-    </div>
-    <div class="footer-status">
-        <span class="status-label">System Status</span>
-        <span class="status-live-light" role="img" aria-label="Live green status light" title="Live"></span>
+    <div class="footer-inner">
+        <a class="footer-brand" href="{{ "" | absLangURL }}" aria-label="{{ site.Title }} ana sayfa">
+            kursadyanik.com
+        </a>
+        <div class="footer-meta">
+            Information Security &amp; Research <span aria-hidden="true">&middot;</span> {{ now.Year }}
+        </div>
+        <div class="footer-status" data-system-status data-state="checking" aria-live="polite">
+            <span class="status-live-light" data-system-status-light aria-hidden="true"></span>
+            <span class="status-copy">
+                <span class="status-label">System Status</span>
+                <span class="status-value" data-system-status-value>Checking...</span>
+            </span>
+        </div>
     </div>
 </footer>
+{{- end }}
+
+{{- if (not site.Params.disableScrollToTop) }}
+<a href="#top" id="top-link" class="top-link hidden" aria-label="go to top" title="Go to Top (Alt + G)" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-up" aria-hidden="true">
+        <polyline points="17 11 12 6 7 11"></polyline>
+        <polyline points="17 18 12 13 7 18"></polyline>
+    </svg>
+</a>
+{{- end }}
+
+{{- partial "extend_footer.html" . }}
+
+<script>
+    (function () {
+        var menu = document.getElementById("menu");
+        if (!menu) return;
+
+        var scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        };
+    })();
+
+    document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
+        anchor.addEventListener("click", function (event) {
+            var id = this.getAttribute("href").substr(1);
+            var target = document.querySelector("[id='" + decodeURIComponent(id) + "']");
+            if (!target) return;
+
+            event.preventDefault();
+            if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+                target.scrollIntoView({ behavior: "smooth" });
+            } else {
+                target.scrollIntoView();
+            }
+
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, "#" + id);
+            }
+        });
+    });
+</script>
+
+{{- if (not site.Params.disableScrollToTop) }}
+<script>
+    (function () {
+        var toplink = document.getElementById("top-link");
+        if (!toplink) return;
+
+        window.addEventListener("scroll", function () {
+            var scrollThreshold = window.innerHeight;
+            if (document.body.scrollTop > scrollThreshold || document.documentElement.scrollTop > scrollThreshold) {
+                toplink.classList.remove("hidden");
+            } else {
+                toplink.classList.add("hidden");
+            }
+        }, { passive: true });
+    })();
+</script>
+{{- end }}
 
 {{- if (not site.Params.disableThemeToggle) }}
 <script>
-    (function() {
-        var btn = document.getElementById("theme-toggle");
-        if (!btn) return;
-        btn.addEventListener("click", function() {
-            var html = document.documentElement;
-            if (html.getAttribute("data-theme") === "dark") {
-                html.setAttribute("data-theme", "light");
-                if (typeof localStorage !== "undefined") localStorage.setItem("pref-theme", "light");
+    (function () {
+        var themeToggle = document.getElementById("theme-toggle");
+        if (!themeToggle) return;
+
+        themeToggle.addEventListener("click", function () {
+            var html = document.querySelector("html");
+            if (html.dataset.theme === "dark") {
+                html.dataset.theme = "light";
+                localStorage.setItem("pref-theme", "light");
             } else {
-                html.setAttribute("data-theme", "dark");
-                if (typeof localStorage !== "undefined") localStorage.setItem("pref-theme", "dark");
+                html.dataset.theme = "dark";
+                localStorage.setItem("pref-theme", "dark");
             }
         });
     })();
 </script>
 {{- end }}
 
-<script src="/js/zoom.js"></script>
+<script>
+    (function () {
+        var status = document.querySelector("[data-system-status]");
+        var value = document.querySelector("[data-system-status-value]");
+        if (!status || !value) return;
+
+        var label = "Checking";
+        var state = "checking";
+        var lastChecked = new Date();
+        var canProbe = window.location.protocol === "http:" || window.location.protocol === "https:";
+
+        function formatTime(date) {
+            try {
+                return new Intl.DateTimeFormat(document.documentElement.lang || "tr-TR", {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    second: "2-digit"
+                }).format(date);
+            } catch (error) {
+                return date.toLocaleTimeString();
+            }
+        }
+
+        function render() {
+            status.dataset.state = state;
+            value.textContent = label + " · " + formatTime(lastChecked);
+            status.setAttribute("aria-label", "System status: " + label + ". Last check " + formatTime(lastChecked));
+        }
+
+        function setStatus(nextState, nextLabel) {
+            state = nextState;
+            label = nextLabel;
+            lastChecked = new Date();
+            render();
+        }
+
+        async function probe() {
+            if (navigator.onLine === false) {
+                setStatus("offline", "Offline");
+                return;
+            }
+
+            if (!canProbe || typeof fetch === "undefined" || typeof AbortController === "undefined") {
+                setStatus("live", "Live");
+                return;
+            }
+
+            var controller = new AbortController();
+            var timeout = window.setTimeout(function () {
+                controller.abort();
+            }, 4000);
+
+            try {
+                var response = await fetch(window.location.origin + "/", {
+                    method: "HEAD",
+                    cache: "no-store",
+                    signal: controller.signal
+                });
+                window.clearTimeout(timeout);
+                setStatus(response.status < 500 ? "live" : "limited", response.status < 500 ? "Live" : "Degraded");
+            } catch (error) {
+                window.clearTimeout(timeout);
+                setStatus("offline", "Offline");
+            }
+        }
+
+        window.addEventListener("online", probe);
+        window.addEventListener("offline", function () {
+            setStatus("offline", "Offline");
+        });
+
+        render();
+        probe();
+        window.setInterval(render, 1000);
+        window.setInterval(probe, 30000);
+    })();
+</script>
+
+{{- if (and (eq .Kind "page") (ne .Layout "archives") (ne .Layout "search") (.Param "ShowCodeCopyButtons")) }}
+<script>
+    document.querySelectorAll("pre > code").forEach(function (codeblock) {
+        var container = codeblock.parentNode.parentNode;
+        var copybutton = document.createElement("button");
+        copybutton.classList.add("copy-code");
+        copybutton.innerHTML = '{{- i18n "code_copy" | default "copy" }}';
+
+        function copyingDone() {
+            copybutton.innerHTML = '{{- i18n "code_copied" | default "copied!" }}';
+            setTimeout(function () {
+                copybutton.innerHTML = '{{- i18n "code_copy" | default "copy" }}';
+            }, 2000);
+        }
+
+        copybutton.addEventListener("click", function () {
+            if ("clipboard" in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            var range = document.createRange();
+            var selection = window.getSelection();
+            range.selectNodeContents(codeblock);
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand("copy");
+                copyingDone();
+            } catch (error) { }
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            return;
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+{{- end }}
+
+<script defer src="/js/zoom.js"></script>

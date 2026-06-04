@@ -12,7 +12,22 @@
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
+    <loc>https://kursadyanik.com/tags/exif/</loc>
+    <lastmod>2025-11-07T12:00:00+03:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://kursadyanik.com/tags/foto%C4%9Fraf-analizi/</loc>
+    <lastmod>2025-11-07T12:00:00+03:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
     <loc>https://kursadyanik.com/posts/fotografin-nerede-cekildigini-bulmak/</loc>
+    <lastmod>2025-11-07T12:00:00+03:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://kursadyanik.com/tags/osint/</loc>
     <lastmod>2025-11-07T12:00:00+03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -22,15 +37,21 @@
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
+    <loc>https://kursadyanik.com/tags/siber-g%C3%BCvenlik/</loc>
+    <lastmod>2025-11-07T12:00:00+03:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://kursadyanik.com/tags/</loc>
+    <lastmod>2025-11-07T12:00:00+03:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
     <loc>https://kursadyanik.com/categories/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
     <loc>https://kursadyanik.com/elsewhere/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>https://kursadyanik.com/tags/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
