@@ -12,6 +12,14 @@
     <generator>Hugo</generator>
     <language>tr-TR</language>
     <copyright>2026 kursadyanik.com</copyright>
+    <lastBuildDate>Wed, 10 Jun 2026 12:00:00 +0300</lastBuildDate>
     <atom:link href="https://kursadyanik.com/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Sosyal Medya</title>
+      <link>https://kursadyanik.com/categories/sosyal-medya/</link>
+      <pubDate>Wed, 10 Jun 2026 12:00:00 +0300</pubDate>
+      <guid>https://kursadyanik.com/categories/sosyal-medya/</guid>
+      <description></description>
+    </item>
   </channel>
 </rss>

@@ -1,2 +1,11 @@
 {{- $custom_css := resources.Get "css/custom.css" | resources.Minify | resources.Fingerprint }}
 <link rel="stylesheet" href="{{ $custom_css.Permalink }}" integrity="{{ $custom_css.Data.Integrity }}">
+{{- with .Params.faqs }}
+{{- $mainEntity := slice }}
+{{- range . }}
+{{- $mainEntity = $mainEntity | append (dict "@type" "Question" "name" .question "acceptedAnswer" (dict "@type" "Answer" "text" .answer)) }}
+{{- end }}
+<script type="application/ld+json">
+{{ dict "@context" "https://schema.org" "@type" "FAQPage" "mainEntity" $mainEntity | jsonify | safeJS }}
+</script>
+{{- end }}
