@@ -785,6 +785,23 @@ button#theme-toggle:focus-visible {
     white-space: nowrap;
 }
 
+.footer-links {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    color: var(--secondary);
+    white-space: nowrap;
+}
+
+.footer-links a {
+    color: var(--secondary);
+}
+
+.footer-links a:hover {
+    color: var(--primary);
+}
+
 .footer-status {
     display: inline-flex;
     align-items: center;
@@ -1045,6 +1062,7 @@ button#theme-toggle:focus-visible {
     }
 
     .footer-meta,
+    .footer-links,
     .footer-status {
         white-space: normal;
     }
