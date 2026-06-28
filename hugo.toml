@@ -1,7 +1,7 @@
 baseURL = "https://kursadyanik.com/"
 languageCode = "tr-TR"
 defaultContentLanguage = "tr"
-title = "Kürşad Yanık"
+title = "Information Security & Research"
 theme = "PaperMod"
 buildFuture = false
 enableRobotsTXT = true
@@ -23,7 +23,7 @@ copyright = "© 2026 kursadyanik.com"
 
 [params]
   env = "production"
-  title = "Kürşad Yanık"
+  title = "Information Security & Research"
   mainSections = ["posts"]
   ShowReadingTime = true
   ShowPostNavLinks = true
@@ -34,9 +34,8 @@ copyright = "© 2026 kursadyanik.com"
   disableThemeToggle = false
   disableSpecial1stPost = true
 
-  description = "Kürşad Yanık'ın siber güvenlik, OSINT, açık kaynak istihbaratı ve bilgi güvenliği üzerine araştırma notları."
-  author = "Kürşad Yanık"
-  keywords = ["siber güvenlik", "cybersecurity", "osint", "açık kaynak istihbaratı", "bilgi güvenliği", "kursadyanik", "Kürşad Yanık", "ctf", "güvenlik araştırması"]
+  description = "i have no idea what i'm doing"
+  keywords = ["siber güvenlik", "cybersecurity", "osint", "açık kaynak istihbaratı", "bilgi güvenliği", "ctf", "güvenlik araştırması"]
   images = ["/images/anime-bg.jpg"]
 
   # Tarih formatı: gönderi ve listelerde (gg.aa.yyyy)
@@ -55,8 +54,7 @@ copyright = "© 2026 kursadyanik.com"
   msapplication_TileColor = "#fafafa"
 
 [params.schema]
-  publisherType = "Person"
-  sameAs = ["https://github.com/alikursady"]
+  publisherType = "Organization"
 
 [menu]
   [[menu.main]]
