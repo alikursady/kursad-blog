@@ -127,5 +127,3 @@ Evet, özellikle eski hesabınız kapatıldıktan hemen sonra agresif hareketler
 Çok dikkatli olmak gerekir. Bu alanda ciddi dolandırıcılık riski var. Şifre, doğrulama kodu, kimlik belgesi veya ödeme isteyen kişilere karşı özellikle temkinli olun.
 
 Umarım kendimi net şekilde ifade edebilmişimdir.
-
-Bana ulaşmak isterseniz: [kursad@keemail.me](mailto:kursad@keemail.me)
