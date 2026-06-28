@@ -1,10 +1,11 @@
 baseURL = "https://kursadyanik.com/"
 languageCode = "tr-TR"
 defaultContentLanguage = "tr"
-title = "kursadyanik.com"
+title = "Kürşad Yanık"
 theme = "PaperMod"
-buildFuture = true
+buildFuture = false
 enableRobotsTXT = true
+rssLimit = 20
 copyright = "© 2026 kursadyanik.com"
 
 [markup]
@@ -17,25 +18,32 @@ copyright = "© 2026 kursadyanik.com"
   priority = 0.5
   filename = "sitemap.xml"
 
+[frontmatter]
+  lastmod = ["lastmod", "date", "publishDate"]
+
 [params]
   env = "production"
-  title = "kursadyanik.com"
+  title = "Kürşad Yanık"
   mainSections = ["posts"]
   ShowReadingTime = true
   ShowPostNavLinks = true
+  ShowBreadCrumbs = true
+  ShowCodeCopyButtons = true
   ShowShareButtons = false
   defaultTheme = "light"
   disableThemeToggle = false
   disableSpecial1stPost = true
 
-  description = "Siber güvenlik, OSINT, bilgi güvenliği ve araştırma notları."
-  author = "kursad."
-  keywords = ["siber güvenlik", "cybersecurity", "osint", "bilgi güvenliği", "kursadyanik", "blog", "ctf", "güvenlik araştırması"]
-  images = ["images/anime-bg.jpg"]
+  description = "Kürşad Yanık'ın siber güvenlik, OSINT, açık kaynak istihbaratı ve bilgi güvenliği üzerine araştırma notları."
+  author = "Kürşad Yanık"
+  keywords = ["siber güvenlik", "cybersecurity", "osint", "açık kaynak istihbaratı", "bilgi güvenliği", "kursadyanik", "Kürşad Yanık", "ctf", "güvenlik araştırması"]
+  images = ["/images/anime-bg.jpg"]
 
   # Tarih formatı: gönderi ve listelerde (gg.aa.yyyy)
   DateFormat = "02.01.2006"
 
+[params.label]
+  text = "kursadyanik.com"
 
 [params.assets]
   favicon = "favicon.ico"
@@ -48,6 +56,7 @@ copyright = "© 2026 kursadyanik.com"
 
 [params.schema]
   publisherType = "Person"
+  sameAs = ["https://github.com/alikursady"]
 
 [menu]
   [[menu.main]]

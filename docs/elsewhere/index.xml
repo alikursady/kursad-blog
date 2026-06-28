@@ -1,17 +1,1 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
-  <channel>
-    <title>Elsewhere on kursadyanik.com</title>
-    <link>https://kursadyanik.com/elsewhere/</link>
-    <description>Recent content in Elsewhere on kursadyanik.com</description>
-    <image>
-      <title>kursadyanik.com</title>
-      <url>https://kursadyanik.com/images/anime-bg.jpg</url>
-      <link>https://kursadyanik.com/images/anime-bg.jpg</link>
-    </image>
-    <generator>Hugo</generator>
-    <language>tr-TR</language>
-    <copyright>2026 kursadyanik.com</copyright>
-    <atom:link href="https://kursadyanik.com/elsewhere/index.xml" rel="self" type="application/rss+xml" />
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Elsewhere on Kürşad Yanık</title><link>https://kursadyanik.com/elsewhere/</link><description>Recent content in Elsewhere on Kürşad Yanık</description><image><title>Kürşad Yanık</title><url>https://kursadyanik.com/images/anime-bg.jpg</url><link>https://kursadyanik.com/images/anime-bg.jpg</link></image><generator>Hugo</generator><language>tr-TR</language><copyright>2026 kursadyanik.com</copyright><atom:link href="https://kursadyanik.com/elsewhere/index.xml" rel="self" type="application/rss+xml"/></channel></rss>
