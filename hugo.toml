@@ -3,7 +3,6 @@ languageCode = "tr-TR"
 defaultContentLanguage = "tr"
 title = "Information Security & Research"
 theme = "PaperMod"
-publishDir = "docs"
 buildFuture = false
 enableRobotsTXT = true
 rssLimit = 20
