@@ -21,14 +21,14 @@ faqs:
 ---
 
 Merhabalar dostlar 👋  
-Bu ilk yazım ve ilk yazımda bir fotoğrafın **hangi konumda, hangi koşullarda çekildiğini**, yani bir diğer deyişle **OSINT (Açık Kaynak İstihbaratı)** ve elde edebildiğimiz tüm ayrıntılarını ele alacağım.
+Bu ilk yazım ve ilk yazımda bir fotoğrafın **hangi konumda, hangi koşullarda çekildiğini** **OSINT (Açık Kaynak İstihbaratı)** yöntemleriyle nasıl bulabileceğimizi ve elde edebildiğimiz tüm ayrıntıları ele alacağım.
 
 ---
 
 ## 🧭 Fotoğraflar bilgi taşır
 
 Fotoğraf dosyaları; **çekim tarihi, koordinatları, odak uzaklığı, zoom**, hangi cihazla çekildiği, hangi modda çekildiği ve hangi modun açık veya kapalı olduğu gibi bilgiler içerir.  
-Örnek vermek gerekirse, telefonlar ve kameralarda yerleşik GPS alıcıları mevcuttur ve fotoğraf çekilirken koordinatları **EXIF meta verisine** ekler.
+Örnek vermek gerekirse, telefonlarda ve birçok kamerada yerleşik GPS alıcıları mevcuttur; konum servisi açıksa cihaz, fotoğraf çekilirken koordinatları **EXIF meta verisine** ekler.
 
 ---
 
@@ -59,13 +59,14 @@ EXIF verileri, çekimin tamamen **otomatik modda** gerçekleştirildiğini ve **
 ## 🔒 Sosyal medya ve gizlilik
 
 Ancak bunun da sınırlılıkları mevcuttur.  
-Tüm sosyal medya ve mesajlaşma uygulamaları, güvenlik ve gizlilik gerekçesiyle kullanıcıların yüklediği fotoğrafların **EXIF verilerini otomatik olarak temizler** ve konum bilgisini siler.  
-Ancak tam olarak gizlilik mümkün değildir — bunun nedenini yazının devamında anlatacağım.
+Sosyal medya ve mesajlaşma uygulamalarının neredeyse tamamı, güvenlik ve gizlilik gerekçesiyle kullanıcıların yüklediği fotoğrafların **EXIF verilerini otomatik olarak temizler** ve konum bilgisini siler.  
+Yine de tam bir gizlilik mümkün değildir — bunun nedenini yazının devamında anlatacağım.
 
 ---
 
 ## 🧩 Görsel içerikten analiz
 
+İşte az önce bahsettiğim nokta tam olarak bu: EXIF verileri silinse bile fotoğrafın kendisi konuşmaya devam eder.  
 Hiçbir dijital veriye dayanmadan sadece **fotoğraf içeriğinden**, çevresel ipuçlarından yararlanarak çıkarımlar da yapılabilir.  
 Bina mimarisi, yazı dili, trafik işaretleri, bitki örtüsü veya coğrafi özelliklerden bahsediyorum.  
 Gökyüzünün rengi ve güneş açısı dahi bizlere fikir verebilir.
@@ -93,15 +94,15 @@ Ayrıca burada **Reddit’in WhereIsThis** topluluğunu kullanmanın konumu bulm
 Identify çıktısında **ExifTool’da olmayan**, doğrudan görüntünün piksel verisinden hesaplanan bilgiler vardır.
 
 - **Channel statistics:** Her renk kanalının (R, G, B) ortalaması, sapması, eğikliği, entropisi — yani fotoğrafın kontrast ve ton dağılımını verir.  
-- **Entropy:** Görseldeki bilgi yoğunluğunu ölçer. 0.9 civarı değer, orta karmaşıklıkta doğal sahne demektir.  
+- **Entropy:** Görseldeki bilgi yoğunluğunu ölçer. 0'a yakın değerler sade ve düz alanları, 1'e yakın değerler yüksek detay ve karmaşıklığı gösterir; 0.9 civarı bir değer, detay açısından zengin doğal bir sahne demektir.  
 - **Mean / Median / Std. Deviation:** Görüntünün genel parlaklığı ve dinamik aralığı hakkında fikir verir.  
 - **Gamma, Chromaticity:** Renk profili ve beyaz nokta ayarları (renk doğruluğu için önemli).  
-- **Quality:** 96 — JPEG sıkıştırma kalitesi neredeyse maksimum, yani dosya neredeyse kayıpsız.  
-- **Signature:** Dosyanın SHA256 benzeri benzersiz dijital parmak izi (değişirse anında tespit edilir).  
+- **Quality:** 96 — JPEG sıkıştırma kalitesi neredeyse maksimum, yani sıkıştırmadan kaynaklanan kayıp oldukça düşük.  
+- **Signature:** Dosyanın piksel verisinden üretilen SHA-256 tabanlı benzersiz dijital parmak izi. Tek bir piksel bile değişse imza tamamen değişir; bu sayede görüntü üzerinde oynama yapılıp yapılmadığı anında tespit edilir.  
 - **Rendering intent / Interlace / Sampling factor:** Görüntü tarayıcılar veya yazılımlar tarafından nasıl işleneceğini tanımlar.
 
-🧠 *ExifTool bunları göstermez çünkü EXIF verisinde değil, dosyanın piksel katmanında saklıdır.*  
-Kullanımı:   identify -verbose resim2.jpg
+🧠 *ExifTool bunları göstermez çünkü bu değerler EXIF verisinde saklı değildir; doğrudan görüntünün piksel verisinden hesaplanır.*  
+Kullanımı: `identify -verbose resim1.jpg`
 
 ---
 

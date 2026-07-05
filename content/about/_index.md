@@ -7,6 +7,19 @@ hideMeta: true
 disableAnchoredHeadings: true
 ---
 
+<div class="about-hero">
+  <p class="about-hero-kicker">// whoami</p>
+  <h2 class="about-hero-title">kursadyanik</h2>
+  <p class="about-hero-tagline">Information Security &amp; Research</p>
+  <div class="about-chips">
+    <a class="about-chip about-chip-mail" href="mailto:kursad@keemail.me" rel="nofollow">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+      kursad@keemail.me
+    </a>
+    <span class="about-chip about-chip-status"><span class="about-chip-dot" aria-hidden="true"></span> signal: open</span>
+  </div>
+</div>
+
 <div class="about-terminal live-terminal" data-live-terminal role="group" aria-label="Live terminal session">
   <div class="about-terminal-bar" aria-hidden="true">
     <span class="terminal-dot terminal-dot-red"></span>
@@ -31,7 +44,7 @@ disableAnchoredHeadings: true
 </div>
 
 <noscript>
-  <div class="about-terminal-output">i have no idea what i'm doing</div>
+  <div class="about-terminal-output">i have no idea what i'm doing<br>email: <a href="mailto:kursad@keemail.me">kursad@keemail.me</a></div>
 </noscript>
 
 <script>
@@ -56,6 +69,12 @@ disableAnchoredHeadings: true
         text: "status --brief",
         output: function () {
           return ["site: online", "mode: quiet", "notes: public"];
+        }
+      },
+      {
+        text: "contact --show",
+        output: function () {
+          return ["email: kursad@keemail.me", "response: async, eventually"];
         }
       },
       {
