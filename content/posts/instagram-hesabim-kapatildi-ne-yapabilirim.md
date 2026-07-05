@@ -45,7 +45,9 @@ Bunun nedenlerinden birinin yapay zeka destekli sistemlerin verdiği hatalı kar
 
 ## İlk adım: itiraz ve kimlik doğrulama
 
-Selfie gönderdiniz, kimliğinizi gönderdiniz, itiraz ettiniz ancak talebiniz kabul edilmedi. Bu durumda aynı işlemleri gelişigüzel tekrar etmek yerine elinizdeki bilgileri düzenli şekilde toplamanız daha mantıklı olur.
+Hesabınız kapatıldığında Instagram genellikle giriş ekranında itiraz etme, selfie video veya kimlik doğrulama seçeneği sunar. İlk yapmanız gereken, bu resmi itiraz sürecini eksiksiz ve doğru bilgilerle tamamlamak.
+
+Peki selfie gönderdiniz, kimliğinizi gönderdiniz, itiraz ettiniz ancak talebiniz kabul edilmedi. Bu durumda aynı işlemleri gelişigüzel tekrar etmek yerine elinizdeki bilgileri düzenli şekilde toplamanız daha mantıklı olur.
 
 İtiraz sürecinde elinizde bulunması faydalı olabilecek bilgiler şunlardır:
 
@@ -79,13 +81,13 @@ Hesabın geri açılması konusunda net bir süre vermek mümkün değil. Reddit
 
 Birçok kişi Meta Verified satın alıp destek talebi açmasına rağmen haftalarca, hatta aylarca cevap alamadığını söylüyor. Kimlik belgeleri gönderiliyor, şirket evrakları gönderiliyor, reklam geçmişleri sunuluyor ancak hesaplar geri açılmıyor. X platformunda da benzer şikayetleri gördüm. İbrahim Haskoloğlu da konuyla ilgili çok sayıda mağdur olduğunu ve durumun giderek büyüdüğünü belirtmişti.
 
-Ancak büyük bir kitleye sahip değilseniz Instagram'ın sizin ne kadar reklam bütçesi ayırdığınızın, belirli bir takipçi kitlesine ulaşmak için haftalarınızı veya aylarınızı harcamış olmanızın çok da bir önemi olmadığını düşünüyorum. Harcanan emek maalesef her zaman dikkate alınmıyor.
+Ancak büyük bir kitleye sahip değilseniz, ne kadar reklam bütçesi ayırdığınızın veya belirli bir takipçi kitlesine ulaşmak için haftalarınızı, aylarınızı harcamış olmanızın Instagram için çok da bir önemi olmadığını düşünüyorum. Harcanan emek maalesef her zaman dikkate alınmıyor.
 
 ## Kapatılan Instagram hesabı açılmazsa ne yapılmalı?
 
-Diyelim ki bildiriminize yanıt geldi ve sonuç yine olumsuz oldu. Yeni bir Instagram hesabı açmaya karar verdiniz. Burada anlatacaklarım tamamen kendi yöntemlerimdir.
+Diyelim ki itirazınıza veya destek talebinize yanıt geldi ve sonuç yine olumsuz oldu. Yeni bir Instagram hesabı açmaya karar verdiniz. Burada anlatacaklarım tamamen kendi yöntemlerimdir.
 
-Yeni hesabı oluştururken selfie fotoğrafınızı birkaç gönderi olarak paylaşabilir ve ardından arşive alabilirsiniz. Ayrıca bazı global hesaplara DM olarak da gönderebilir, hesabınızı selfie doğrulamasıyla destekleyebilirsiniz. Mümkünse hesabınıza erken dönemde Meta Verified almanız da faydalı olabilir.
+Yeni hesabı oluştururken selfie fotoğrafınızı birkaç gönderi olarak paylaşabilir ve ardından arşive alabilirsiniz. Ayrıca bazı global hesaplara DM olarak da gönderebilir, hesabınızı selfie doğrulamasıyla destekleyebilirsiniz. Buradaki amaç, sistem tarafında hesabın gerçek bir kişiye ait olduğuna dair sinyaller oluşturmak. Mümkünse hesabınıza erken dönemde Meta Verified almanız da faydalı olabilir.
 
 Yeni Instagram hesabında özellikle şunlardan kaçınmanızı öneririm:
 
