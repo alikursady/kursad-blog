@@ -1,7 +1,7 @@
 ---
 title: "Fotoğrafın Nerede Çekildiğini Bulmak: EXIF ve OSINT ile Konum Analizi"
 date: 2025-11-07T12:00:00+03:00
-lastmod: 2026-06-29T00:00:00+03:00
+lastmod: 2026-07-06T00:00:00+03:00
 draft: false
 description: "EXIF verileri, GPS koordinatları ve görsel ipuçlarıyla bir fotoğrafın nerede çekildiğini bulmak için OSINT odaklı konum analizi rehberi."
 summary: "Fotoğraf konum bulma için EXIF meta verileri, GPS koordinatları, görsel ipuçları ve OSINT araçlarıyla temel analiz adımları."
@@ -18,6 +18,8 @@ faqs:
     answer: "Genellikle hayır. Instagram, X, Facebook ve mesajlaşma uygulamaları yüklenen fotoğraflardaki EXIF verilerini çoğu zaman temizler. Bu durumda bina, tabela, bitki örtüsü, gölge ve benzeri görsel ipuçlarıyla analiz yapılır."
   - question: "Fotoğraf konum analizi için hangi araçlar kullanılabilir?"
     answer: "ExifTool, Identify, Google Lens, Yandex Vision, Picarta.ai ve benzeri görsel arama veya analiz araçları kullanılabilir. Araçların sonucu tek başına kesin kabul edilmemeli, farklı kaynaklarla doğrulanmalıdır."
+  - question: "Fotoğraflarımdaki EXIF ve konum bilgisini nasıl temizlerim?"
+    answer: "En pratik yöntem exiftool -all= dosya.jpg komutuyla tüm meta verileri tek seferde silmektir. Telefonlarda kamera ayarlarından konum etiketini (geotagging) kapatabilir, paylaşmadan önce ekran görüntüsü alarak da EXIF'i sıfırlayabilirsiniz. Yine de bina, tabela ve manzara gibi görsel ipuçlarının karede kalabileceğini unutmayın."
 ---
 
 Merhabalar dostlar 👋  
@@ -54,6 +56,20 @@ EXIF verileri, çekimin tamamen **otomatik modda** gerçekleştirildiğini ve **
 
 📍 *Google Haritalar kullanılarak fotoğrafın çekildiği tam konumu görebiliriz.*
 
+Bu verilere ulaşmak için özel bir yazılıma gerek yok; terminalde tek satır yeterli. EXIF'in tamamını dökmek için:
+
+```bash
+exiftool resim1.jpg
+```
+
+Yalnızca konumla ilgileniyorsanız çıktıyı GPS alanlarına daraltabilirsiniz:
+
+```bash
+exiftool -gpslatitude -gpslongitude -gpsposition resim1.jpg
+```
+
+Elde ettiğiniz koordinatları doğrudan **Google Haritalar** arama kutusuna yapıştırdığınızda cihazın fotoğrafı çektiği noktayı harita üzerinde görebilir, **Sokak Görünümü** ile çevreyi karşılaştırarak konumu bir kez daha doğrulayabilirsiniz.
+
 ---
 
 ## 🔒 Sosyal medya ve gizlilik
@@ -70,6 +86,15 @@ Yine de tam bir gizlilik mümkün değildir — bunun nedenini yazının devamı
 Hiçbir dijital veriye dayanmadan sadece **fotoğraf içeriğinden**, çevresel ipuçlarından yararlanarak çıkarımlar da yapılabilir.  
 Bina mimarisi, yazı dili, trafik işaretleri, bitki örtüsü veya coğrafi özelliklerden bahsediyorum.  
 Gökyüzünün rengi ve güneş açısı dahi bizlere fikir verebilir.
+
+Bu ipuçlarını biraz somutlaştırayım:
+
+- **Tabela ve yazılar:** Dükkân isimleri, sokak levhaları, plakalar ve kullanılan dil/alfabe ülkeyi, hatta şehri daraltır. Bir telefon numarasının alan kodu bile ipucu olabilir.
+- **Mimari ve altyapı:** Çatı biçimleri, balkonlar, elektrik direkleri, bariyerler ve yol çizgileri ülkeden ülkeye belirgin biçimde değişir.
+- **Bitki örtüsü ve iklim:** Ağaç türleri; kuraklık, kar veya tropik bitkiler enlem ve mevsim hakkında fikir verir.
+- **Gölge ve güneş açısı:** Gölgenin yönü ve uzunluğu, çekimin kabaca saatini ve yönünü ele verir. **SunCalc** gibi araçlarla belirli bir tarihte güneşin konumunu hesaplayıp sahnedeki gölgelerle karşılaştırarak zamanı doğrulayabilirsiniz.
+
+Tek bir ipucu genelde yeterli olmaz; asıl güç, bu küçük parçaların hepsini üst üste koyup birbirini doğrulatmaktan gelir.
 
 ---
 
@@ -91,18 +116,42 @@ Ayrıca burada **Reddit’in WhereIsThis** topluluğunu kullanmanın konumu bulm
 
 ## 📊 Görsel İçerik Analizi (Identify’nin Ekstra Verileri)
 
-Identify çıktısında **ExifTool’da olmayan**, doğrudan görüntünün piksel verisinden hesaplanan bilgiler vardır.
+Identify çıktısında **ExifTool’da olmayan**, iki farklı türde bilgi bulunur ve bunların hiçbiri EXIF etiketi değildir. Bir bölümü doğrudan görüntünün piksel verisinden **hesaplanır** (istatistikler); bir bölümü ise dosyanın nasıl kaydedildiğini anlatan **kodlama bilgileridir**.
 
-- **Channel statistics:** Her renk kanalının (R, G, B) ortalaması, sapması, eğikliği, entropisi — yani fotoğrafın kontrast ve ton dağılımını verir.  
+- **Channel statistics:** Her renk kanalının (R, G, B) ortalaması, standart sapması, çarpıklığı (skewness) ve entropisi — yani görüntünün kontrast ve ton dağılımı. *(piksellerden hesaplanır)*  
 - **Entropy:** Görseldeki bilgi yoğunluğunu ölçer. 0'a yakın değerler sade ve düz alanları, 1'e yakın değerler yüksek detay ve karmaşıklığı gösterir; 0.9 civarı bir değer, detay açısından zengin doğal bir sahne demektir.  
 - **Mean / Median / Std. Deviation:** Görüntünün genel parlaklığı ve dinamik aralığı hakkında fikir verir.  
-- **Gamma, Chromaticity:** Renk profili ve beyaz nokta ayarları (renk doğruluğu için önemli).  
-- **Quality:** 96 — JPEG sıkıştırma kalitesi neredeyse maksimum, yani sıkıştırmadan kaynaklanan kayıp oldukça düşük.  
-- **Signature:** Dosyanın piksel verisinden üretilen SHA-256 tabanlı benzersiz dijital parmak izi. Tek bir piksel bile değişse imza tamamen değişir; bu sayede görüntü üzerinde oynama yapılıp yapılmadığı anında tespit edilir.  
-- **Rendering intent / Interlace / Sampling factor:** Görüntü tarayıcılar veya yazılımlar tarafından nasıl işleneceğini tanımlar.
+- **Signature:** Görüntünün piksel verisinden üretilen SHA-256 tabanlı benzersiz dijital parmak izi. Tek bir piksel bile değişse imza tamamen değişir; bu sayede görüntü üzerinde oynama yapılıp yapılmadığı anında tespit edilir. *(piksellerden hesaplanır)*
+- **Quality:** 96 — JPEG'in niceleme (quantization) tablolarından **tahmin edilen** sıkıştırma kalitesi. Yüksek değer, görece az sıkıştırma demektir. *(dosya yapısından okunur)*
+- **Sampling factor / Interlace:** Renk alt örneklemesi (ör. `2x2,1x1,1x1` = 4:2:0) ve satır tarama biçimi; görüntünün nasıl kodlandığını gösterir. *(dosya yapısından okunur)*
+- **Gamma / Chromaticity / Rendering intent:** Renk profili, gama eğrisi, beyaz nokta ve renklerin farklı ekranlarda nasıl eşleneceği — renk doğruluğu için önemli. *(dosya yapısından okunur)*
 
-🧠 *ExifTool bunları göstermez çünkü bu değerler EXIF verisinde saklı değildir; doğrudan görüntünün piksel verisinden hesaplanır.*  
-Kullanımı: `identify -verbose resim1.jpg`
+🧠 *ExifTool bunları göstermez çünkü hiçbiri EXIF etiketi değildir: kanal istatistikleri, entropy ve signature doğrudan **piksellerden hesaplanır**; quality, sampling factor, interlace, gamma ve chromaticity ise görüntünün **kodlama/yapı bilgisinden** okunur. Kısacası ExifTool "dosya ne diyor?" sorusuna, Identify ise "görüntünün kendisi ne söylüyor?" sorusuna yanıt verir.*
+
+Kullanımı:
+
+```bash
+identify -verbose resim1.jpg
+```
+
+Kısaltılmış bir çıktı şuna benzer:
+
+```text
+Image: resim1.jpg
+  Format: JPEG (Joint Photographic Experts Group JFIF format)
+  Geometry: 4000x2992+0+0
+  Colorspace: sRGB
+  Channel statistics:
+    Red:   mean: 118.4  standard deviation: 61.2  entropy: 0.94
+    Green: mean: 121.0  standard deviation: 58.7  entropy: 0.93
+    Blue:  mean: 109.6  standard deviation: 63.1  entropy: 0.92
+  Quality: 96
+  Sampling factor: 2x2,1x1,1x1
+  Interlace: None
+  Signature: 9e2f1c…c4a7
+```
+
+Bu değerler OSINT açısından da önemlidir: bir fotoğrafın yeniden kaydedildiğini (yeniden sıkıştırıldığını), düzenlendiğini veya yapay zekâ ile üretilmiş olabileceğini çoğu zaman ilk olarak buradaki istatistikler ele verir.
 
 ---
 
@@ -110,6 +159,14 @@ Kullanımı: `identify -verbose resim1.jpg`
 
 Ek olarak `binwalk` ve `strings` gibi araçlarla görüntü dosyası içindeki gömülü metinler veya olası steganografik içerikler aranabilir.  
 Örneğin, fotoğrafta **steganografi (gizli veri saklama)** şüphesi varsa `Steghide`, `zsteg` gibi programlarla dosya içinde saklı mesaj olup olmadığına bakılabilir.
+
+---
+
+## ⚖️ Yasal ve etik çerçeve
+
+Bu yöntemler; kendi dijital ayak izinizi denetlemek, siber güvenlik araştırması yapmak, CTF çözmek veya paylaştığınız içeriklerin ne kadar bilgi sızdırdığını görmek gibi meşru amaçlar için son derece değerlidir. Ne var ki aynı teknikler, bir kişiyi rızası dışında takip etmek için de kullanılabilir.
+
+Birinin fotoğraflarından konumunu çıkarıp onu izlemek, taciz etmek veya ifşa etmek çoğu ülkede suçtur ve etik dışıdır. Amaç her zaman **farkındalık ve savunma** olmalı: Kendi fotoğraflarınızı paylaşmadan önce EXIF verilerini temizleyin, konum etiketlerini kapatın ve karede arka planda hangi ipuçlarının göründüğünü bir kez düşünün.
 
 ---
 
@@ -129,3 +186,7 @@ Genellikle hayır. Instagram, X, Facebook ve mesajlaşma uygulamaları yüklenen
 ### Fotoğraf konum analizi için hangi araçlar kullanılabilir?
 
 ExifTool, Identify, Google Lens, Yandex Vision, Picarta.ai ve benzeri görsel arama veya analiz araçları kullanılabilir. Araçların sonucu tek başına kesin kabul edilmemeli, farklı kaynaklarla doğrulanmalıdır.
+
+### Fotoğraflarımdaki EXIF ve konum bilgisini nasıl temizlerim?
+
+En pratik yöntem, `exiftool -all= dosya.jpg` komutuyla tüm meta verileri tek seferde silmektir. Telefonlarda kamera ayarlarından konum etiketini (geotagging) kapatabilir, paylaşmadan önce ekran görüntüsü alarak da EXIF'i sıfırlayabilirsiniz. Yine de bina, tabela ve manzara gibi görsel ipuçlarının karede kalabileceğini unutmayın.
