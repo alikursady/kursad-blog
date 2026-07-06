@@ -2,13 +2,12 @@
 title: "About"
 date: 2025-11-07T16:00:00+03:00
 draft: false
-description: "i have no idea what i'm doing"
+summary: "i have no idea what i'm doing"
 hideMeta: true
 disableAnchoredHeadings: true
 ---
 
 <div class="about-hero">
-  <p class="about-hero-kicker">// whoami</p>
   <h2 class="about-hero-title">kursadyanik</h2>
   <p class="about-hero-tagline">Information Security &amp; Research</p>
   <div class="about-chips">
