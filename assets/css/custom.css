@@ -880,10 +880,26 @@ button#theme-toggle:focus-visible {
 
 .terminal-output {
     min-height: 220px;
-    max-height: 220px;
-    overflow: hidden;
+    max-height: 300px;
+    overflow-y: auto;
     font-size: 0.86rem;
     line-height: 1.7;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.18) transparent;
+}
+
+.terminal-output::-webkit-scrollbar {
+    width: 6px;
+    background: transparent;
+}
+
+.terminal-output::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.18);
+    border-radius: 3px;
+}
+
+.terminal-output::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
 }
 
 .terminal-output-line {
@@ -891,23 +907,27 @@ button#theme-toggle:focus-visible {
     opacity: 0;
     transform: translateY(4px);
     animation: terminal-line-in 0.28s ease forwards;
-}
-
-.terminal-output-line::before {
-    content: "> ";
-    color: #60a5fa;
+    white-space: pre-wrap;
+    word-break: break-word;
 }
 
 .terminal-output-line.terminal-echo {
     color: #f4f4f5;
+    margin-top: 0.35rem;
 }
 
-.terminal-output-line.terminal-echo::before {
-    content: "";
+.terminal-echo-prompt {
+    color: #34d399;
+}
+
+.terminal-echo-cmd {
+    color: #f8fafc;
+    font-weight: 600;
 }
 
 .terminal-output-line.terminal-muted {
     color: #a1a1aa;
+    font-style: italic;
 }
 
 .live-terminal .about-terminal-line {
