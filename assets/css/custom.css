@@ -497,7 +497,7 @@ button#theme-toggle:focus-visible {
     padding: 1rem 1.25rem;
     margin: 0;
     background: var(--code-block-bg) !important;
-    color: var(--content);
+    color: #f4f4f5;
     font-size: 0.875rem;
     line-height: 1.6;
     border: none;
