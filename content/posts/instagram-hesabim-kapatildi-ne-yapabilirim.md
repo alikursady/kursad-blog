@@ -3,7 +3,7 @@ title: "Instagram Hesabım Kapatıldı: Ne Yapabilirim? (2026)"
 date: 2026-06-10T12:00:00+03:00
 lastmod: 2026-07-06T12:00:00+03:00
 draft: false
-description: "Instagram hesabım kapatıldı diyenler için itiraz, Meta Verified destek, bekleme süresi ve yeni hesap açarken dikkat edilecekler."
+description: "Instagram hesabım kapatıldı diyenler için: kapatılan hesabı geri açma, itiraz yöntemi, bağlı Facebook ile Meta Verified desteği, GAC ve dolandırıcılara karşı korunma rehberi."
 summary: "Instagram hesabı kapatılanlar için itiraz süreci, Meta Verified canlı destek, bekleme süresi, yeni hesap açma riskleri ve dolandırıcılara karşı uyarılar."
 categories: ["Sosyal Medya"]
 tags: ["Instagram", "Instagram hesap kurtarma", "Meta Verified", "hesap kapatma", "hesap güvenliği", "sosyal medya"]
@@ -141,5 +141,7 @@ Evet, özellikle eski hesabınız kapatıldıktan hemen sonra agresif hareketler
 ### GAC (gac.gov.in) ile kapatılan Instagram hesabı açılır mı?
 
 GAC (Grievance Appellate Committee), Hindistan'daki kullanıcıların sosyal medya platformlarının kararlarına itiraz edebildiği resmi bir yoldur. Reddit'te birçok Hindistanlı kullanıcı, aylardır açılmayan hesabını bu yolla geri açtığını belirtiyor. Ancak yalnızca Hindistan yargı yetkisindeki kullanıcılar için geçerlidir; Türkiye'den yapılan başvurular sonuç vermez.
+
+> İlgili yazı: Paylaştığınız fotoğrafların arkasında ne kadar bilgi taşıdığını merak ediyorsanız, [bir fotoğrafın nerede çekildiğini nasıl bulabileceğinizi](/posts/fotografin-nerede-cekildigini-bulmak/) ayrı bir yazıda anlattım.
 
 Umarım kendimi net şekilde ifade edebilmişimdir.
