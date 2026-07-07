@@ -112,9 +112,9 @@ Kısacası yapay zekaya "Ben gerçek bir kişiyim ve hesabımı manuel olarak ku
 
 Bu alanda çok fazla dolandırıcı bulunuyor. "Instagram hesabını kesin açarım", "Meta panelim var", "İçeriden tanıdığım var" veya "Ön ödeme gönder, hesabı açalım" diyen kişilere karşı dikkatli olun.
 
-Buradaki en büyük tuzak paradır. "Ön ödeme gönder, sonra açarım", "panel ücreti" veya "komisyon" gibi bahanelerle sizden **para** isteyen herkese karşı net olun — parayı gönderdiğiniz anda hem hesabınız açılmaz hem de o parayı büyük ihtimalle geri alamazsınız. Zaten kapatılmış bir hesabın Instagram şifresini istemelerinin de bir mantığı yok; hesap kapalıyken o şifreyle yapabilecekleri bir şey yok.
+Buradaki en büyük tuzak paradır. "Ön ödeme gönder, sonra açarım", "panel ücreti" veya "komisyon" gibi bahanelerle sizden **para** isteyen kimseye ödeme yapmayın — parayı gönderdiğiniz anda hem hesabınız açılmaz hem de o parayı büyük ihtimalle geri alamazsınız.
 
-Asıl korumanız gereken şeyler ise hâlâ **aktif** olanlardır: e-posta hesabınızın şifresi, iki faktörlü doğrulama kodlarınız ve kimlik belgeleriniz. Bunlar kötüye kullanılırsa iş kimlik hırsızlığına ve diğer hesaplarınızın ele geçirilmesine kadar gidebilir; bu yüzden hiçbirini kimseyle paylaşmayın. Hesabınızı kurtarmaya çalışırken ikinci kez mağdur olmanız çok kolay.
+İkinci büyük risk **kimlik hırsızlığıdır**. Kimlik belgenizi, e-posta şifrenizi veya iki faktörlü doğrulama kodlarınızı kimseyle paylaşmayın; bunlar ele geçirildiğinde iş diğer hesaplarınızın da kaybedilmesine kadar gidebilir. Hesabınızı kurtarmaya çalışırken ikinci kez mağdur olmanız çok kolay.
 
 ## Sık sorulan sorular
 
