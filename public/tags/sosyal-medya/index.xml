@@ -1,1 +1,25 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Sosyal Medya on Information Security &amp; Research</title><link>https://kursadyanik.com/tags/sosyal-medya/</link><description>Recent content in Sosyal Medya on Information Security &amp; Research</description><image><title>Information Security &amp; Research</title><url>https://kursadyanik.com/images/anime-bg.jpg</url><link>https://kursadyanik.com/images/anime-bg.jpg</link></image><generator>Hugo</generator><language>tr-TR</language><copyright>2026 kursadyanik.com</copyright><lastBuildDate>Mon, 06 Jul 2026 12:00:00 +0300</lastBuildDate><atom:link href="https://kursadyanik.com/tags/sosyal-medya/index.xml" rel="self" type="application/rss+xml"/><item><title>Instagram Hesabım Kapatıldı: Ne Yapabilirim? (2026)</title><link>https://kursadyanik.com/posts/instagram-hesabim-kapatildi-ne-yapabilirim/</link><pubDate>Wed, 10 Jun 2026 12:00:00 +0300</pubDate><guid>https://kursadyanik.com/posts/instagram-hesabim-kapatildi-ne-yapabilirim/</guid><description>Instagram hesabım kapatıldı diyenler için: kapatılan hesabı geri açma, itiraz yöntemi, bağlı Facebook ile Meta Verified desteği, GAC ve dolandırıcılara karşı korunma rehberi.</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Sosyal Medya on Information Security &amp; Research</title>
+    <link>http://localhost:1414/tags/sosyal-medya/</link>
+    <description>Recent content in Sosyal Medya on Information Security &amp; Research</description>
+    <image>
+      <title>Information Security &amp; Research</title>
+      <url>http://localhost:1414/images/anime-bg.jpg</url>
+      <link>http://localhost:1414/images/anime-bg.jpg</link>
+    </image>
+    <generator>Hugo</generator>
+    <language>tr-TR</language>
+    <copyright>2026 kursadyanik.com</copyright>
+    <lastBuildDate>Mon, 06 Jul 2026 12:00:00 +0300</lastBuildDate>
+    <atom:link href="http://localhost:1414/tags/sosyal-medya/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Instagram Hesabım Kapatıldı: Ne Yapabilirim? (2026)</title>
+      <link>http://localhost:1414/posts/instagram-hesabim-kapatildi-ne-yapabilirim/</link>
+      <pubDate>Wed, 10 Jun 2026 12:00:00 +0300</pubDate>
+      <guid>http://localhost:1414/posts/instagram-hesabim-kapatildi-ne-yapabilirim/</guid>
+      <description>Instagram hesabım kapatıldı diyenler için: kapatılan hesabı geri açma, itiraz yöntemi, bağlı Facebook ile Meta Verified desteği, GAC ve dolandırıcılara karşı korunma rehberi.</description>
+    </item>
+  </channel>
+</rss>

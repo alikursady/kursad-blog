@@ -1,6 +1,6 @@
 ---
 title: "Elsewhere"
-description: "i have no idea what i'm doing"
+summary: "kursadyanik.com — diğer profiller, siteler ve bağlantılar."
 layout: "elsewhere"
 hideMeta: true
 elsewhere_links:
@@ -11,5 +11,3 @@ elsewhere_links:
     url: "https://kursadyanik.com/index.xml"
     description: "Latest posts."
 ---
-
-i have no idea what i'm doing

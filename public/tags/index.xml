@@ -1,1 +1,88 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Tags on Information Security &amp; Research</title><link>https://kursadyanik.com/tags/</link><description>Recent content in Tags on Information Security &amp; Research</description><image><title>Information Security &amp; Research</title><url>https://kursadyanik.com/images/anime-bg.jpg</url><link>https://kursadyanik.com/images/anime-bg.jpg</link></image><generator>Hugo</generator><language>tr-TR</language><copyright>2026 kursadyanik.com</copyright><lastBuildDate>Mon, 06 Jul 2026 12:00:00 +0300</lastBuildDate><atom:link href="https://kursadyanik.com/tags/index.xml" rel="self" type="application/rss+xml"/><item><title>Hesap Güvenliği</title><link>https://kursadyanik.com/tags/hesap-g%C3%BCvenli%C4%9Fi/</link><pubDate>Wed, 10 Jun 2026 12:00:00 +0300</pubDate><guid>https://kursadyanik.com/tags/hesap-g%C3%BCvenli%C4%9Fi/</guid><description/></item><item><title>Hesap Kapatma</title><link>https://kursadyanik.com/tags/hesap-kapatma/</link><pubDate>Wed, 10 Jun 2026 12:00:00 +0300</pubDate><guid>https://kursadyanik.com/tags/hesap-kapatma/</guid><description/></item><item><title>Instagram</title><link>https://kursadyanik.com/tags/instagram/</link><pubDate>Wed, 10 Jun 2026 12:00:00 +0300</pubDate><guid>https://kursadyanik.com/tags/instagram/</guid><description/></item><item><title>Instagram Hesap Kurtarma</title><link>https://kursadyanik.com/tags/instagram-hesap-kurtarma/</link><pubDate>Wed, 10 Jun 2026 12:00:00 +0300</pubDate><guid>https://kursadyanik.com/tags/instagram-hesap-kurtarma/</guid><description/></item><item><title>Meta Verified</title><link>https://kursadyanik.com/tags/meta-verified/</link><pubDate>Wed, 10 Jun 2026 12:00:00 +0300</pubDate><guid>https://kursadyanik.com/tags/meta-verified/</guid><description/></item><item><title>Sosyal Medya</title><link>https://kursadyanik.com/tags/sosyal-medya/</link><pubDate>Wed, 10 Jun 2026 12:00:00 +0300</pubDate><guid>https://kursadyanik.com/tags/sosyal-medya/</guid><description/></item><item><title>EXIF</title><link>https://kursadyanik.com/tags/exif/</link><pubDate>Fri, 07 Nov 2025 12:00:00 +0300</pubDate><guid>https://kursadyanik.com/tags/exif/</guid><description/></item><item><title>Fotoğraf Analizi</title><link>https://kursadyanik.com/tags/foto%C4%9Fraf-analizi/</link><pubDate>Fri, 07 Nov 2025 12:00:00 +0300</pubDate><guid>https://kursadyanik.com/tags/foto%C4%9Fraf-analizi/</guid><description/></item><item><title>OSINT</title><link>https://kursadyanik.com/tags/osint/</link><pubDate>Fri, 07 Nov 2025 12:00:00 +0300</pubDate><guid>https://kursadyanik.com/tags/osint/</guid><description/></item><item><title>Siber Güvenlik</title><link>https://kursadyanik.com/tags/siber-g%C3%BCvenlik/</link><pubDate>Fri, 07 Nov 2025 12:00:00 +0300</pubDate><guid>https://kursadyanik.com/tags/siber-g%C3%BCvenlik/</guid><description/></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Tags on Information Security &amp; Research</title>
+    <link>http://localhost:1414/tags/</link>
+    <description>Recent content in Tags on Information Security &amp; Research</description>
+    <image>
+      <title>Information Security &amp; Research</title>
+      <url>http://localhost:1414/images/anime-bg.jpg</url>
+      <link>http://localhost:1414/images/anime-bg.jpg</link>
+    </image>
+    <generator>Hugo</generator>
+    <language>tr-TR</language>
+    <copyright>2026 kursadyanik.com</copyright>
+    <lastBuildDate>Mon, 06 Jul 2026 12:00:00 +0300</lastBuildDate>
+    <atom:link href="http://localhost:1414/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Hesap Güvenliği</title>
+      <link>http://localhost:1414/tags/hesap-g%C3%BCvenli%C4%9Fi/</link>
+      <pubDate>Wed, 10 Jun 2026 12:00:00 +0300</pubDate>
+      <guid>http://localhost:1414/tags/hesap-g%C3%BCvenli%C4%9Fi/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Hesap Kapatma</title>
+      <link>http://localhost:1414/tags/hesap-kapatma/</link>
+      <pubDate>Wed, 10 Jun 2026 12:00:00 +0300</pubDate>
+      <guid>http://localhost:1414/tags/hesap-kapatma/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Instagram</title>
+      <link>http://localhost:1414/tags/instagram/</link>
+      <pubDate>Wed, 10 Jun 2026 12:00:00 +0300</pubDate>
+      <guid>http://localhost:1414/tags/instagram/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Instagram Hesap Kurtarma</title>
+      <link>http://localhost:1414/tags/instagram-hesap-kurtarma/</link>
+      <pubDate>Wed, 10 Jun 2026 12:00:00 +0300</pubDate>
+      <guid>http://localhost:1414/tags/instagram-hesap-kurtarma/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Meta Verified</title>
+      <link>http://localhost:1414/tags/meta-verified/</link>
+      <pubDate>Wed, 10 Jun 2026 12:00:00 +0300</pubDate>
+      <guid>http://localhost:1414/tags/meta-verified/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Sosyal Medya</title>
+      <link>http://localhost:1414/tags/sosyal-medya/</link>
+      <pubDate>Wed, 10 Jun 2026 12:00:00 +0300</pubDate>
+      <guid>http://localhost:1414/tags/sosyal-medya/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>EXIF</title>
+      <link>http://localhost:1414/tags/exif/</link>
+      <pubDate>Fri, 07 Nov 2025 12:00:00 +0300</pubDate>
+      <guid>http://localhost:1414/tags/exif/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Fotoğraf Analizi</title>
+      <link>http://localhost:1414/tags/foto%C4%9Fraf-analizi/</link>
+      <pubDate>Fri, 07 Nov 2025 12:00:00 +0300</pubDate>
+      <guid>http://localhost:1414/tags/foto%C4%9Fraf-analizi/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>OSINT</title>
+      <link>http://localhost:1414/tags/osint/</link>
+      <pubDate>Fri, 07 Nov 2025 12:00:00 +0300</pubDate>
+      <guid>http://localhost:1414/tags/osint/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Siber Güvenlik</title>
+      <link>http://localhost:1414/tags/siber-g%C3%BCvenlik/</link>
+      <pubDate>Fri, 07 Nov 2025 12:00:00 +0300</pubDate>
+      <guid>http://localhost:1414/tags/siber-g%C3%BCvenlik/</guid>
+      <description></description>
+    </item>
+  </channel>
+</rss>
