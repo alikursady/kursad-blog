@@ -17,7 +17,7 @@ faqs:
   - question: "Sosyal medyadan indirilen fotoğraflarda EXIF bilgisi kalır mı?"
     answer: "Genellikle hayır. Instagram, X, Facebook ve mesajlaşma uygulamaları yüklenen fotoğraflardaki EXIF verilerini çoğu zaman temizler. Bu durumda bina, tabela, bitki örtüsü, gölge ve benzeri görsel ipuçlarıyla analiz yapılır."
   - question: "Fotoğraf konum analizi için hangi araçlar kullanılabilir?"
-    answer: "ExifTool, Identify, Google Lens, Yandex Vision, Picarta.ai ve benzeri görsel arama veya analiz araçları kullanılabilir. Araçların sonucu tek başına kesin kabul edilmemeli, farklı kaynaklarla doğrulanmalıdır."
+    answer: "ExifTool, Identify, exif.tools (kurulum gerektirmeyen online EXIF görüntüleyici), Google Lens, Yandex Vision, Picarta.ai ve benzeri görsel arama veya analiz araçları kullanılabilir. Araçların sonucu tek başına kesin kabul edilmemeli, farklı kaynaklarla doğrulanmalıdır."
   - question: "Fotoğraflarımdaki EXIF ve konum bilgisini nasıl temizlerim?"
     answer: "En pratik yöntem exiftool -all= dosya.jpg komutuyla tüm meta verileri tek seferde silmektir. Telefonlarda kamera ayarlarından konum etiketini (geotagging) kapatabilir, paylaşmadan önce ekran görüntüsü alarak da EXIF'i sıfırlayabilirsiniz. Yine de bina, tabela ve manzara gibi görsel ipuçlarının karede kalabileceğini unutmayın."
 ---
@@ -69,6 +69,8 @@ exiftool -gpslatitude -gpslongitude -gpsposition resim1.jpg
 ```
 
 Elde ettiğiniz koordinatları doğrudan **Google Haritalar** arama kutusuna yapıştırdığınızda cihazın fotoğrafı çektiği noktayı harita üzerinde görebilir, **Sokak Görünümü** ile çevreyi karşılaştırarak konumu bir kez daha doğrulayabilirsiniz.
+
+💡 Terminal kullanmak istemiyorsanız, tarayıcı üzerinden çalışan online araçlar da işinizi görür. Örneğin [exif.tools](https://exif.tools/) sitesine fotoğrafı sürükleyip bırakmanız yeterli; hiçbir şey kurmadan EXIF verilerini ve varsa GPS konumunu anında görebilirsiniz. (Yine de hassas fotoğraflarınızı yabancı bir siteye yüklemeden önce iki kez düşünün.)
 
 ---
 
@@ -187,7 +189,7 @@ Genellikle hayır. Instagram, X, Facebook ve mesajlaşma uygulamaları yüklenen
 
 ### Fotoğraf konum analizi için hangi araçlar kullanılabilir?
 
-ExifTool, Identify, Google Lens, Yandex Vision, Picarta.ai ve benzeri görsel arama veya analiz araçları kullanılabilir. Araçların sonucu tek başına kesin kabul edilmemeli, farklı kaynaklarla doğrulanmalıdır.
+ExifTool, Identify, exif.tools (kurulum gerektirmeyen online EXIF görüntüleyici), Google Lens, Yandex Vision, Picarta.ai ve benzeri görsel arama veya analiz araçları kullanılabilir. Araçların sonucu tek başına kesin kabul edilmemeli, farklı kaynaklarla doğrulanmalıdır.
 
 ### Fotoğraflarımdaki EXIF ve konum bilgisini nasıl temizlerim?
 
