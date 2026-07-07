@@ -23,7 +23,7 @@ faqs:
 ---
 
 Merhabalar dostlar 👋  
-Bu ilk yazım ve ilk yazımda bir fotoğrafın **hangi konumda, hangi koşullarda çekildiğini** **OSINT (Açık Kaynak İstihbaratı)** yöntemleriyle nasıl bulabileceğimizi ve elde edebildiğimiz tüm ayrıntıları ele alacağım.
+Bu ilk yazımda **bir fotoğrafın nerede çekildiğini**, yani hangi konumda ve hangi koşullarda çekildiğini **OSINT (Açık Kaynak İstihbaratı)** yöntemleriyle nasıl bulabileceğimizi ve elde edebildiğimiz tüm ayrıntıları ele alacağım.
 
 ---
 
@@ -34,10 +34,10 @@ Fotoğraf dosyaları; **çekim tarihi, koordinatları, odak uzaklığı, zoom**,
 
 ---
 
-## 🧾 EXIF örneği
+## 🧾 EXIF örneği: fotoğrafın GPS konumunu bulma
 
 **resim1.jpg** dosyasında çıkan EXIF verileri:
-![Exif verisi örneği](/images/resim1.jpg)
+![Xiaomi Redmi Note 9 ile çekilmiş resim1.jpg fotoğrafının EXIF verileri ve GPS konum bilgisi](/images/resim1.jpg)
 Bu fotoğraf **Xiaomi Redmi Note 9** cihazı ile çekilmiş.  
 EXIF verileri, çekimin tamamen **otomatik modda** gerçekleştirildiğini ve **HDR özelliğinin kapalı** olduğunu gösteriyor.
 
@@ -80,7 +80,7 @@ Yine de tam bir gizlilik mümkün değildir — bunun nedenini yazının devamı
 
 ---
 
-## 🧩 Görsel içerikten analiz
+## 🧩 EXIF olmadan görsel içerikten konum analizi
 
 İşte az önce bahsettiğim nokta tam olarak bu: EXIF verileri silinse bile fotoğrafın kendisi konuşmaya devam eder.  
 Hiçbir dijital veriye dayanmadan sadece **fotoğraf içeriğinden**, çevresel ipuçlarından yararlanarak çıkarımlar da yapılabilir.  
@@ -167,6 +167,8 @@ Ek olarak `binwalk` ve `strings` gibi araçlarla görüntü dosyası içindeki g
 Bu yöntemler; kendi dijital ayak izinizi denetlemek, siber güvenlik araştırması yapmak, CTF çözmek veya paylaştığınız içeriklerin ne kadar bilgi sızdırdığını görmek gibi meşru amaçlar için son derece değerlidir. Ne var ki aynı teknikler, bir kişiyi rızası dışında takip etmek için de kullanılabilir.
 
 Birinin fotoğraflarından konumunu çıkarıp onu izlemek, taciz etmek veya ifşa etmek çoğu ülkede suçtur ve etik dışıdır. Amaç her zaman **farkındalık ve savunma** olmalı: Kendi fotoğraflarınızı paylaşmadan önce EXIF verilerini temizleyin, konum etiketlerini kapatın ve karede arka planda hangi ipuçlarının göründüğünü bir kez düşünün.
+
+Hesaplarınızın güvenliği de bu dijital savunmanın bir parçası; bir sosyal medya hesabınız beklenmedik şekilde kapatıldığında neler yapabileceğinizi [Instagram hesabı kapatıldığında ne yapmalı](/posts/instagram-hesabim-kapatildi-ne-yapabilirim/) yazımda ayrıca ele aldım.
 
 ---
 
