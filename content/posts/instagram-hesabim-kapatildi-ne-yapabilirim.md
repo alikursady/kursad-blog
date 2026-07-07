@@ -20,7 +20,7 @@ faqs:
   - question: "Yeni Instagram hesabı açmak riskli mi?"
     answer: "Evet, özellikle eski hesabınız kapatıldıktan hemen sonra agresif hareketler yaparsanız yeni hesabınız da riskli görünebilir. Yeni hesapta sakin ilerlemek ve şüpheli hareketlerden kaçınmak daha sağlıklı olur."
   - question: "Hesap kurtarma hizmeti veren kişilere güvenilir mi?"
-    answer: "Çok dikkatli olmak gerekir. Bu alanda ciddi dolandırıcılık riski var. Şifre, doğrulama kodu, kimlik belgesi veya ödeme isteyen kişilere karşı özellikle temkinli olun."
+    answer: "Çok dikkatli olmak gerekir. Bu alanda ciddi dolandırıcılık riski var. Özellikle ön ödeme veya para isteyenlere karşı net olun; ayrıca e-posta şifrenizi, iki faktörlü doğrulama kodunuzu veya kimlik belgenizi kimseyle paylaşmayın."
   - question: "GAC (gac.gov.in) ile kapatılan Instagram hesabı açılır mı?"
     answer: "GAC (Grievance Appellate Committee), Hindistan'daki kullanıcıların sosyal medya platformlarının kararlarına itiraz edebildiği resmi bir yoldur. Reddit'te birçok Hindistanlı kullanıcı hesabını bu yolla geri açtığını belirtiyor. Ancak yalnızca Hindistan yargı yetkisindeki kullanıcılar için geçerlidir; Türkiye'den yapılan başvurular sonuç vermez."
 ---
@@ -112,7 +112,9 @@ Kısacası yapay zekaya "Ben gerçek bir kişiyim ve hesabımı manuel olarak ku
 
 Bu alanda çok fazla dolandırıcı bulunuyor. "Instagram hesabını kesin açarım", "Meta panelim var", "İçeriden tanıdığım var" veya "Ön ödeme gönder, hesabı açalım" diyen kişilere karşı dikkatli olun.
 
-Kimseye Instagram şifrenizi, e-posta hesabınızın şifresini, iki faktörlü doğrulama kodunuzu veya kimlik belgenizi gelişigüzel göndermeyin. Hesabınızı kurtarmaya çalışırken ikinci kez mağdur olmanız çok kolay.
+Buradaki en büyük tuzak paradır. "Ön ödeme gönder, sonra açarım", "panel ücreti" veya "komisyon" gibi bahanelerle sizden **para** isteyen herkese karşı net olun — parayı gönderdiğiniz anda hem hesabınız açılmaz hem de o parayı büyük ihtimalle geri alamazsınız. Zaten kapatılmış bir hesabın Instagram şifresini istemelerinin de bir mantığı yok; hesap kapalıyken o şifreyle yapabilecekleri bir şey yok.
+
+Asıl korumanız gereken şeyler ise hâlâ **aktif** olanlardır: e-posta hesabınızın şifresi, iki faktörlü doğrulama kodlarınız ve kimlik belgeleriniz. Bunlar kötüye kullanılırsa iş kimlik hırsızlığına ve diğer hesaplarınızın ele geçirilmesine kadar gidebilir; bu yüzden hiçbirini kimseyle paylaşmayın. Hesabınızı kurtarmaya çalışırken ikinci kez mağdur olmanız çok kolay.
 
 ## Sık sorulan sorular
 
@@ -134,7 +136,7 @@ Evet, özellikle eski hesabınız kapatıldıktan hemen sonra agresif hareketler
 
 ### Hesap kurtarma hizmeti veren kişilere güvenilir mi?
 
-Çok dikkatli olmak gerekir. Bu alanda ciddi dolandırıcılık riski var. Şifre, doğrulama kodu, kimlik belgesi veya ödeme isteyen kişilere karşı özellikle temkinli olun.
+Çok dikkatli olmak gerekir. Bu alanda ciddi dolandırıcılık riski var. Özellikle ön ödeme veya para isteyenlere karşı net olun; ayrıca e-posta şifrenizi, iki faktörlü doğrulama kodunuzu veya kimlik belgenizi kimseyle paylaşmayın.
 
 ### GAC (gac.gov.in) ile kapatılan Instagram hesabı açılır mı?
 
