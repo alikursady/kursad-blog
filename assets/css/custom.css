@@ -1417,25 +1417,6 @@ button#theme-toggle:focus-visible {
     transform: rotate(-5deg);
 }
 
-.canvas-sub-note {
-    color: var(--ink-soft);
-}
-
-.canvas-note {
-    margin: 0;
-    font-family: var(--hand);
-    font-size: 1.35rem;
-    line-height: 1.4;
-    color: var(--ink-soft);
-}
-
-.canvas-note-lead {
-    margin-top: 1.2rem;
-    max-width: 30ch;
-    color: var(--ink-faint);
-    transform: rotate(-0.6deg);
-}
-
 /* çalar */
 .canvas-block-player {
     margin-top: clamp(2.5rem, 6vw, 4rem);
@@ -1728,7 +1709,6 @@ button#theme-toggle:focus-visible {
         height: 20px;
     }
 
-    .canvas-note,
     .canvas-sub {
         font-size: 1.2rem;
     }
