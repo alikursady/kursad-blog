@@ -6,7 +6,7 @@ theme = "PaperMod"
 buildFuture = false
 enableRobotsTXT = true
 rssLimit = 20
-copyright = "© 2026 kursadyanik.com"
+copyright = "Hiçbir hakkı saklı değildir."
 
 [markup]
   [markup.goldmark]
