@@ -7,11 +7,12 @@
         <div class="footer-meta">
             Hiçbir hakkı saklı değildir.
         </div>
-        <div class="footer-status" data-system-status data-state="checking" aria-live="polite">
+        <div class="footer-status" data-system-status data-state="checking">
             <span class="status-live-light" data-system-status-light aria-hidden="true"></span>
             <span class="status-copy">
                 <span class="status-label">System Status</span>
-                <span class="status-value" data-system-status-value>Checking...</span>
+                <span class="status-value" data-system-status-value aria-live="polite">Checking...</span>
+                <span class="status-clock" data-system-clock aria-hidden="true">--:--:--</span>
             </span>
         </div>
     </div>
@@ -109,6 +110,7 @@
     (function () {
         var status = document.querySelector("[data-system-status]");
         var value = document.querySelector("[data-system-status-value]");
+        var clock = document.querySelector("[data-system-clock]");
         if (!status || !value) return;
 
         var label = "Checking";
@@ -130,8 +132,23 @@
 
         function render() {
             status.dataset.state = state;
-            value.textContent = label + " · " + formatTime(lastChecked);
+            value.textContent = label;
             status.setAttribute("aria-label", "System status: " + label + ". Last check " + formatTime(lastChecked));
+        }
+
+        // Saat sayfa yenilenmeyi beklemeden, saniyesi saniyesine akar.
+        function tick() {
+            if (!clock) return;
+            clock.textContent = formatTime(new Date());
+        }
+
+        function startClock() {
+            tick();
+            // Ilk vurusu tam saniye basina hizala, sonrasi saniyede bir.
+            window.setTimeout(function () {
+                tick();
+                window.setInterval(tick, 1000);
+            }, 1000 - (Date.now() % 1000));
         }
 
         function setStatus(nextState, nextLabel) {
@@ -177,8 +194,8 @@
         });
 
         render();
+        startClock();
         probe();
-        window.setInterval(render, 1000);
         window.setInterval(probe, 30000);
     })();
 </script>
