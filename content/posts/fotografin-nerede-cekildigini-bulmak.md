@@ -166,8 +166,6 @@ Temizlemek için tek komut yeterli:
 exiftool -all= dosya.jpg
 ```
 
-Hesap güvenliği de aynı savunmanın parçası. Bir sosyal medya hesabınız beklenmedik şekilde kapatıldığında izleyebileceğiniz yolları [Instagram hesabı kapatıldığında ne yapmalı](/posts/instagram-hesabim-kapatildi-ne-yapabilirim/) yazısında ayrıca anlattım.
-
 Bu yazıdan tek bir şey alacaksanız şu olsun: paylaşmadan önce kendi fotoğrafınıza bir kez `exiftool` çalıştırın. Ne kadarını gönüllü olarak verdiğinizi görmek, buradaki cümlelerin hepsinden daha ikna edici olacaktır.
 
 ## Sık sorulan sorular

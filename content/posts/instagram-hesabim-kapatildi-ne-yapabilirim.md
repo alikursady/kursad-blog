@@ -150,5 +150,3 @@ GAC (Grievance Appellate Committee), Hindistan'daki kullanıcıların platform k
 Bu süreçte en yıpratıcı şey hesabın kapalı olması değil, ne olduğunu kimsenin söylememesi. Elinizde ne bir gerekçe oluyor ne de konuşabileceğiniz bir muhatap. Yapabileceğiniz şey itirazı düzgün göndermek, bağlı Facebook hesabınız varsa oradan ilerlemek ve beklemek.
 
 Bu arada yeni bir hesap kuruyorsanız onu ilk günden temiz tutun. İkinci kez aynı yerden başlamak istemezsiniz.
-
-Paylaştığınız fotoğrafların arkasında ne kadar bilgi taşıdığını merak ediyorsanız, [bir fotoğrafın nerede çekildiğini nasıl bulabileceğinizi](/posts/fotografin-nerede-cekildigini-bulmak/) ayrı bir yazıda anlattım.
