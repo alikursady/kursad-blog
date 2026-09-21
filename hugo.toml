@@ -30,7 +30,7 @@ copyright = "Hiçbir hakkı saklı değildir."
   ShowBreadCrumbs = true
   ShowCodeCopyButtons = true
   ShowShareButtons = false
-  defaultTheme = "light"
+  defaultTheme = "dark"
   disableThemeToggle = false
   disableSpecial1stPost = true
 
@@ -50,8 +50,8 @@ copyright = "Hiçbir hakkı saklı değildir."
   favicon32x32 = "favicon.ico"
   apple_touch_icon = "favicon.ico"
   safari_pinned_tab = "safari-pinned-tab.svg"
-  theme_color = "#fafafa"
-  msapplication_TileColor = "#fafafa"
+  theme_color = "#0f0f10"
+  msapplication_TileColor = "#0f0f10"
 
 [params.schema]
   publisherType = "Organization"
@@ -64,13 +64,13 @@ copyright = "Hiçbir hakkı saklı değildir."
     weight = 1
 
   [[menu.main]]
+    identifier = "whereami"
+    name = "where am i"
+    url = "/where-am-i/"
+    weight = 2
+
+  [[menu.main]]
     identifier = "about"
     name = "About"
     url = "/about/"
     weight = 3
-
-  [[menu.main]]
-    identifier = "elsewhere"
-    name = "Elsewhere"
-    url = "/elsewhere/"
-    weight = 4

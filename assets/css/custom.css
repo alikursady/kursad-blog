@@ -3,7 +3,7 @@
  * Overrides PaperMod; preserves Hugo structure and semantics.
  */
 
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=JetBrains+Mono:wght@400;500&family=Caveat:wght@400..700&display=swap');
 
 /* ---------------------------------------------------------------------------
    Design tokens (override theme vars where needed)
@@ -1410,5 +1410,514 @@ button#theme-toggle:focus-visible {
 
     .post-title {
         font-size: 1.5rem;
+    }
+}
+
+/* ---------------------------------------------------------------------------
+   where am i – karalanmış tuval sayfası (tema ne olursa olsun karanlık)
+   --------------------------------------------------------------------------- */
+.canvas-page {
+    --ink: #edeae4;
+    --ink-soft: rgba(237, 234, 228, 0.6);
+    --ink-faint: rgba(237, 234, 228, 0.3);
+    --hand: 'Caveat', 'Segoe Script', 'Bradley Hand', cursive;
+    margin: 0 auto;
+}
+
+.canvas-stage {
+    position: relative;
+    margin: 0.25rem 0 2.5rem;
+}
+
+@media (min-width: 1040px) {
+    .canvas-stage {
+        width: min(94vw, 920px);
+        margin-left: 50%;
+        transform: translateX(-50%);
+    }
+}
+
+.canvas-sheet {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    padding: clamp(1.4rem, 4vw, 3.25rem);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 6px;
+    color: var(--ink);
+    background:
+        radial-gradient(120% 80% at 50% -14%, rgba(96, 165, 250, 0.09), transparent 62%),
+        radial-gradient(90% 60% at 88% 114%, rgba(52, 211, 153, 0.06), transparent 60%),
+        repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.013) 0 1px, transparent 1px 4px),
+        repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.013) 0 1px, transparent 1px 4px),
+        linear-gradient(180deg, #101014 0%, #0a0a0c 55%, #06060a 100%);
+    box-shadow: 0 34px 80px rgba(0, 0, 0, 0.5), inset 0 0 140px rgba(0, 0, 0, 0.8);
+}
+
+/* tuval dokusu */
+.canvas-sheet::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.16;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.canvas-head,
+.canvas-block,
+.canvas-prose,
+.canvas-sign {
+    position: relative;
+    z-index: 2;
+}
+
+/* bantlar */
+.canvas-tape {
+    position: absolute;
+    z-index: 3;
+    width: 86px;
+    height: 24px;
+    background: linear-gradient(180deg, rgba(240, 240, 235, 0.14), rgba(240, 240, 235, 0.07));
+    border-left: 1px solid rgba(255, 255, 255, 0.06);
+    border-right: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+}
+
+.canvas-tape-tl { top: -10px; left: -22px; transform: rotate(-34deg); }
+.canvas-tape-tr { top: -10px; right: -22px; transform: rotate(34deg); }
+.canvas-tape-bl { bottom: -10px; left: -22px; transform: rotate(34deg); }
+.canvas-tape-br { bottom: -10px; right: -22px; transform: rotate(-34deg); }
+
+/* karalamalar */
+.canvas-doodle {
+    position: absolute;
+    z-index: 1;
+    color: rgba(237, 234, 228, 0.22);
+    pointer-events: none;
+}
+
+.canvas-doodle-spiral { top: 3%; right: 4%; transform: rotate(9deg); }
+.canvas-doodle-moon { bottom: 7%; left: 2.5%; transform: rotate(-8deg); }
+.canvas-doodle-hatch { bottom: 3%; right: 6%; transform: rotate(-4deg); }
+.canvas-doodle-arrow { top: 2.5rem; right: 1.5rem; transform: rotate(-20deg) scaleX(-1); }
+.canvas-doodle-eye { right: 1%; bottom: -1.2rem; transform: rotate(-7deg); }
+
+.canvas-stage.is-ready .canvas-doodle path,
+.canvas-stage.is-ready .canvas-doodle circle {
+    stroke-dasharray: 440;
+    stroke-dashoffset: 440;
+}
+
+.canvas-stage.is-ready.is-awake .canvas-doodle path,
+.canvas-stage.is-ready.is-awake .canvas-doodle circle {
+    animation: doodle-draw 1.9s ease forwards;
+}
+
+.canvas-stage.is-ready.is-awake .canvas-doodle-moon path { animation-delay: 0.35s; }
+.canvas-stage.is-ready.is-awake .canvas-doodle-hatch path { animation-delay: 0.55s; }
+.canvas-stage.is-ready.is-awake .canvas-doodle-arrow path { animation-delay: 0.75s; }
+.canvas-stage.is-ready.is-awake .canvas-doodle-eye path,
+.canvas-stage.is-ready.is-awake .canvas-doodle-eye circle { animation-delay: 1s; }
+
+@keyframes doodle-draw {
+    to { stroke-dashoffset: 0; }
+}
+
+/* el yazısı başlık */
+.canvas-title {
+    margin: 0;
+    font-family: var(--hand);
+    font-weight: 700;
+    font-size: clamp(2.8rem, 10vw, 4.4rem);
+    line-height: 0.95;
+    color: var(--ink);
+    text-shadow: 0 0 24px rgba(255, 255, 255, 0.08);
+    transform: rotate(-1.6deg);
+}
+
+.canvas-sub {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin: 0.5rem 0 0;
+    font-family: var(--hand);
+    font-size: 1.4rem;
+    color: var(--ink-faint);
+    transform: rotate(-0.8deg);
+}
+
+.canvas-strike {
+    position: relative;
+}
+
+.canvas-strike::after {
+    content: "";
+    position: absolute;
+    left: -8%;
+    right: -8%;
+    top: 54%;
+    height: 2px;
+    border-radius: 2px;
+    background: currentColor;
+    opacity: 0.8;
+    transform: rotate(-5deg);
+}
+
+.canvas-sub-note {
+    color: var(--ink-soft);
+}
+
+.canvas-note {
+    margin: 0;
+    font-family: var(--hand);
+    font-size: 1.35rem;
+    line-height: 1.4;
+    color: var(--ink-soft);
+}
+
+.canvas-note-lead {
+    margin-top: 1.2rem;
+    max-width: 30ch;
+    color: var(--ink-faint);
+    transform: rotate(-0.6deg);
+}
+
+/* çalar */
+.canvas-block-player {
+    margin-top: clamp(2.5rem, 6vw, 4rem);
+}
+
+.canvas-player {
+    position: relative;
+    max-width: 560px;
+    padding: 0.85rem 0.85rem 0.7rem;
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 14px;
+    background: linear-gradient(180deg, rgba(24, 24, 27, 0.92), rgba(9, 9, 11, 0.94));
+    box-shadow: 0 22px 48px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    transform: rotate(-0.7deg);
+}
+
+.canvas-player iframe {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    border: 0;
+    border-radius: 12px;
+    /* Kapak görseli tuvalin karanlığına yakın dursun, imleç üstüne gelince açılsın. */
+    filter: saturate(0.82) brightness(0.88);
+    transition: filter 0.45s ease;
+}
+
+.canvas-player:hover iframe,
+.canvas-player:focus-within iframe {
+    filter: none;
+}
+
+.canvas-tape-player {
+    top: -12px;
+    left: 50%;
+    width: 74px;
+    height: 22px;
+    transform: translateX(-50%) rotate(-2deg);
+}
+
+/* karanlık pencere */
+.canvas-block-window {
+    margin-top: clamp(3rem, 8vw, 5rem);
+    padding-bottom: 1.5rem;
+}
+
+.night-window {
+    position: relative;
+    max-width: 540px;
+    margin: 0 auto;
+    transform: rotate(0.5deg);
+}
+
+.window-frame {
+    position: relative;
+    padding: 16px;
+    border-radius: 8px 8px 4px 4px;
+    background: linear-gradient(180deg, #1c1a17 0%, #131211 60%, #0d0c0b 100%);
+    box-shadow:
+        0 30px 70px rgba(0, 0, 0, 0.65),
+        inset 0 1px 0 rgba(255, 255, 255, 0.06),
+        inset 0 0 0 1px rgba(0, 0, 0, 0.55);
+}
+
+.window-glass {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 5 / 4;
+    border-radius: 3px;
+    background:
+        radial-gradient(70% 50% at 72% 14%, rgba(186, 206, 255, 0.14), transparent 70%),
+        linear-gradient(180deg, #0a0e16 0%, #07080d 58%, #04040a 100%);
+    box-shadow: inset 0 0 70px rgba(0, 0, 0, 0.95);
+}
+
+.window-moon {
+    position: absolute;
+    top: 6%;
+    right: 13%;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    opacity: 0.92;
+    background: radial-gradient(circle at 38% 34%, #f5f7ff, #cbd8f7 56%, rgba(150, 170, 220, 0.22) 72%, transparent 76%);
+    box-shadow: 0 0 44px rgba(190, 210, 255, 0.3), 0 0 120px rgba(120, 160, 255, 0.16);
+}
+
+.window-silhouette {
+    position: absolute;
+    left: 50%;
+    bottom: 1%;
+    width: 36%;
+    height: 60%;
+    opacity: 0;
+    filter: blur(5px);
+    transform: translate(calc(-50% + var(--shadow-shift-x, 0px)), var(--shadow-shift-y, 0px));
+    transition: opacity 1.8s ease, transform 0.9s ease;
+}
+
+.window-silhouette::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 0;
+    width: 46%;
+    aspect-ratio: 1 / 1.14;
+    transform: translateX(-50%);
+    border-radius: 50% 50% 46% 46%;
+    background: radial-gradient(circle at 72% 26%, rgba(176, 198, 244, 0.26), rgba(3, 4, 8, 0.97) 62%);
+    box-shadow:
+        0 0 0 1.5px rgba(200, 220, 255, 0.3),
+        0 0 30px rgba(150, 180, 255, 0.22),
+        inset -7px -3px 16px -10px rgba(198, 220, 255, 0.5);
+}
+
+.window-silhouette::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 42%;
+    bottom: 0;
+    width: 100%;
+    transform: translateX(-50%);
+    border-radius: 46% 46% 10% 10%;
+    background: linear-gradient(200deg, rgba(150, 172, 220, 0.22), rgba(3, 4, 8, 0.97) 58%);
+    box-shadow:
+        0 0 0 1.5px rgba(200, 220, 255, 0.22),
+        0 0 36px rgba(150, 180, 255, 0.16),
+        inset -10px -6px 22px -14px rgba(198, 220, 255, 0.45);
+}
+
+.night-window.is-awake .window-silhouette {
+    opacity: 0.8;
+    transition-delay: 2.4s;
+}
+
+.night-window.is-close .window-silhouette {
+    opacity: 1;
+    transition-delay: 0s;
+}
+
+.window-rain {
+    position: absolute;
+    inset: -22%;
+    opacity: 0.3;
+    background: repeating-linear-gradient(74deg, rgba(190, 215, 255, 0.11) 0 1px, transparent 1px 24px);
+    animation: window-rain 6s linear infinite;
+}
+
+@keyframes window-rain {
+    from { transform: translate3d(0, -10%, 0); }
+    to { transform: translate3d(-7%, 10%, 0); }
+}
+
+.window-fog {
+    position: absolute;
+    inset: 0;
+    filter: blur(2px);
+    background:
+        radial-gradient(58% 32% at 50% 42%, rgba(226, 236, 255, 0.13), transparent 72%),
+        radial-gradient(38% 26% at 20% 30%, rgba(226, 236, 255, 0.07), transparent 74%),
+        radial-gradient(40% 24% at 80% 26%, rgba(226, 236, 255, 0.05), transparent 74%);
+    animation: window-fog 13s ease-in-out infinite alternate;
+}
+
+@keyframes window-fog {
+    from { opacity: 0.7; transform: scale(1); }
+    to { opacity: 1; transform: scale(1.07); }
+}
+
+.window-bar-h {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 25%;
+    height: 10px;
+    background: linear-gradient(180deg, #3a352c, #1a1815 70%);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.09);
+}
+
+.window-bar-v {
+    position: absolute;
+    top: 0;
+    height: 25%;
+    left: 50%;
+    width: 10px;
+    transform: translateX(-50%);
+    background: linear-gradient(90deg, #3a352c, #1a1815 70%);
+    box-shadow: 4px 0 14px rgba(0, 0, 0, 0.6), inset 1px 0 0 rgba(255, 255, 255, 0.08);
+}
+
+.window-hand {
+    position: absolute;
+    left: 7%;
+    right: 7%;
+    top: 47%;
+    margin: 0;
+    font-family: var(--hand);
+    font-weight: 600;
+    font-size: clamp(1.55rem, 5.6vw, 2.45rem);
+    line-height: 1.15;
+    text-align: center;
+    color: rgba(233, 241, 255, 0.92);
+    text-shadow:
+        0 0 10px rgba(180, 208, 255, 0.55),
+        0 0 28px rgba(120, 160, 255, 0.3),
+        0 1px 0 rgba(0, 0, 0, 0.45);
+    transform: rotate(-2.2deg);
+}
+
+.night-window.is-ready .window-hand {
+    -webkit-mask-image: linear-gradient(90deg, #000 0 42%, rgba(0, 0, 0, 0.4) 52%, transparent 60%);
+    mask-image: linear-gradient(90deg, #000 0 42%, rgba(0, 0, 0, 0.4) 52%, transparent 60%);
+    -webkit-mask-size: 260% 100%;
+    mask-size: 260% 100%;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: 100% 0;
+    mask-position: 100% 0;
+}
+
+.night-window.is-ready.is-awake .window-hand {
+    /* Kısaltma yazımı küçültücüde bozuluyor, uzun yazım güvenli. */
+    animation-name: window-write;
+    animation-duration: 3.4s;
+    animation-delay: 0.7s;
+    animation-timing-function: cubic-bezier(0.35, 0.1, 0.3, 1);
+    animation-fill-mode: forwards;
+}
+
+@keyframes window-write {
+    from { -webkit-mask-position: 100% 0; mask-position: 100% 0; }
+    to { -webkit-mask-position: 0 0; mask-position: 0 0; }
+}
+
+.window-gleam {
+    position: absolute;
+    inset: 16px;
+    border-radius: 3px;
+    pointer-events: none;
+    background: linear-gradient(118deg, transparent 38%, rgba(255, 255, 255, 0.05) 46%, transparent 54%);
+}
+
+.window-sill {
+    display: block;
+    height: 13px;
+    margin: 0 -12px;
+    border-radius: 0 0 7px 7px;
+    background: linear-gradient(180deg, #231f1a, #0e0d0c);
+    box-shadow: 0 18px 34px rgba(0, 0, 0, 0.5);
+}
+
+.canvas-prose {
+    margin-top: 2rem;
+    color: var(--ink-soft);
+}
+
+.canvas-sign {
+    margin: clamp(2rem, 5vw, 3rem) 0 0;
+    font-family: var(--hand);
+    font-size: 2rem;
+    text-align: right;
+    color: var(--ink-faint);
+    transform: rotate(-3deg);
+}
+
+@media (max-width: 720px) {
+    .canvas-doodle-spiral,
+    .canvas-doodle-hatch,
+    .canvas-doodle-arrow {
+        display: none;
+    }
+
+    .canvas-doodle-moon {
+        bottom: 2%;
+        left: 1%;
+        width: 62px;
+        height: 62px;
+    }
+
+    .canvas-doodle-eye {
+        width: 72px;
+        height: 42px;
+        right: 2%;
+        bottom: -0.8rem;
+    }
+
+    .canvas-tape {
+        width: 62px;
+        height: 20px;
+    }
+
+    .canvas-note,
+    .canvas-sub {
+        font-size: 1.2rem;
+    }
+
+    .window-glass {
+        aspect-ratio: 4 / 4.2;
+    }
+
+    .window-frame {
+        padding: 12px;
+    }
+
+    .window-gleam {
+        inset: 12px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .window-rain,
+    .window-fog {
+        animation: none;
+    }
+
+    .canvas-stage.is-ready .canvas-doodle path,
+    .canvas-stage.is-ready .canvas-doodle circle {
+        stroke-dasharray: none;
+        stroke-dashoffset: 0;
+        animation: none;
+    }
+
+    .night-window.is-ready .window-hand,
+    .night-window.is-ready.is-awake .window-hand {
+        -webkit-mask-image: none;
+        mask-image: none;
+        animation: none;
+    }
+
+    .window-silhouette {
+        transition: none;
     }
 }

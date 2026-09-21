@@ -1,26 +1,650 @@
-<!doctype html><html lang=tr dir=auto data-theme=light><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>Fotoğrafın Nerede Çekildiğini Bulmak, EXIF ve OSINT ile Konum Analizi | kursadyanik.com</title><meta name=keywords content="fotoğrafın nerede çekildiğini bulmak,fotoğraf konum bulma,EXIF analizi,OSINT,fotoğraf konum analizi,EXIF temizleme"><meta name=description content="Bir fotoğrafın nerede çekildiğini EXIF verileri ve GPS koordinatlarıyla nasıl bulabileceğinizi, EXIF silindiğinde karede geriye ne kaldığını anlatıyorum."><meta name=author content><link rel=canonical href=https://kursadyanik.com/posts/fotografin-nerede-cekildigini-bulmak/><link crossorigin=anonymous href=/assets/css/stylesheet.1d4346839295915e219dee6c6b7d8512a8a4a8e692c435a57effb2398a6e371e.css integrity="sha256-HUNGg5KVkV4hne5sa32FEqikqOaSxDWlfv+yOYpuNx4=" rel="preload stylesheet" as=style><link rel=icon href=https://kursadyanik.com/favicon.ico><link rel=icon type=image/png sizes=16x16 href=https://kursadyanik.com/favicon.ico><link rel=icon type=image/png sizes=32x32 href=https://kursadyanik.com/favicon.ico><link rel=apple-touch-icon href=https://kursadyanik.com/favicon.ico><link rel=mask-icon href=https://kursadyanik.com/safari-pinned-tab.svg><meta name=theme-color content="#fafafa"><meta name=msapplication-TileColor content="#fafafa"><link rel=alternate hreflang=tr href=https://kursadyanik.com/posts/fotografin-nerede-cekildigini-bulmak/><noscript><style>#theme-toggle,.top-link{display:none}</style></noscript><script>localStorage.getItem("pref-theme")==="dark"&&(document.querySelector("html").dataset.theme="dark")</script><link rel=stylesheet href=https://kursadyanik.com/css/custom.min.4b0b387ee6aafd8173a97273357b25ea087c83ef170031a794fc82048585b5bb.css integrity="sha256-Sws4fuaq/YFzqXJzNXsl6gh8g+8XADGnlPyCBIWFtbs="><script type=application/ld+json>{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","acceptedAnswer":{"@type":"Answer","text":"Dosyanın EXIF verisi duruyorsa GPS koordinatı doğrudan orada yazar. exiftool ile okuyup Google Haritalar'a yapıştırmanız yeterli. EXIF silinmişse tabelalar, mimari, bitki örtüsü ve gölgelerin açısı gibi görsel ipuçlarından çıkarım yapılır."},"name":"Bir fotoğrafın nerede çekildiği nasıl bulunur?"},{"@type":"Question","acceptedAnswer":{"@type":"Answer","text":"Genelde kalmaz. Instagram, X, Facebook ve mesajlaşma uygulamaları yüklenen görseli yeniden işlerken EXIF bloğunu da temizler. Bu durumda geriye karenin kendisi kalır ve analiz bina, tabela, bitki örtüsü, gölge gibi ipuçları üzerinden yürür."},"name":"Sosyal medyadan indirilen fotoğraflarda EXIF bilgisi kalır mı?"},{"@type":"Question","acceptedAnswer":{"@type":"Answer","text":"Terminalde exiftool ve identify, tarayıcıda exif.tools gibi kurulum gerektirmeyen görüntüleyiciler, görsel arama tarafında ise Google Lens, Yandex Vision ve Picarta.ai işe yarar. Hiçbirinin çıktısını tek başına kesin kabul etmeyin, en az iki ayrı kaynakla doğrulayın."},"name":"Fotoğraf konum analizi için hangi araçlar kullanılabilir?"},{"@type":"Question","acceptedAnswer":{"@type":"Answer","text":"En pratik yol exiftool -all= dosya.jpg komutuyla tüm meta veriyi tek seferde silmek. Telefonlarda kamera ayarlarından konum etiketini kapatabilir, paylaşmadan önce ekran görüntüsü alarak da EXIF'i sıfırlayabilirsiniz. Ama bina, tabela ve manzara karede kalmaya devam eder."},"name":"Fotoğraflarımdaki EXIF ve konum bilgisini nasıl temizlerim?"}]}</script><meta property="og:url" content="https://kursadyanik.com/posts/fotografin-nerede-cekildigini-bulmak/"><meta property="og:site_name" content="kursadyanik.com"><meta property="og:title" content="Fotoğrafın Nerede Çekildiğini Bulmak, EXIF ve OSINT ile Konum Analizi"><meta property="og:description" content="Bir fotoğrafın nerede çekildiğini EXIF verileri ve GPS koordinatlarıyla nasıl bulabileceğinizi, EXIF silindiğinde karede geriye ne kaldığını anlatıyorum."><meta property="og:locale" content="tr_TR"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:published_time" content="2025-11-07T12:00:00+03:00"><meta property="article:modified_time" content="2026-09-21T12:00:00+03:00"><meta property="article:tag" content="OSINT"><meta property="article:tag" content="EXIF"><meta property="article:tag" content="Siber Güvenlik"><meta property="article:tag" content="Fotoğraf Analizi"><meta property="og:image" content="https://kursadyanik.com/images/resim1.jpg"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://kursadyanik.com/images/resim1.jpg"><meta name=twitter:title content="Fotoğrafın Nerede Çekildiğini Bulmak, EXIF ve OSINT ile Konum Analizi"><meta name=twitter:description content="Bir fotoğrafın nerede çekildiğini EXIF verileri ve GPS koordinatlarıyla nasıl bulabileceğinizi, EXIF silindiğinde karede geriye ne kaldığını anlatıyorum."><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Posts","item":"https://kursadyanik.com/posts/"},{"@type":"ListItem","position":2,"name":"Fotoğrafın Nerede Çekildiğini Bulmak, EXIF ve OSINT ile Konum Analizi","item":"https://kursadyanik.com/posts/fotografin-nerede-cekildigini-bulmak/"}]}</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Fotoğrafın Nerede Çekildiğini Bulmak, EXIF ve OSINT ile Konum Analizi","name":"Fotoğrafın Nerede Çekildiğini Bulmak, EXIF ve OSINT ile Konum Analizi","description":"Bir fotoğrafın nerede çekildiğini EXIF verileri ve GPS koordinatlarıyla nasıl bulabileceğinizi, EXIF silindiğinde karede geriye ne kaldığını anlatıyorum.","keywords":["fotoğrafın nerede çekildiğini bulmak","fotoğraf konum bulma","EXIF analizi","OSINT","fotoğraf konum analizi","EXIF temizleme"],"articleBody":"Bir fotoğrafın nerede çekildiğini bulmak dışarıdan bakınca dizi işi gibi görünür. Gerçekte çoğu zaman tek satırlık bir komutla biter. Asıl iş, o komut hiçbir şey döndürmediğinde başlar.\nBu ilk yazımda OSINT tarafında en sık sorulan şeylerden birini anlatmak istiyorum, bir fotoğrafın konumunu çıkarmayı. OSINT açık kaynak istihbaratı demek, yani herkese açık verilerden bilgi toplama işi. Önce dosyanın içinde kendiliğinden duran veriye bakacağız, sonra o veri silindiğinde karede geriye ne kaldığına.\nBir fotoğraf dosyası ne kadar bilgi taşır JPEG dosyası sadece piksel yığını değil. Çekim tarihi, koordinat, odak uzaklığı, zoom oranı, cihaz modeli, hangi modun açık hangisinin kapalı olduğu gibi onlarca alan görüntünün hemen başında durur. Bu alanların tamamına EXIF deniyor.\nTelefonların ve çoğu fotoğraf makinesinin içinde GPS alıcısı var. Konum servisi açıkken deklanşöre bastığınız anda cihaz koordinatı da bu bloğa yazıyor. Kimse size ayrıca sormuyor, çoğu cihazda varsayılan olarak açık geliyor.\nEXIF örneği ve fotoğrafın GPS konumunu bulma resim1.jpg dosyasının EXIF çıktısı şöyle görünüyor.\nFotoğraf bir Xiaomi Redmi Note 9 ile çekilmiş. Çekim tamamen otomatik modda yapılmış, HDR kapalı bırakılmış.\nAlan Değer Koordinatlar 37°33'11.74\" N, 36°55'12.27\" E Diyafram f/1.8 Enstantane 1/428 sn Odak uzaklığı 4,7 mm (35 mm karşılığı 28 mm) Beyaz dengesi otomatik Pozlama modu otomatik Ölçüm modu merkez ağırlıklı Dijital zoom 1x HDR kapalı Çekim zamanı 13 Aralık 2021, 16.23 (yerel saat) Çözünürlük 4000 × 2992 piksel İlk satır tek başına işi bitiriyor. O koordinatı Google Haritalar’ın arama kutusuna yapıştırdığınızda fotoğrafın çekildiği noktayı harita üzerinde görüyorsunuz. Sokak Görünümü’ne geçip karedeki binayla, ağaçla, yolun kıvrımıyla karşılaştırmak da doğrulamanın en hızlı yolu.\nGeri kalan satırlar da boş değil. Enstantane 1/428 saniye ve diyafram f/1.8 ise ortada bol ışık var demektir. Aralık ayında akşamüstü çekilmiş, yani günün son ışığına yetişmiş bir açık hava karesi. Odak uzaklığının 4,7 mm ve dijital zoomun 1x olması da karenin geniş açıyla, hiç yakınlaştırılmadan çekildiğini söylüyor. Yani çerçevede gördüğünüz şey cihazın durduğu yere gerçekten yakın. Tek bir alana bakıp karar vermek yerine alanları birbirine bakarak okumak gerekiyor.\nBu verilere ulaşmak için özel bir yazılım gerekmiyor.\nexiftool resim1.jpg Çıktı uzun olur. Yalnızca konumla ilgileniyorsanız daraltın.\nexiftool -gpslatitude -gpslongitude -gpsposition resim1.jpg Terminalle uğraşmak istemiyorsanız tarayıcıda çalışan araçlar da var. exif.tools gibi sitelere fotoğrafı sürükleyip bırakıyorsunuz, kurulum yok. Yalnız hassas bir fotoğrafı tanımadığınız bir siteye yüklemeden önce bir düşünün, o dosya artık sizin makinenizde değil.\nSosyal medyaya yüklenen fotoğrafta EXIF kalır mı Büyük ölçüde kalmıyor. Instagram, X, Facebook, WhatsApp, hepsi yüklediğiniz görseli yeniden işliyor ve bu sırada EXIF bloğunu da siliyor. Gerekçe olarak gizliliği gösteriyorlar ve bu doğru bir hamle.\nAma mesele burada bitmiyor. Meta veriyi silmek, fotoğrafın kendisini susturmuyor.\nEXIF silindiğinde görsel ipuçlarıyla konum analizi Koordinat gitse bile kare yerinde duruyor ve içinde konuşan çok şey var. Bina mimarisi, tabeladaki dil, trafik işaretleri, bitki örtüsü, arazinin şekli. Gökyüzünün rengi ve gölgelerin açısı bile bir yere oturuyor.\nTabelalar ve yazılar genelde en hızlı sonucu veriyor. Dükkân isimleri, sokak levhaları, plakalar, kullanılan alfabe, bunlar ülkeyi ve çoğu zaman şehri daraltıyor. Bir tabeladaki telefon numarasının alan kodu bile tek başına ili verebiliyor.\nMimari ve altyapı daha sessiz ama daha güvenilir. Çatı biçimleri, balkon tipleri, elektrik direklerinin şekli, bariyerler, yol çizgilerinin rengi ülkeden ülkeye gözle görülür biçimde değişir. Tabela değişir, elektrik direği kolay kolay değişmez.\nBitki örtüsü enlem ve mevsim hakkında fikir verir. Kar var mı, ağaçlar yapraklı mı, zeytin mi çam mı, kuraklık izi var mı.\nGölgeler saati ele veriyor. Gölgenin yönü ve uzunluğu, çekimin kabaca hangi saatte yapıldığını gösterir. SunCalc gibi araçlarla belirli bir tarih ve konum için güneşin açısını hesaplayıp karedeki gölgeyle karşılaştırabilirsiniz. Tutuyorsa elinizde ikinci bir doğrulama olur.\nTek bir ipucuyla karar vermeyin. Bu işin mantığı küçük parçaları üst üste koyup birbirine doğrulatmak. Üç ayrı ipucu aynı yeri gösteriyorsa konuşabilirsiniz. Sadece biri gösteriyorsa hâlâ tahmin yapıyorsunuzdur.\nYapay zekâ destekli görsel arama araçları Geospy, Picarta.ai, Google Lens ve Yandex Vision gibi araçlar karedeki nesneleri ve yerleri tanıyıp benzer görseller üzerinden tahmin üretiyor. En büyük avantajları erişilebilir olmaları, tarayıcıya fotoğrafı atıp sonucu görüyorsunuz.\nÇıktılarına olduğu gibi güvenmemek gerekiyor. Bu araçlar bazen şaşırtıcı isabetle doğru sokağı buluyor, bazen hiç alakasız bir ülkeyi gösteriyor ve ikisini de aynı kendinden emin tonla söylüyor. Verdiği yeri başka bir kaynakla doğrulamadan not almayın.\nİnsan gözünün hâlâ öne geçtiği yer de burası. Reddit’teki WhereIsThis topluluğu bu yüzden işe yarıyor. Bir fotoğrafı oraya bırakıp bu işi meraktan yapan yüzlerce göze açmak, çoğu araçtan daha hızlı sonuç verebiliyor.\nExifTool ve Identify aynı soruyu sormuyor İki araç arasındaki farkı tek cümleyle söyleyebilirim. ExifTool’a “bu dosya ne diyor?” diye sorarsınız, Identify’a “görüntünün kendisi ne söylüyor?” diye.\nExifTool dosyanın içindeki etiketleri okur. Nerede, neyle, ne zaman çekilmiş. Identify ise etiketlere hiç bakmadan piksellerin kendisini ölçer ve dosyanın nasıl kaydedildiğine dair bilgileri çıkarır. Sosyal medyadan indirilmiş, EXIF’i silinmiş bir fotoğrafta ilk araç susar, ikincisi konuşmaya devam eder.\nIdentify’ın gösterdiği, EXIF’te olmayan veriler Identify çıktısında ExifTool’da hiç göremeyeceğiniz iki tür bilgi var ve hiçbiri EXIF etiketi değil. Bir kısmı doğrudan piksellerden hesaplanıyor, bir kısmı da dosyanın nasıl kodlandığından okunuyor.\nPiksellerden hesaplananlar şunlar.\nAlan Ne söyler Channel statistics Her renk kanalının (R, G, B) ortalaması, standart sapması, çarpıklığı ve entropisi. Görüntünün kontrastı ve ton dağılımı hakkında fikir verir Entropy Bilgi yoğunluğunu ölçer. 0’a yakın değerler düz ve sade alanları, 1’e yakın değerler yüksek detayı gösterir. 0,9 civarı bir değer detay açısından zengin doğal bir sahne demektir Mean, median, standard deviation Görüntünün genel parlaklığı ve dinamik aralığı Signature Piksel verisinden üretilen SHA-256 tabanlı parmak izi. Tek bir piksel değişse imza tamamen değişir, dosyanın üzerinde oynanıp oynanmadığını anlamanın en hızlı yolu budur Dosyanın yapısından okunanlar da bunlar.\nAlan Ne söyler Quality JPEG’in niceleme tablolarından tahmin edilen sıkıştırma kalitesi. Örnekte 96 çıkıyor, yani görece az sıkıştırılmış bir dosya Sampling factor, interlace Renk alt örneklemesi ve satır tarama biçimi Gamma, chromaticity, rendering intent Renk profili, gama eğrisi, beyaz nokta ve renklerin farklı ekranlarda nasıl eşleneceği Kullanımı basit.\nidentify -verbose resim1.jpg Kısaltılmış çıktı şuna benziyor.\nImage: resim1.jpg Format: JPEG (Joint Photographic Experts Group JFIF format) Geometry: 4000x2992+0+0 Colorspace: sRGB Channel statistics: Red: mean: 118.4 standard deviation: 61.2 entropy: 0.94 Green: mean: 121.0 standard deviation: 58.7 entropy: 0.93 Blue: mean: 109.6 standard deviation: 63.1 entropy: 0.92 Quality: 96 Sampling factor: 2x2,1x1,1x1 Interlace: None Signature: 9e2f1c…c4a7 Bu değerler OSINT tarafında da işe yarıyor. Bir fotoğrafın yeniden kaydedildiğini, düzenlendiğini ya da üretilmiş olabileceğini çoğu zaman ilk ele veren şey buradaki istatistikler oluyor. Orijinal olduğu söylenen bir karede quality değerinin beklenenden düşük çıkması, dosyanın en az bir kez daha kaydedildiğini gösterir.\nSteganografi ve gömülü veriler Bazı dosyalarda görüntünün dışında da bir şeyler oluyor. strings ve binwalk ile dosyanın içine gömülmüş metinleri veya başka dosyaları arayabilirsiniz. CTF çözerken bu neredeyse refleks hâline geliyor.\nGizlenmiş veri şüphesi varsa steghide ve zsteg devreye giriyor. İlki JPEG ve BMP tarafında parola korumalı gömülü içeriği çıkarmaya çalışıyor, ikincisi PNG ve BMP dosyalarındaki LSB tekniklerini tarıyor. Sonuç çıkmaması içeride bir şey olmadığı anlamına gelmiyor, sadece bu araçların baktığı yerlerde olmadığı anlamına geliyor.\nNerede durmak gerekiyor Buraya kadar anlattıklarım kendi dijital ayak izinizi denetlemek, güvenlik araştırması yapmak, CTF çözmek veya paylaştığınız bir içeriğin ne kadar bilgi sızdırdığını görmek için değerli. Aynı teknikler bir kişiyi rızası dışında takip etmek için de kullanılabiliyor ve aradaki fark ince bir çizgi değil, kalın bir duvar.\nBirinin fotoğraflarından konumunu çıkarıp o kişiyi izlemek, taciz etmek veya ifşa etmek çoğu ülkede suç. Amaç farkındalık ve savunma olmalı. Kendi fotoğraflarınızı paylaşmadan önce EXIF’i temizleyin, kameranın konum etiketini kapatın ve karede arka planda ne göründüğüne bir kez bakın.\nTemizlemek için tek komut yeterli.\nexiftool -all= dosya.jpg Bu yazıdan tek bir şey alacaksanız şu olsun. Paylaşmadan önce kendi fotoğrafınıza bir kez exiftool çalıştırın. Ne kadarını gönüllü olarak verdiğinizi görmek, buradaki cümlelerin hepsinden daha ikna edici olacaktır.\nSık sorulan sorular Bir fotoğrafın nerede çekildiği nasıl bulunur? Dosyanın EXIF verisi duruyorsa GPS koordinatı doğrudan orada yazar. exiftool ile okuyup Google Haritalar’a yapıştırmanız yeterli. EXIF silinmişse tabelalar, mimari, bitki örtüsü ve gölgelerin açısı gibi görsel ipuçlarından çıkarım yapılır.\nSosyal medyadan indirilen fotoğraflarda EXIF bilgisi kalır mı? Genelde kalmaz. Instagram, X, Facebook ve mesajlaşma uygulamaları yüklenen görseli yeniden işlerken EXIF bloğunu da temizler. Bu durumda geriye karenin kendisi kalır ve analiz bina, tabela, bitki örtüsü, gölge gibi ipuçları üzerinden yürür.\nFotoğraf konum analizi için hangi araçlar kullanılabilir? Terminalde exiftool ve identify, tarayıcıda exif.tools gibi kurulum gerektirmeyen görüntüleyiciler, görsel arama tarafında ise Google Lens, Yandex Vision ve Picarta.ai işe yarar. Hiçbirinin çıktısını tek başına kesin kabul etmeyin, en az iki ayrı kaynakla doğrulayın.\nFotoğraflarımdaki EXIF ve konum bilgisini nasıl temizlerim? En pratik yol, exiftool -all= dosya.jpg komutuyla tüm meta veriyi tek seferde silmek. Telefonlarda kamera ayarlarından konum etiketini kapatabilir, paylaşmadan önce ekran görüntüsü alarak da EXIF’i sıfırlayabilirsiniz. Ama bina, tabela ve manzara karede kalmaya devam eder.\n","wordCount":"1412","inLanguage":"tr","image":"https://kursadyanik.com/images/resim1.jpg","datePublished":"2025-11-07T12:00:00+03:00","dateModified":"2026-09-21T12:00:00+03:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://kursadyanik.com/posts/fotografin-nerede-cekildigini-bulmak/"},"publisher":{"@type":"Organization","name":"kursadyanik.com","logo":{"@type":"ImageObject","url":"https://kursadyanik.com/favicon.ico"}}}</script></head><body id=top><header class=header><nav class=header-nav aria-label="Primary navigation"><div class=logo><a href=https://kursadyanik.com/ accesskey=h title="kursadyanik.com (Alt + H)">kursadyanik.com</a><div class=logo-switches><button type=button id=theme-toggle class=theme-toggle accesskey=t title="Gece / Gündüz modu (Alt + T)" aria-label="Gece veya gündüz moduna geç">
-<svg class="moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
-<svg class="sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button></div></div><ul id=menu class=menu><li><a href=https://kursadyanik.com/ title=Blog><span>Blog</span></a></li><li><a href=https://kursadyanik.com/about/ title=About><span>About</span></a></li><li><a href=https://kursadyanik.com/elsewhere/ title=Elsewhere><span>Elsewhere</span></a></li></ul></nav></header><main class=main><article class=post-single><header class=post-header><nav class=breadcrumbs role=navigation aria-label=Breadcrumb><a href=/>Ana Sayfa</a>
-<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"/></svg>
-<a href=/posts/>Posts</a>
-<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"/></svg></nav><h1 class="post-title entry-hint-parent">Fotoğrafın Nerede Çekildiğini Bulmak, EXIF ve OSINT ile Konum Analizi</h1><div class=post-description>Bir fotoğrafın nerede çekildiğini EXIF verileri ve GPS koordinatlarıyla nasıl bulabileceğinizi, EXIF silindiğinde karede geriye ne kaldığını anlatıyorum.</div><div class=post-meta><span title='2025-11-07 12:00:00 +0300 +03'>07.11.2025</span>&nbsp;·&nbsp;<span>7 dk</span></div></header><details class=toc><summary accesskey=c title="(Alt + C)"><span class=title>İçindekiler</span></summary><div class=inner><ul><li><a href=#bir-foto%c4%9fraf-dosyas%c4%b1-ne-kadar-bilgi-ta%c5%9f%c4%b1r aria-label="Bir fotoğraf dosyası ne kadar bilgi taşır">Bir fotoğraf dosyası ne kadar bilgi taşır</a></li><li><a href=#exif-%c3%b6rne%c4%9fi-ve-foto%c4%9fraf%c4%b1n-gps-konumunu-bulma aria-label="EXIF örneği ve fotoğrafın GPS konumunu bulma">EXIF örneği ve fotoğrafın GPS konumunu bulma</a></li><li><a href=#sosyal-medyaya-y%c3%bcklenen-foto%c4%9frafta-exif-kal%c4%b1r-m%c4%b1 aria-label="Sosyal medyaya yüklenen fotoğrafta EXIF kalır mı">Sosyal medyaya yüklenen fotoğrafta EXIF kalır mı</a></li><li><a href=#exif-silindi%c4%9finde-g%c3%b6rsel-ipu%c3%a7lar%c4%b1yla-konum-analizi aria-label="EXIF silindiğinde görsel ipuçlarıyla konum analizi">EXIF silindiğinde görsel ipuçlarıyla konum analizi</a></li><li><a href=#yapay-zek%c3%a2-destekli-g%c3%b6rsel-arama-ara%c3%a7lar%c4%b1 aria-label="Yapay zekâ destekli görsel arama araçları">Yapay zekâ destekli görsel arama araçları</a></li><li><a href=#exiftool-ve-identify-ayn%c4%b1-soruyu-sormuyor aria-label="ExifTool ve Identify aynı soruyu sormuyor">ExifTool ve Identify aynı soruyu sormuyor</a></li><li><a href=#identify%c4%b1n-g%c3%b6sterdi%c4%9fi-exifte-olmayan-veriler aria-label="Identify&rsquo;ın gösterdiği, EXIF&rsquo;te olmayan veriler">Identify&rsquo;ın gösterdiği, EXIF&rsquo;te olmayan veriler</a></li><li><a href=#steganografi-ve-g%c3%b6m%c3%bcl%c3%bc-veriler aria-label="Steganografi ve gömülü veriler">Steganografi ve gömülü veriler</a></li><li><a href=#nerede-durmak-gerekiyor aria-label="Nerede durmak gerekiyor">Nerede durmak gerekiyor</a></li><li><a href=#s%c4%b1k-sorulan-sorular aria-label="Sık sorulan sorular">Sık sorulan sorular</a><ul><li><a href=#bir-foto%c4%9fraf%c4%b1n-nerede-%c3%a7ekildi%c4%9fi-nas%c4%b1l-bulunur aria-label="Bir fotoğrafın nerede çekildiği nasıl bulunur?">Bir fotoğrafın nerede çekildiği nasıl bulunur?</a></li><li><a href=#sosyal-medyadan-indirilen-foto%c4%9fraflarda-exif-bilgisi-kal%c4%b1r-m%c4%b1 aria-label="Sosyal medyadan indirilen fotoğraflarda EXIF bilgisi kalır mı?">Sosyal medyadan indirilen fotoğraflarda EXIF bilgisi kalır mı?</a></li><li><a href=#foto%c4%9fraf-konum-analizi-i%c3%a7in-hangi-ara%c3%a7lar-kullan%c4%b1labilir aria-label="Fotoğraf konum analizi için hangi araçlar kullanılabilir?">Fotoğraf konum analizi için hangi araçlar kullanılabilir?</a></li><li><a href=#foto%c4%9fraflar%c4%b1mdaki-exif-ve-konum-bilgisini-nas%c4%b1l-temizlerim aria-label="Fotoğraflarımdaki EXIF ve konum bilgisini nasıl temizlerim?">Fotoğraflarımdaki EXIF ve konum bilgisini nasıl temizlerim?</a></li></ul></li></ul></div></details><div class="post-content md-content"><p>Bir fotoğrafın nerede çekildiğini bulmak dışarıdan bakınca dizi işi gibi görünür. Gerçekte çoğu zaman tek satırlık bir komutla biter. Asıl iş, o komut hiçbir şey döndürmediğinde başlar.</p><p>Bu ilk yazımda OSINT tarafında en sık sorulan şeylerden birini anlatmak istiyorum, bir fotoğrafın konumunu çıkarmayı. OSINT açık kaynak istihbaratı demek, yani herkese açık verilerden bilgi toplama işi. Önce dosyanın içinde kendiliğinden duran veriye bakacağız, sonra o veri silindiğinde karede geriye ne kaldığına.</p><h2 id=bir-fotoğraf-dosyası-ne-kadar-bilgi-taşır>Bir fotoğraf dosyası ne kadar bilgi taşır<a hidden class=anchor aria-hidden=true href=#bir-fotoğraf-dosyası-ne-kadar-bilgi-taşır>#</a></h2><p>JPEG dosyası sadece piksel yığını değil. Çekim tarihi, koordinat, odak uzaklığı, zoom oranı, cihaz modeli, hangi modun açık hangisinin kapalı olduğu gibi onlarca alan görüntünün hemen başında durur. Bu alanların tamamına EXIF deniyor.</p><p>Telefonların ve çoğu fotoğraf makinesinin içinde GPS alıcısı var. Konum servisi açıkken deklanşöre bastığınız anda cihaz koordinatı da bu bloğa yazıyor. Kimse size ayrıca sormuyor, çoğu cihazda varsayılan olarak açık geliyor.</p><h2 id=exif-örneği-ve-fotoğrafın-gps-konumunu-bulma>EXIF örneği ve fotoğrafın GPS konumunu bulma<a hidden class=anchor aria-hidden=true href=#exif-örneği-ve-fotoğrafın-gps-konumunu-bulma>#</a></h2><p><code>resim1.jpg</code> dosyasının EXIF çıktısı şöyle görünüyor.</p><p><img alt="Xiaomi Redmi Note 9 ile çekilmiş resim1.jpg fotoğrafının EXIF verileri ve GPS konum bilgisi" loading=lazy src=/images/resim1.jpg></p><p>Fotoğraf bir Xiaomi Redmi Note 9 ile çekilmiş. Çekim tamamen otomatik modda yapılmış, HDR kapalı bırakılmış.</p><table><thead><tr><th>Alan</th><th>Değer</th></tr></thead><tbody><tr><td>Koordinatlar</td><td>37°33'11.74" N, 36°55'12.27" E</td></tr><tr><td>Diyafram</td><td>f/1.8</td></tr><tr><td>Enstantane</td><td>1/428 sn</td></tr><tr><td>Odak uzaklığı</td><td>4,7 mm (35 mm karşılığı 28 mm)</td></tr><tr><td>Beyaz dengesi</td><td>otomatik</td></tr><tr><td>Pozlama modu</td><td>otomatik</td></tr><tr><td>Ölçüm modu</td><td>merkez ağırlıklı</td></tr><tr><td>Dijital zoom</td><td>1x</td></tr><tr><td>HDR</td><td>kapalı</td></tr><tr><td>Çekim zamanı</td><td>13 Aralık 2021, 16.23 (yerel saat)</td></tr><tr><td>Çözünürlük</td><td>4000 × 2992 piksel</td></tr></tbody></table><p>İlk satır tek başına işi bitiriyor. O koordinatı Google Haritalar&rsquo;ın arama kutusuna yapıştırdığınızda fotoğrafın çekildiği noktayı harita üzerinde görüyorsunuz. Sokak Görünümü&rsquo;ne geçip karedeki binayla, ağaçla, yolun kıvrımıyla karşılaştırmak da doğrulamanın en hızlı yolu.</p><p>Geri kalan satırlar da boş değil. Enstantane 1/428 saniye ve diyafram f/1.8 ise ortada bol ışık var demektir. Aralık ayında akşamüstü çekilmiş, yani günün son ışığına yetişmiş bir açık hava karesi. Odak uzaklığının 4,7 mm ve dijital zoomun 1x olması da karenin geniş açıyla, hiç yakınlaştırılmadan çekildiğini söylüyor. Yani çerçevede gördüğünüz şey cihazın durduğu yere gerçekten yakın. Tek bir alana bakıp karar vermek yerine alanları birbirine bakarak okumak gerekiyor.</p><p>Bu verilere ulaşmak için özel bir yazılım gerekmiyor.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>exiftool resim1.jpg
-</span></span></code></pre></div><p>Çıktı uzun olur. Yalnızca konumla ilgileniyorsanız daraltın.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>exiftool -gpslatitude -gpslongitude -gpsposition resim1.jpg
-</span></span></code></pre></div><p>Terminalle uğraşmak istemiyorsanız tarayıcıda çalışan araçlar da var. <a href=https://exif.tools/>exif.tools</a> gibi sitelere fotoğrafı sürükleyip bırakıyorsunuz, kurulum yok. Yalnız hassas bir fotoğrafı tanımadığınız bir siteye yüklemeden önce bir düşünün, o dosya artık sizin makinenizde değil.</p><h2 id=sosyal-medyaya-yüklenen-fotoğrafta-exif-kalır-mı>Sosyal medyaya yüklenen fotoğrafta EXIF kalır mı<a hidden class=anchor aria-hidden=true href=#sosyal-medyaya-yüklenen-fotoğrafta-exif-kalır-mı>#</a></h2><p>Büyük ölçüde kalmıyor. Instagram, X, Facebook, WhatsApp, hepsi yüklediğiniz görseli yeniden işliyor ve bu sırada EXIF bloğunu da siliyor. Gerekçe olarak gizliliği gösteriyorlar ve bu doğru bir hamle.</p><p>Ama mesele burada bitmiyor. Meta veriyi silmek, fotoğrafın kendisini susturmuyor.</p><h2 id=exif-silindiğinde-görsel-ipuçlarıyla-konum-analizi>EXIF silindiğinde görsel ipuçlarıyla konum analizi<a hidden class=anchor aria-hidden=true href=#exif-silindiğinde-görsel-ipuçlarıyla-konum-analizi>#</a></h2><p>Koordinat gitse bile kare yerinde duruyor ve içinde konuşan çok şey var. Bina mimarisi, tabeladaki dil, trafik işaretleri, bitki örtüsü, arazinin şekli. Gökyüzünün rengi ve gölgelerin açısı bile bir yere oturuyor.</p><p>Tabelalar ve yazılar genelde en hızlı sonucu veriyor. Dükkân isimleri, sokak levhaları, plakalar, kullanılan alfabe, bunlar ülkeyi ve çoğu zaman şehri daraltıyor. Bir tabeladaki telefon numarasının alan kodu bile tek başına ili verebiliyor.</p><p>Mimari ve altyapı daha sessiz ama daha güvenilir. Çatı biçimleri, balkon tipleri, elektrik direklerinin şekli, bariyerler, yol çizgilerinin rengi ülkeden ülkeye gözle görülür biçimde değişir. Tabela değişir, elektrik direği kolay kolay değişmez.</p><p>Bitki örtüsü enlem ve mevsim hakkında fikir verir. Kar var mı, ağaçlar yapraklı mı, zeytin mi çam mı, kuraklık izi var mı.</p><p>Gölgeler saati ele veriyor. Gölgenin yönü ve uzunluğu, çekimin kabaca hangi saatte yapıldığını gösterir. SunCalc gibi araçlarla belirli bir tarih ve konum için güneşin açısını hesaplayıp karedeki gölgeyle karşılaştırabilirsiniz. Tutuyorsa elinizde ikinci bir doğrulama olur.</p><p>Tek bir ipucuyla karar vermeyin. Bu işin mantığı küçük parçaları üst üste koyup birbirine doğrulatmak. Üç ayrı ipucu aynı yeri gösteriyorsa konuşabilirsiniz. Sadece biri gösteriyorsa hâlâ tahmin yapıyorsunuzdur.</p><h2 id=yapay-zekâ-destekli-görsel-arama-araçları>Yapay zekâ destekli görsel arama araçları<a hidden class=anchor aria-hidden=true href=#yapay-zekâ-destekli-görsel-arama-araçları>#</a></h2><p>Geospy, Picarta.ai, Google Lens ve Yandex Vision gibi araçlar karedeki nesneleri ve yerleri tanıyıp benzer görseller üzerinden tahmin üretiyor. En büyük avantajları erişilebilir olmaları, tarayıcıya fotoğrafı atıp sonucu görüyorsunuz.</p><p>Çıktılarına olduğu gibi güvenmemek gerekiyor. Bu araçlar bazen şaşırtıcı isabetle doğru sokağı buluyor, bazen hiç alakasız bir ülkeyi gösteriyor ve ikisini de aynı kendinden emin tonla söylüyor. Verdiği yeri başka bir kaynakla doğrulamadan not almayın.</p><p>İnsan gözünün hâlâ öne geçtiği yer de burası. Reddit&rsquo;teki WhereIsThis topluluğu bu yüzden işe yarıyor. Bir fotoğrafı oraya bırakıp bu işi meraktan yapan yüzlerce göze açmak, çoğu araçtan daha hızlı sonuç verebiliyor.</p><h2 id=exiftool-ve-identify-aynı-soruyu-sormuyor>ExifTool ve Identify aynı soruyu sormuyor<a hidden class=anchor aria-hidden=true href=#exiftool-ve-identify-aynı-soruyu-sormuyor>#</a></h2><p>İki araç arasındaki farkı tek cümleyle söyleyebilirim. ExifTool&rsquo;a &ldquo;bu dosya ne diyor?&rdquo; diye sorarsınız, Identify&rsquo;a &ldquo;görüntünün kendisi ne söylüyor?&rdquo; diye.</p><p>ExifTool dosyanın içindeki etiketleri okur. Nerede, neyle, ne zaman çekilmiş. Identify ise etiketlere hiç bakmadan piksellerin kendisini ölçer ve dosyanın nasıl kaydedildiğine dair bilgileri çıkarır. Sosyal medyadan indirilmiş, EXIF&rsquo;i silinmiş bir fotoğrafta ilk araç susar, ikincisi konuşmaya devam eder.</p><h2 id=identifyın-gösterdiği-exifte-olmayan-veriler>Identify&rsquo;ın gösterdiği, EXIF&rsquo;te olmayan veriler<a hidden class=anchor aria-hidden=true href=#identifyın-gösterdiği-exifte-olmayan-veriler>#</a></h2><p>Identify çıktısında ExifTool&rsquo;da hiç göremeyeceğiniz iki tür bilgi var ve hiçbiri EXIF etiketi değil. Bir kısmı doğrudan piksellerden hesaplanıyor, bir kısmı da dosyanın nasıl kodlandığından okunuyor.</p><p>Piksellerden hesaplananlar şunlar.</p><table><thead><tr><th>Alan</th><th>Ne söyler</th></tr></thead><tbody><tr><td>Channel statistics</td><td>Her renk kanalının (R, G, B) ortalaması, standart sapması, çarpıklığı ve entropisi. Görüntünün kontrastı ve ton dağılımı hakkında fikir verir</td></tr><tr><td>Entropy</td><td>Bilgi yoğunluğunu ölçer. 0&rsquo;a yakın değerler düz ve sade alanları, 1&rsquo;e yakın değerler yüksek detayı gösterir. 0,9 civarı bir değer detay açısından zengin doğal bir sahne demektir</td></tr><tr><td>Mean, median, standard deviation</td><td>Görüntünün genel parlaklığı ve dinamik aralığı</td></tr><tr><td>Signature</td><td>Piksel verisinden üretilen SHA-256 tabanlı parmak izi. Tek bir piksel değişse imza tamamen değişir, dosyanın üzerinde oynanıp oynanmadığını anlamanın en hızlı yolu budur</td></tr></tbody></table><p>Dosyanın yapısından okunanlar da bunlar.</p><table><thead><tr><th>Alan</th><th>Ne söyler</th></tr></thead><tbody><tr><td>Quality</td><td>JPEG&rsquo;in niceleme tablolarından tahmin edilen sıkıştırma kalitesi. Örnekte 96 çıkıyor, yani görece az sıkıştırılmış bir dosya</td></tr><tr><td>Sampling factor, interlace</td><td>Renk alt örneklemesi ve satır tarama biçimi</td></tr><tr><td>Gamma, chromaticity, rendering intent</td><td>Renk profili, gama eğrisi, beyaz nokta ve renklerin farklı ekranlarda nasıl eşleneceği</td></tr></tbody></table><p>Kullanımı basit.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>identify -verbose resim1.jpg
-</span></span></code></pre></div><p>Kısaltılmış çıktı şuna benziyor.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>Image: resim1.jpg
-</span></span><span style=display:flex><span>  Format: JPEG (Joint Photographic Experts Group JFIF format)
-</span></span><span style=display:flex><span>  Geometry: 4000x2992+0+0
-</span></span><span style=display:flex><span>  Colorspace: sRGB
-</span></span><span style=display:flex><span>  Channel statistics:
-</span></span><span style=display:flex><span>    Red:   mean: 118.4  standard deviation: 61.2  entropy: 0.94
-</span></span><span style=display:flex><span>    Green: mean: 121.0  standard deviation: 58.7  entropy: 0.93
-</span></span><span style=display:flex><span>    Blue:  mean: 109.6  standard deviation: 63.1  entropy: 0.92
-</span></span><span style=display:flex><span>  Quality: 96
-</span></span><span style=display:flex><span>  Sampling factor: 2x2,1x1,1x1
-</span></span><span style=display:flex><span>  Interlace: None
-</span></span><span style=display:flex><span>  Signature: 9e2f1c…c4a7
-</span></span></code></pre></div><p>Bu değerler OSINT tarafında da işe yarıyor. Bir fotoğrafın yeniden kaydedildiğini, düzenlendiğini ya da üretilmiş olabileceğini çoğu zaman ilk ele veren şey buradaki istatistikler oluyor. Orijinal olduğu söylenen bir karede quality değerinin beklenenden düşük çıkması, dosyanın en az bir kez daha kaydedildiğini gösterir.</p><h2 id=steganografi-ve-gömülü-veriler>Steganografi ve gömülü veriler<a hidden class=anchor aria-hidden=true href=#steganografi-ve-gömülü-veriler>#</a></h2><p>Bazı dosyalarda görüntünün dışında da bir şeyler oluyor. <code>strings</code> ve <code>binwalk</code> ile dosyanın içine gömülmüş metinleri veya başka dosyaları arayabilirsiniz. CTF çözerken bu neredeyse refleks hâline geliyor.</p><p>Gizlenmiş veri şüphesi varsa <code>steghide</code> ve <code>zsteg</code> devreye giriyor. İlki JPEG ve BMP tarafında parola korumalı gömülü içeriği çıkarmaya çalışıyor, ikincisi PNG ve BMP dosyalarındaki LSB tekniklerini tarıyor. Sonuç çıkmaması içeride bir şey olmadığı anlamına gelmiyor, sadece bu araçların baktığı yerlerde olmadığı anlamına geliyor.</p><h2 id=nerede-durmak-gerekiyor>Nerede durmak gerekiyor<a hidden class=anchor aria-hidden=true href=#nerede-durmak-gerekiyor>#</a></h2><p>Buraya kadar anlattıklarım kendi dijital ayak izinizi denetlemek, güvenlik araştırması yapmak, CTF çözmek veya paylaştığınız bir içeriğin ne kadar bilgi sızdırdığını görmek için değerli. Aynı teknikler bir kişiyi rızası dışında takip etmek için de kullanılabiliyor ve aradaki fark ince bir çizgi değil, kalın bir duvar.</p><p>Birinin fotoğraflarından konumunu çıkarıp o kişiyi izlemek, taciz etmek veya ifşa etmek çoğu ülkede suç. Amaç farkındalık ve savunma olmalı. Kendi fotoğraflarınızı paylaşmadan önce EXIF&rsquo;i temizleyin, kameranın konum etiketini kapatın ve karede arka planda ne göründüğüne bir kez bakın.</p><p>Temizlemek için tek komut yeterli.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>exiftool -all<span style=color:#f92672>=</span> dosya.jpg
-</span></span></code></pre></div><p>Bu yazıdan tek bir şey alacaksanız şu olsun. Paylaşmadan önce kendi fotoğrafınıza bir kez <code>exiftool</code> çalıştırın. Ne kadarını gönüllü olarak verdiğinizi görmek, buradaki cümlelerin hepsinden daha ikna edici olacaktır.</p><h2 id=sık-sorulan-sorular>Sık sorulan sorular<a hidden class=anchor aria-hidden=true href=#sık-sorulan-sorular>#</a></h2><h3 id=bir-fotoğrafın-nerede-çekildiği-nasıl-bulunur>Bir fotoğrafın nerede çekildiği nasıl bulunur?<a hidden class=anchor aria-hidden=true href=#bir-fotoğrafın-nerede-çekildiği-nasıl-bulunur>#</a></h3><p>Dosyanın EXIF verisi duruyorsa GPS koordinatı doğrudan orada yazar. <code>exiftool</code> ile okuyup Google Haritalar&rsquo;a yapıştırmanız yeterli. EXIF silinmişse tabelalar, mimari, bitki örtüsü ve gölgelerin açısı gibi görsel ipuçlarından çıkarım yapılır.</p><h3 id=sosyal-medyadan-indirilen-fotoğraflarda-exif-bilgisi-kalır-mı>Sosyal medyadan indirilen fotoğraflarda EXIF bilgisi kalır mı?<a hidden class=anchor aria-hidden=true href=#sosyal-medyadan-indirilen-fotoğraflarda-exif-bilgisi-kalır-mı>#</a></h3><p>Genelde kalmaz. Instagram, X, Facebook ve mesajlaşma uygulamaları yüklenen görseli yeniden işlerken EXIF bloğunu da temizler. Bu durumda geriye karenin kendisi kalır ve analiz bina, tabela, bitki örtüsü, gölge gibi ipuçları üzerinden yürür.</p><h3 id=fotoğraf-konum-analizi-için-hangi-araçlar-kullanılabilir>Fotoğraf konum analizi için hangi araçlar kullanılabilir?<a hidden class=anchor aria-hidden=true href=#fotoğraf-konum-analizi-için-hangi-araçlar-kullanılabilir>#</a></h3><p>Terminalde <code>exiftool</code> ve <code>identify</code>, tarayıcıda exif.tools gibi kurulum gerektirmeyen görüntüleyiciler, görsel arama tarafında ise Google Lens, Yandex Vision ve Picarta.ai işe yarar. Hiçbirinin çıktısını tek başına kesin kabul etmeyin, en az iki ayrı kaynakla doğrulayın.</p><h3 id=fotoğraflarımdaki-exif-ve-konum-bilgisini-nasıl-temizlerim>Fotoğraflarımdaki EXIF ve konum bilgisini nasıl temizlerim?<a hidden class=anchor aria-hidden=true href=#fotoğraflarımdaki-exif-ve-konum-bilgisini-nasıl-temizlerim>#</a></h3><p>En pratik yol, <code>exiftool -all= dosya.jpg</code> komutuyla tüm meta veriyi tek seferde silmek. Telefonlarda kamera ayarlarından konum etiketini kapatabilir, paylaşmadan önce ekran görüntüsü alarak da EXIF&rsquo;i sıfırlayabilirsiniz. Ama bina, tabela ve manzara karede kalmaya devam eder.</p></div><footer class=post-footer><ul class=post-tags><li><a href=https://kursadyanik.com/tags/osint/>OSINT</a></li><li><a href=https://kursadyanik.com/tags/exif/>EXIF</a></li><li><a href=https://kursadyanik.com/tags/siber-g%C3%BCvenlik/>Siber Güvenlik</a></li><li><a href=https://kursadyanik.com/tags/foto%C4%9Fraf-analizi/>Fotoğraf Analizi</a></li></ul><nav class=paginav><a class=prev href=https://kursadyanik.com/posts/instagram-hesabim-kapatildi-ne-yapabilirim/><span class=title>« Önceki</span>
-<span>Instagram Hesabım Kapatıldı, Ne Yapabilirim? (2026)</span></a></nav></footer></article></main><footer class=footer><div class=footer-inner><a class=footer-brand href=https://kursadyanik.com/ aria-label="kursadyanik.com ana sayfa">kursadyanik.com</a><div class=footer-meta>Hiçbir hakkı saklı değildir.</div><div class=footer-status data-system-status data-state=checking aria-live=polite><span class=status-live-light data-system-status-light aria-hidden=true></span>
-<span class=status-copy><span class=status-label>System Status</span>
-<span class=status-value data-system-status-value>Checking...</span></span></div></div></footer><a href=#top id=top-link class="top-link hidden" aria-label="go to top" title="Go to Top (Alt + G)" accesskey=g><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-up" aria-hidden="true"><polyline points="17 11 12 6 7 11"/><polyline points="17 18 12 13 7 18"/></svg>
-</a><script>(function(){var t,e=document.getElementById("menu");if(!e)return;t=localStorage.getItem("menu-scroll-position"),t&&(e.scrollLeft=parseInt(t,10)),e.onscroll=function(){localStorage.setItem("menu-scroll-position",e.scrollLeft)}})(),document.querySelectorAll('a[href^="#"]').forEach(function(e){e.addEventListener("click",function(e){var t=this.getAttribute("href").substr(1),n=document.querySelector("[id='"+decodeURIComponent(t)+"']");if(!n)return;e.preventDefault(),window.matchMedia("(prefers-reduced-motion: reduce)").matches?n.scrollIntoView():n.scrollIntoView({behavior:"smooth"}),t==="top"?history.replaceState(null,null," "):history.pushState(null,null,"#"+t)})})</script><script>(function(){var e=document.getElementById("top-link");if(!e)return;window.addEventListener("scroll",function(){var t=window.innerHeight;document.body.scrollTop>t||document.documentElement.scrollTop>t?e.classList.remove("hidden"):e.classList.add("hidden")},{passive:!0})})()</script><script>(function(){var e=document.getElementById("theme-toggle");if(!e)return;e.addEventListener("click",function(){var e=document.querySelector("html");e.dataset.theme==="dark"?(e.dataset.theme="light",localStorage.setItem("pref-theme","light")):(e.dataset.theme="dark",localStorage.setItem("pref-theme","dark"))})})()</script><script>(function(){var t,n,o,c,s=document.querySelector("[data-system-status]"),r=document.querySelector("[data-system-status-value]");if(!s||!r)return;t="Checking",o="checking",n=new Date,c=window.location.protocol==="http:"||window.location.protocol==="https:";function l(e){try{return new Intl.DateTimeFormat(document.documentElement.lang||"tr-TR",{hour:"2-digit",minute:"2-digit",second:"2-digit"}).format(e)}catch{return e.toLocaleTimeString()}}function i(){s.dataset.state=o,r.textContent=t+" · "+l(n),s.setAttribute("aria-label","System status: "+t+". Last check "+l(n))}function e(e,s){o=e,t=s,n=new Date,i()}async function a(){if(navigator.onLine===!1){e("offline","Offline");return}if(!c||typeof fetch=="undefined"||typeof AbortController=="undefined"){e("live","Live");return}var t,n=new AbortController,s=window.setTimeout(function(){n.abort()},4e3);try{t=await fetch(window.location.origin+"/",{method:"HEAD",cache:"no-store",signal:n.signal}),window.clearTimeout(s),e(t.status<500?"live":"limited",t.status<500?"Live":"Degraded")}catch{window.clearTimeout(s),e("offline","Offline")}}window.addEventListener("online",a),window.addEventListener("offline",function(){e("offline","Offline")}),i(),a(),window.setInterval(i,1e3),window.setInterval(a,3e4)})()</script><script>document.querySelectorAll("pre > code").forEach(function(e){var n=e.parentNode.parentNode,t=document.createElement("button");t.classList.add("copy-code"),t.innerHTML="Kopyala";function s(){t.innerHTML="Kopyalandı!",setTimeout(function(){t.innerHTML="Kopyala"},2e3)}if(t.addEventListener("click",function(){if("clipboard"in navigator){navigator.clipboard.writeText(e.textContent),s();return}var t=document.createRange(),n=window.getSelection();t.selectNodeContents(e),n.removeAllRanges(),n.addRange(t);try{document.execCommand("copy"),s()}catch{}n.removeRange(t)}),n.classList.contains("highlight"))n.appendChild(t);else if(n.parentNode.firstChild==n)return;else e.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName=="TABLE"?e.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(t):e.parentNode.appendChild(t)})</script><script defer src=/js/zoom.js></script></body></html>
+<!DOCTYPE html>
+<html lang="tr" dir="auto" data-theme="dark">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1414&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Fotoğrafın Nerede Çekildiğini Bulmak, EXIF ve OSINT ile Konum Analizi | kursadyanik.com</title>
+<meta name="keywords" content="fotoğrafın nerede çekildiğini bulmak, fotoğraf konum bulma, EXIF analizi, OSINT, fotoğraf konum analizi, EXIF temizleme">
+<meta name="description" content="Bir fotoğrafın nerede çekildiğini EXIF verileri ve GPS koordinatlarıyla nasıl bulabileceğinizi, EXIF silindiğinde karede geriye ne kaldığını anlatıyorum.">
+<meta name="author" content="">
+<link rel="canonical" href="http://localhost:1414/posts/fotografin-nerede-cekildigini-bulmak/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.1d4346839295915e219dee6c6b7d8512a8a4a8e692c435a57effb2398a6e371e.css" integrity="sha256-HUNGg5KVkV4hne5sa32FEqikqOaSxDWlfv&#43;yOYpuNx4=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1414/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1414/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1414/favicon.ico">
+<link rel="apple-touch-icon" href="http://localhost:1414/favicon.ico">
+<link rel="mask-icon" href="http://localhost:1414/safari-pinned-tab.svg">
+<meta name="theme-color" content="#0f0f10">
+<meta name="msapplication-TileColor" content="#0f0f10">
+<link rel="alternate" hreflang="tr" href="http://localhost:1414/posts/fotografin-nerede-cekildigini-bulmak/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "light") {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script><script>
+  (function () {
+    try {
+      if (!localStorage.getItem("dark-default-2026")) {
+        localStorage.setItem("dark-default-2026", "1");
+        localStorage.removeItem("pref-theme");
+        document.documentElement.dataset.theme = "dark";
+      }
+    } catch (e) {}
+  })();
+</script>
+<link rel="stylesheet" href="http://localhost:1414/css/custom.min.42728037cdc433a317e4fc18188b363c53228ed75803490cf1cbd36a05951de4.css" integrity="sha256-QnKAN83EM6MX5PwYGIs2PFMijtdYA0kM8cvTagWVHeQ=">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","acceptedAnswer":{"@type":"Answer","text":"Dosyanın EXIF verisi duruyorsa GPS koordinatı doğrudan orada yazar. exiftool ile okuyup Google Haritalar'a yapıştırmanız yeterli. EXIF silinmişse tabelalar, mimari, bitki örtüsü ve gölgelerin açısı gibi görsel ipuçlarından çıkarım yapılır."},"name":"Bir fotoğrafın nerede çekildiği nasıl bulunur?"},{"@type":"Question","acceptedAnswer":{"@type":"Answer","text":"Genelde kalmaz. Instagram, X, Facebook ve mesajlaşma uygulamaları yüklenen görseli yeniden işlerken EXIF bloğunu da temizler. Bu durumda geriye karenin kendisi kalır ve analiz bina, tabela, bitki örtüsü, gölge gibi ipuçları üzerinden yürür."},"name":"Sosyal medyadan indirilen fotoğraflarda EXIF bilgisi kalır mı?"},{"@type":"Question","acceptedAnswer":{"@type":"Answer","text":"Terminalde exiftool ve identify, tarayıcıda exif.tools gibi kurulum gerektirmeyen görüntüleyiciler, görsel arama tarafında ise Google Lens, Yandex Vision ve Picarta.ai işe yarar. Hiçbirinin çıktısını tek başına kesin kabul etmeyin, en az iki ayrı kaynakla doğrulayın."},"name":"Fotoğraf konum analizi için hangi araçlar kullanılabilir?"},{"@type":"Question","acceptedAnswer":{"@type":"Answer","text":"En pratik yol exiftool -all= dosya.jpg komutuyla tüm meta veriyi tek seferde silmek. Telefonlarda kamera ayarlarından konum etiketini kapatabilir, paylaşmadan önce ekran görüntüsü alarak da EXIF'i sıfırlayabilirsiniz. Ama bina, tabela ve manzara karede kalmaya devam eder."},"name":"Fotoğraflarımdaki EXIF ve konum bilgisini nasıl temizlerim?"}]}
+</script>
+<meta property="og:url" content="http://localhost:1414/posts/fotografin-nerede-cekildigini-bulmak/">
+  <meta property="og:site_name" content="kursadyanik.com">
+  <meta property="og:title" content="Fotoğrafın Nerede Çekildiğini Bulmak, EXIF ve OSINT ile Konum Analizi">
+  <meta property="og:description" content="Bir fotoğrafın nerede çekildiğini EXIF verileri ve GPS koordinatlarıyla nasıl bulabileceğinizi, EXIF silindiğinde karede geriye ne kaldığını anlatıyorum.">
+  <meta property="og:locale" content="tr_TR">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-11-07T12:00:00+03:00">
+    <meta property="article:modified_time" content="2026-09-21T12:00:00+03:00">
+    <meta property="article:tag" content="OSINT">
+    <meta property="article:tag" content="EXIF">
+    <meta property="article:tag" content="Siber Güvenlik">
+    <meta property="article:tag" content="Fotoğraf Analizi">
+      <meta property="og:image" content="http://localhost:1414/images/resim1.jpg">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="http://localhost:1414/images/resim1.jpg">
+  <meta name="twitter:title" content="Fotoğrafın Nerede Çekildiğini Bulmak, EXIF ve OSINT ile Konum Analizi">
+  <meta name="twitter:description" content="Bir fotoğrafın nerede çekildiğini EXIF verileri ve GPS koordinatlarıyla nasıl bulabileceğinizi, EXIF silindiğinde karede geriye ne kaldığını anlatıyorum.">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "http://localhost:1414/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Fotoğrafın Nerede Çekildiğini Bulmak, EXIF ve OSINT ile Konum Analizi",
+      "item": "http://localhost:1414/posts/fotografin-nerede-cekildigini-bulmak/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Fotoğrafın Nerede Çekildiğini Bulmak, EXIF ve OSINT ile Konum Analizi",
+  "name": "Fotoğrafın Nerede Çekildiğini Bulmak, EXIF ve OSINT ile Konum Analizi",
+  "description": "Bir fotoğrafın nerede çekildiğini EXIF verileri ve GPS koordinatlarıyla nasıl bulabileceğinizi, EXIF silindiğinde karede geriye ne kaldığını anlatıyorum.",
+  "keywords": [
+    "fotoğrafın nerede çekildiğini bulmak", "fotoğraf konum bulma", "EXIF analizi", "OSINT", "fotoğraf konum analizi", "EXIF temizleme"
+  ],
+  "articleBody": "Bir fotoğrafın nerede çekildiğini bulmak dışarıdan bakınca dizi işi gibi görünür. Gerçekte çoğu zaman tek satırlık bir komutla biter. Asıl iş, o komut hiçbir şey döndürmediğinde başlar.\nBu ilk yazımda OSINT tarafında en sık sorulan şeylerden birini anlatmak istiyorum, bir fotoğrafın konumunu çıkarmayı. OSINT açık kaynak istihbaratı demek, yani herkese açık verilerden bilgi toplama işi. Önce dosyanın içinde kendiliğinden duran veriye bakacağız, sonra o veri silindiğinde karede geriye ne kaldığına.\nBir fotoğraf dosyası ne kadar bilgi taşır JPEG dosyası sadece piksel yığını değil. Çekim tarihi, koordinat, odak uzaklığı, zoom oranı, cihaz modeli, hangi modun açık hangisinin kapalı olduğu gibi onlarca alan görüntünün hemen başında durur. Bu alanların tamamına EXIF deniyor.\nTelefonların ve çoğu fotoğraf makinesinin içinde GPS alıcısı var. Konum servisi açıkken deklanşöre bastığınız anda cihaz koordinatı da bu bloğa yazıyor. Kimse size ayrıca sormuyor, çoğu cihazda varsayılan olarak açık geliyor.\nEXIF örneği ve fotoğrafın GPS konumunu bulma resim1.jpg dosyasının EXIF çıktısı şöyle görünüyor.\nFotoğraf bir Xiaomi Redmi Note 9 ile çekilmiş. Çekim tamamen otomatik modda yapılmış, HDR kapalı bırakılmış.\nAlan Değer Koordinatlar 37°33'11.74\" N, 36°55'12.27\" E Diyafram f/1.8 Enstantane 1/428 sn Odak uzaklığı 4,7 mm (35 mm karşılığı 28 mm) Beyaz dengesi otomatik Pozlama modu otomatik Ölçüm modu merkez ağırlıklı Dijital zoom 1x HDR kapalı Çekim zamanı 13 Aralık 2021, 16.23 (yerel saat) Çözünürlük 4000 × 2992 piksel İlk satır tek başına işi bitiriyor. O koordinatı Google Haritalar’ın arama kutusuna yapıştırdığınızda fotoğrafın çekildiği noktayı harita üzerinde görüyorsunuz. Sokak Görünümü’ne geçip karedeki binayla, ağaçla, yolun kıvrımıyla karşılaştırmak da doğrulamanın en hızlı yolu.\nGeri kalan satırlar da boş değil. Enstantane 1/428 saniye ve diyafram f/1.8 ise ortada bol ışık var demektir. Aralık ayında akşamüstü çekilmiş, yani günün son ışığına yetişmiş bir açık hava karesi. Odak uzaklığının 4,7 mm ve dijital zoomun 1x olması da karenin geniş açıyla, hiç yakınlaştırılmadan çekildiğini söylüyor. Yani çerçevede gördüğünüz şey cihazın durduğu yere gerçekten yakın. Tek bir alana bakıp karar vermek yerine alanları birbirine bakarak okumak gerekiyor.\nBu verilere ulaşmak için özel bir yazılım gerekmiyor.\nexiftool resim1.jpg Çıktı uzun olur. Yalnızca konumla ilgileniyorsanız daraltın.\nexiftool -gpslatitude -gpslongitude -gpsposition resim1.jpg Terminalle uğraşmak istemiyorsanız tarayıcıda çalışan araçlar da var. exif.tools gibi sitelere fotoğrafı sürükleyip bırakıyorsunuz, kurulum yok. Yalnız hassas bir fotoğrafı tanımadığınız bir siteye yüklemeden önce bir düşünün, o dosya artık sizin makinenizde değil.\nSosyal medyaya yüklenen fotoğrafta EXIF kalır mı Büyük ölçüde kalmıyor. Instagram, X, Facebook, WhatsApp, hepsi yüklediğiniz görseli yeniden işliyor ve bu sırada EXIF bloğunu da siliyor. Gerekçe olarak gizliliği gösteriyorlar ve bu doğru bir hamle.\nAma mesele burada bitmiyor. Meta veriyi silmek, fotoğrafın kendisini susturmuyor.\nEXIF silindiğinde görsel ipuçlarıyla konum analizi Koordinat gitse bile kare yerinde duruyor ve içinde konuşan çok şey var. Bina mimarisi, tabeladaki dil, trafik işaretleri, bitki örtüsü, arazinin şekli. Gökyüzünün rengi ve gölgelerin açısı bile bir yere oturuyor.\nTabelalar ve yazılar genelde en hızlı sonucu veriyor. Dükkân isimleri, sokak levhaları, plakalar, kullanılan alfabe, bunlar ülkeyi ve çoğu zaman şehri daraltıyor. Bir tabeladaki telefon numarasının alan kodu bile tek başına ili verebiliyor.\nMimari ve altyapı daha sessiz ama daha güvenilir. Çatı biçimleri, balkon tipleri, elektrik direklerinin şekli, bariyerler, yol çizgilerinin rengi ülkeden ülkeye gözle görülür biçimde değişir. Tabela değişir, elektrik direği kolay kolay değişmez.\nBitki örtüsü enlem ve mevsim hakkında fikir verir. Kar var mı, ağaçlar yapraklı mı, zeytin mi çam mı, kuraklık izi var mı.\nGölgeler saati ele veriyor. Gölgenin yönü ve uzunluğu, çekimin kabaca hangi saatte yapıldığını gösterir. SunCalc gibi araçlarla belirli bir tarih ve konum için güneşin açısını hesaplayıp karedeki gölgeyle karşılaştırabilirsiniz. Tutuyorsa elinizde ikinci bir doğrulama olur.\nTek bir ipucuyla karar vermeyin. Bu işin mantığı küçük parçaları üst üste koyup birbirine doğrulatmak. Üç ayrı ipucu aynı yeri gösteriyorsa konuşabilirsiniz. Sadece biri gösteriyorsa hâlâ tahmin yapıyorsunuzdur.\nYapay zekâ destekli görsel arama araçları Geospy, Picarta.ai, Google Lens ve Yandex Vision gibi araçlar karedeki nesneleri ve yerleri tanıyıp benzer görseller üzerinden tahmin üretiyor. En büyük avantajları erişilebilir olmaları, tarayıcıya fotoğrafı atıp sonucu görüyorsunuz.\nÇıktılarına olduğu gibi güvenmemek gerekiyor. Bu araçlar bazen şaşırtıcı isabetle doğru sokağı buluyor, bazen hiç alakasız bir ülkeyi gösteriyor ve ikisini de aynı kendinden emin tonla söylüyor. Verdiği yeri başka bir kaynakla doğrulamadan not almayın.\nİnsan gözünün hâlâ öne geçtiği yer de burası. Reddit’teki WhereIsThis topluluğu bu yüzden işe yarıyor. Bir fotoğrafı oraya bırakıp bu işi meraktan yapan yüzlerce göze açmak, çoğu araçtan daha hızlı sonuç verebiliyor.\nExifTool ve Identify aynı soruyu sormuyor İki araç arasındaki farkı tek cümleyle söyleyebilirim. ExifTool’a “bu dosya ne diyor?” diye sorarsınız, Identify’a “görüntünün kendisi ne söylüyor?” diye.\nExifTool dosyanın içindeki etiketleri okur. Nerede, neyle, ne zaman çekilmiş. Identify ise etiketlere hiç bakmadan piksellerin kendisini ölçer ve dosyanın nasıl kaydedildiğine dair bilgileri çıkarır. Sosyal medyadan indirilmiş, EXIF’i silinmiş bir fotoğrafta ilk araç susar, ikincisi konuşmaya devam eder.\nIdentify’ın gösterdiği, EXIF’te olmayan veriler Identify çıktısında ExifTool’da hiç göremeyeceğiniz iki tür bilgi var ve hiçbiri EXIF etiketi değil. Bir kısmı doğrudan piksellerden hesaplanıyor, bir kısmı da dosyanın nasıl kodlandığından okunuyor.\nPiksellerden hesaplananlar şunlar.\nAlan Ne söyler Channel statistics Her renk kanalının (R, G, B) ortalaması, standart sapması, çarpıklığı ve entropisi. Görüntünün kontrastı ve ton dağılımı hakkında fikir verir Entropy Bilgi yoğunluğunu ölçer. 0’a yakın değerler düz ve sade alanları, 1’e yakın değerler yüksek detayı gösterir. 0,9 civarı bir değer detay açısından zengin doğal bir sahne demektir Mean, median, standard deviation Görüntünün genel parlaklığı ve dinamik aralığı Signature Piksel verisinden üretilen SHA-256 tabanlı parmak izi. Tek bir piksel değişse imza tamamen değişir, dosyanın üzerinde oynanıp oynanmadığını anlamanın en hızlı yolu budur Dosyanın yapısından okunanlar da bunlar.\nAlan Ne söyler Quality JPEG’in niceleme tablolarından tahmin edilen sıkıştırma kalitesi. Örnekte 96 çıkıyor, yani görece az sıkıştırılmış bir dosya Sampling factor, interlace Renk alt örneklemesi ve satır tarama biçimi Gamma, chromaticity, rendering intent Renk profili, gama eğrisi, beyaz nokta ve renklerin farklı ekranlarda nasıl eşleneceği Kullanımı basit.\nidentify -verbose resim1.jpg Kısaltılmış çıktı şuna benziyor.\nImage: resim1.jpg Format: JPEG (Joint Photographic Experts Group JFIF format) Geometry: 4000x2992+0+0 Colorspace: sRGB Channel statistics: Red: mean: 118.4 standard deviation: 61.2 entropy: 0.94 Green: mean: 121.0 standard deviation: 58.7 entropy: 0.93 Blue: mean: 109.6 standard deviation: 63.1 entropy: 0.92 Quality: 96 Sampling factor: 2x2,1x1,1x1 Interlace: None Signature: 9e2f1c…c4a7 Bu değerler OSINT tarafında da işe yarıyor. Bir fotoğrafın yeniden kaydedildiğini, düzenlendiğini ya da üretilmiş olabileceğini çoğu zaman ilk ele veren şey buradaki istatistikler oluyor. Orijinal olduğu söylenen bir karede quality değerinin beklenenden düşük çıkması, dosyanın en az bir kez daha kaydedildiğini gösterir.\nSteganografi ve gömülü veriler Bazı dosyalarda görüntünün dışında da bir şeyler oluyor. strings ve binwalk ile dosyanın içine gömülmüş metinleri veya başka dosyaları arayabilirsiniz. CTF çözerken bu neredeyse refleks hâline geliyor.\nGizlenmiş veri şüphesi varsa steghide ve zsteg devreye giriyor. İlki JPEG ve BMP tarafında parola korumalı gömülü içeriği çıkarmaya çalışıyor, ikincisi PNG ve BMP dosyalarındaki LSB tekniklerini tarıyor. Sonuç çıkmaması içeride bir şey olmadığı anlamına gelmiyor, sadece bu araçların baktığı yerlerde olmadığı anlamına geliyor.\nNerede durmak gerekiyor Buraya kadar anlattıklarım kendi dijital ayak izinizi denetlemek, güvenlik araştırması yapmak, CTF çözmek veya paylaştığınız bir içeriğin ne kadar bilgi sızdırdığını görmek için değerli. Aynı teknikler bir kişiyi rızası dışında takip etmek için de kullanılabiliyor ve aradaki fark ince bir çizgi değil, kalın bir duvar.\nBirinin fotoğraflarından konumunu çıkarıp o kişiyi izlemek, taciz etmek veya ifşa etmek çoğu ülkede suç. Amaç farkındalık ve savunma olmalı. Kendi fotoğraflarınızı paylaşmadan önce EXIF’i temizleyin, kameranın konum etiketini kapatın ve karede arka planda ne göründüğüne bir kez bakın.\nTemizlemek için tek komut yeterli.\nexiftool -all= dosya.jpg Bu yazıdan tek bir şey alacaksanız şu olsun. Paylaşmadan önce kendi fotoğrafınıza bir kez exiftool çalıştırın. Ne kadarını gönüllü olarak verdiğinizi görmek, buradaki cümlelerin hepsinden daha ikna edici olacaktır.\nSık sorulan sorular Bir fotoğrafın nerede çekildiği nasıl bulunur? Dosyanın EXIF verisi duruyorsa GPS koordinatı doğrudan orada yazar. exiftool ile okuyup Google Haritalar’a yapıştırmanız yeterli. EXIF silinmişse tabelalar, mimari, bitki örtüsü ve gölgelerin açısı gibi görsel ipuçlarından çıkarım yapılır.\nSosyal medyadan indirilen fotoğraflarda EXIF bilgisi kalır mı? Genelde kalmaz. Instagram, X, Facebook ve mesajlaşma uygulamaları yüklenen görseli yeniden işlerken EXIF bloğunu da temizler. Bu durumda geriye karenin kendisi kalır ve analiz bina, tabela, bitki örtüsü, gölge gibi ipuçları üzerinden yürür.\nFotoğraf konum analizi için hangi araçlar kullanılabilir? Terminalde exiftool ve identify, tarayıcıda exif.tools gibi kurulum gerektirmeyen görüntüleyiciler, görsel arama tarafında ise Google Lens, Yandex Vision ve Picarta.ai işe yarar. Hiçbirinin çıktısını tek başına kesin kabul etmeyin, en az iki ayrı kaynakla doğrulayın.\nFotoğraflarımdaki EXIF ve konum bilgisini nasıl temizlerim? En pratik yol, exiftool -all= dosya.jpg komutuyla tüm meta veriyi tek seferde silmek. Telefonlarda kamera ayarlarından konum etiketini kapatabilir, paylaşmadan önce ekran görüntüsü alarak da EXIF’i sıfırlayabilirsiniz. Ama bina, tabela ve manzara karede kalmaya devam eder.\n",
+  "wordCount" : "1412",
+  "inLanguage": "tr",
+  "image": "http://localhost:1414/images/resim1.jpg","datePublished": "2025-11-07T12:00:00+03:00",
+  "dateModified": "2026-09-21T12:00:00+03:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "http://localhost:1414/posts/fotografin-nerede-cekildigini-bulmak/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "kursadyanik.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "http://localhost:1414/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+<body id="top">
+    <header class="header">
+    <nav class="header-nav" aria-label="Primary navigation">
+        <div class="logo">
+            <a href="http://localhost:1414/" accesskey="h" title="kursadyanik.com (Alt + H)">kursadyanik.com</a>
+            <div class="logo-switches">
+                <button type="button" id="theme-toggle" class="theme-toggle" accesskey="t" title="Gece / Gündüz modu (Alt + T)" aria-label="Gece veya gündüz moduna geç">
+                    <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" aria-hidden="true">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg class="sun" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" aria-hidden="true">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu" class="menu">
+            <li>
+                <a href="http://localhost:1414/" title="Blog">
+                    <span>Blog</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1414/where-am-i/" title="where am i">
+                    <span>where am i</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1414/about/" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <nav class="breadcrumbs" role="navigation" aria-label="Breadcrumb">
+            <a href="/">Ana Sayfa</a>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+                <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+            <a href="/posts/">Posts</a>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+        <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+</nav>
+    <h1 class="post-title entry-hint-parent">
+      Fotoğrafın Nerede Çekildiğini Bulmak, EXIF ve OSINT ile Konum Analizi
+    </h1>
+    <div class="post-description">
+      Bir fotoğrafın nerede çekildiğini EXIF verileri ve GPS koordinatlarıyla nasıl bulabileceğinizi, EXIF silindiğinde karede geriye ne kaldığını anlatıyorum.
+    </div>
+    <div class="post-meta"><span title='2025-11-07 12:00:00 +0300 +03'>07.11.2025</span>&nbsp;·&nbsp;<span>7 dk</span>
+
+</div>
+  </header> <details class="toc" >
+    <summary accesskey="c" title="(Alt + C)">
+        <span class="title">İçindekiler</span>
+    </summary>
+
+    <div class="inner"><ul>
+            <li>
+                <a href="#bir-foto%c4%9fraf-dosyas%c4%b1-ne-kadar-bilgi-ta%c5%9f%c4%b1r" aria-label="Bir fotoğraf dosyası ne kadar bilgi taşır">Bir fotoğraf dosyası ne kadar bilgi taşır</a></li>
+            <li>
+                <a href="#exif-%c3%b6rne%c4%9fi-ve-foto%c4%9fraf%c4%b1n-gps-konumunu-bulma" aria-label="EXIF örneği ve fotoğrafın GPS konumunu bulma">EXIF örneği ve fotoğrafın GPS konumunu bulma</a></li>
+            <li>
+                <a href="#sosyal-medyaya-y%c3%bcklenen-foto%c4%9frafta-exif-kal%c4%b1r-m%c4%b1" aria-label="Sosyal medyaya yüklenen fotoğrafta EXIF kalır mı">Sosyal medyaya yüklenen fotoğrafta EXIF kalır mı</a></li>
+            <li>
+                <a href="#exif-silindi%c4%9finde-g%c3%b6rsel-ipu%c3%a7lar%c4%b1yla-konum-analizi" aria-label="EXIF silindiğinde görsel ipuçlarıyla konum analizi">EXIF silindiğinde görsel ipuçlarıyla konum analizi</a></li>
+            <li>
+                <a href="#yapay-zek%c3%a2-destekli-g%c3%b6rsel-arama-ara%c3%a7lar%c4%b1" aria-label="Yapay zekâ destekli görsel arama araçları">Yapay zekâ destekli görsel arama araçları</a></li>
+            <li>
+                <a href="#exiftool-ve-identify-ayn%c4%b1-soruyu-sormuyor" aria-label="ExifTool ve Identify aynı soruyu sormuyor">ExifTool ve Identify aynı soruyu sormuyor</a></li>
+            <li>
+                <a href="#identify%c4%b1n-g%c3%b6sterdi%c4%9fi-exifte-olmayan-veriler" aria-label="Identify&rsquo;ın gösterdiği, EXIF&rsquo;te olmayan veriler">Identify&rsquo;ın gösterdiği, EXIF&rsquo;te olmayan veriler</a></li>
+            <li>
+                <a href="#steganografi-ve-g%c3%b6m%c3%bcl%c3%bc-veriler" aria-label="Steganografi ve gömülü veriler">Steganografi ve gömülü veriler</a></li>
+            <li>
+                <a href="#nerede-durmak-gerekiyor" aria-label="Nerede durmak gerekiyor">Nerede durmak gerekiyor</a></li>
+            <li>
+                <a href="#s%c4%b1k-sorulan-sorular" aria-label="Sık sorulan sorular">Sık sorulan sorular</a><ul>
+                    
+            <li>
+                <a href="#bir-foto%c4%9fraf%c4%b1n-nerede-%c3%a7ekildi%c4%9fi-nas%c4%b1l-bulunur" aria-label="Bir fotoğrafın nerede çekildiği nasıl bulunur?">Bir fotoğrafın nerede çekildiği nasıl bulunur?</a></li>
+            <li>
+                <a href="#sosyal-medyadan-indirilen-foto%c4%9fraflarda-exif-bilgisi-kal%c4%b1r-m%c4%b1" aria-label="Sosyal medyadan indirilen fotoğraflarda EXIF bilgisi kalır mı?">Sosyal medyadan indirilen fotoğraflarda EXIF bilgisi kalır mı?</a></li>
+            <li>
+                <a href="#foto%c4%9fraf-konum-analizi-i%c3%a7in-hangi-ara%c3%a7lar-kullan%c4%b1labilir" aria-label="Fotoğraf konum analizi için hangi araçlar kullanılabilir?">Fotoğraf konum analizi için hangi araçlar kullanılabilir?</a></li>
+            <li>
+                <a href="#foto%c4%9fraflar%c4%b1mdaki-exif-ve-konum-bilgisini-nas%c4%b1l-temizlerim" aria-label="Fotoğraflarımdaki EXIF ve konum bilgisini nasıl temizlerim?">Fotoğraflarımdaki EXIF ve konum bilgisini nasıl temizlerim?</a>
+            </li>
+        </ul>
+        </li>
+        </ul>
+    </div>
+</details>
+
+  <div class="post-content md-content"><p>Bir fotoğrafın nerede çekildiğini bulmak dışarıdan bakınca dizi işi gibi görünür. Gerçekte çoğu zaman tek satırlık bir komutla biter. Asıl iş, o komut hiçbir şey döndürmediğinde başlar.</p>
+<p>Bu ilk yazımda OSINT tarafında en sık sorulan şeylerden birini anlatmak istiyorum, bir fotoğrafın konumunu çıkarmayı. OSINT açık kaynak istihbaratı demek, yani herkese açık verilerden bilgi toplama işi. Önce dosyanın içinde kendiliğinden duran veriye bakacağız, sonra o veri silindiğinde karede geriye ne kaldığına.</p>
+<h2 id="bir-fotoğraf-dosyası-ne-kadar-bilgi-taşır">Bir fotoğraf dosyası ne kadar bilgi taşır<a hidden class="anchor" aria-hidden="true" href="#bir-fotoğraf-dosyası-ne-kadar-bilgi-taşır">#</a></h2>
+<p>JPEG dosyası sadece piksel yığını değil. Çekim tarihi, koordinat, odak uzaklığı, zoom oranı, cihaz modeli, hangi modun açık hangisinin kapalı olduğu gibi onlarca alan görüntünün hemen başında durur. Bu alanların tamamına EXIF deniyor.</p>
+<p>Telefonların ve çoğu fotoğraf makinesinin içinde GPS alıcısı var. Konum servisi açıkken deklanşöre bastığınız anda cihaz koordinatı da bu bloğa yazıyor. Kimse size ayrıca sormuyor, çoğu cihazda varsayılan olarak açık geliyor.</p>
+<h2 id="exif-örneği-ve-fotoğrafın-gps-konumunu-bulma">EXIF örneği ve fotoğrafın GPS konumunu bulma<a hidden class="anchor" aria-hidden="true" href="#exif-örneği-ve-fotoğrafın-gps-konumunu-bulma">#</a></h2>
+<p><code>resim1.jpg</code> dosyasının EXIF çıktısı şöyle görünüyor.</p>
+<p><img alt="Xiaomi Redmi Note 9 ile çekilmiş resim1.jpg fotoğrafının EXIF verileri ve GPS konum bilgisi" loading="lazy" src="/images/resim1.jpg"></p>
+<p>Fotoğraf bir Xiaomi Redmi Note 9 ile çekilmiş. Çekim tamamen otomatik modda yapılmış, HDR kapalı bırakılmış.</p>
+<table>
+  <thead>
+      <tr>
+          <th>Alan</th>
+          <th>Değer</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Koordinatlar</td>
+          <td>37°33'11.74&quot; N, 36°55'12.27&quot; E</td>
+      </tr>
+      <tr>
+          <td>Diyafram</td>
+          <td>f/1.8</td>
+      </tr>
+      <tr>
+          <td>Enstantane</td>
+          <td>1/428 sn</td>
+      </tr>
+      <tr>
+          <td>Odak uzaklığı</td>
+          <td>4,7 mm (35 mm karşılığı 28 mm)</td>
+      </tr>
+      <tr>
+          <td>Beyaz dengesi</td>
+          <td>otomatik</td>
+      </tr>
+      <tr>
+          <td>Pozlama modu</td>
+          <td>otomatik</td>
+      </tr>
+      <tr>
+          <td>Ölçüm modu</td>
+          <td>merkez ağırlıklı</td>
+      </tr>
+      <tr>
+          <td>Dijital zoom</td>
+          <td>1x</td>
+      </tr>
+      <tr>
+          <td>HDR</td>
+          <td>kapalı</td>
+      </tr>
+      <tr>
+          <td>Çekim zamanı</td>
+          <td>13 Aralık 2021, 16.23 (yerel saat)</td>
+      </tr>
+      <tr>
+          <td>Çözünürlük</td>
+          <td>4000 × 2992 piksel</td>
+      </tr>
+  </tbody>
+</table>
+<p>İlk satır tek başına işi bitiriyor. O koordinatı Google Haritalar&rsquo;ın arama kutusuna yapıştırdığınızda fotoğrafın çekildiği noktayı harita üzerinde görüyorsunuz. Sokak Görünümü&rsquo;ne geçip karedeki binayla, ağaçla, yolun kıvrımıyla karşılaştırmak da doğrulamanın en hızlı yolu.</p>
+<p>Geri kalan satırlar da boş değil. Enstantane 1/428 saniye ve diyafram f/1.8 ise ortada bol ışık var demektir. Aralık ayında akşamüstü çekilmiş, yani günün son ışığına yetişmiş bir açık hava karesi. Odak uzaklığının 4,7 mm ve dijital zoomun 1x olması da karenin geniş açıyla, hiç yakınlaştırılmadan çekildiğini söylüyor. Yani çerçevede gördüğünüz şey cihazın durduğu yere gerçekten yakın. Tek bir alana bakıp karar vermek yerine alanları birbirine bakarak okumak gerekiyor.</p>
+<p>Bu verilere ulaşmak için özel bir yazılım gerekmiyor.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>exiftool resim1.jpg
+</span></span></code></pre></div><p>Çıktı uzun olur. Yalnızca konumla ilgileniyorsanız daraltın.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>exiftool -gpslatitude -gpslongitude -gpsposition resim1.jpg
+</span></span></code></pre></div><p>Terminalle uğraşmak istemiyorsanız tarayıcıda çalışan araçlar da var. <a href="https://exif.tools/">exif.tools</a> gibi sitelere fotoğrafı sürükleyip bırakıyorsunuz, kurulum yok. Yalnız hassas bir fotoğrafı tanımadığınız bir siteye yüklemeden önce bir düşünün, o dosya artık sizin makinenizde değil.</p>
+<h2 id="sosyal-medyaya-yüklenen-fotoğrafta-exif-kalır-mı">Sosyal medyaya yüklenen fotoğrafta EXIF kalır mı<a hidden class="anchor" aria-hidden="true" href="#sosyal-medyaya-yüklenen-fotoğrafta-exif-kalır-mı">#</a></h2>
+<p>Büyük ölçüde kalmıyor. Instagram, X, Facebook, WhatsApp, hepsi yüklediğiniz görseli yeniden işliyor ve bu sırada EXIF bloğunu da siliyor. Gerekçe olarak gizliliği gösteriyorlar ve bu doğru bir hamle.</p>
+<p>Ama mesele burada bitmiyor. Meta veriyi silmek, fotoğrafın kendisini susturmuyor.</p>
+<h2 id="exif-silindiğinde-görsel-ipuçlarıyla-konum-analizi">EXIF silindiğinde görsel ipuçlarıyla konum analizi<a hidden class="anchor" aria-hidden="true" href="#exif-silindiğinde-görsel-ipuçlarıyla-konum-analizi">#</a></h2>
+<p>Koordinat gitse bile kare yerinde duruyor ve içinde konuşan çok şey var. Bina mimarisi, tabeladaki dil, trafik işaretleri, bitki örtüsü, arazinin şekli. Gökyüzünün rengi ve gölgelerin açısı bile bir yere oturuyor.</p>
+<p>Tabelalar ve yazılar genelde en hızlı sonucu veriyor. Dükkân isimleri, sokak levhaları, plakalar, kullanılan alfabe, bunlar ülkeyi ve çoğu zaman şehri daraltıyor. Bir tabeladaki telefon numarasının alan kodu bile tek başına ili verebiliyor.</p>
+<p>Mimari ve altyapı daha sessiz ama daha güvenilir. Çatı biçimleri, balkon tipleri, elektrik direklerinin şekli, bariyerler, yol çizgilerinin rengi ülkeden ülkeye gözle görülür biçimde değişir. Tabela değişir, elektrik direği kolay kolay değişmez.</p>
+<p>Bitki örtüsü enlem ve mevsim hakkında fikir verir. Kar var mı, ağaçlar yapraklı mı, zeytin mi çam mı, kuraklık izi var mı.</p>
+<p>Gölgeler saati ele veriyor. Gölgenin yönü ve uzunluğu, çekimin kabaca hangi saatte yapıldığını gösterir. SunCalc gibi araçlarla belirli bir tarih ve konum için güneşin açısını hesaplayıp karedeki gölgeyle karşılaştırabilirsiniz. Tutuyorsa elinizde ikinci bir doğrulama olur.</p>
+<p>Tek bir ipucuyla karar vermeyin. Bu işin mantığı küçük parçaları üst üste koyup birbirine doğrulatmak. Üç ayrı ipucu aynı yeri gösteriyorsa konuşabilirsiniz. Sadece biri gösteriyorsa hâlâ tahmin yapıyorsunuzdur.</p>
+<h2 id="yapay-zekâ-destekli-görsel-arama-araçları">Yapay zekâ destekli görsel arama araçları<a hidden class="anchor" aria-hidden="true" href="#yapay-zekâ-destekli-görsel-arama-araçları">#</a></h2>
+<p>Geospy, Picarta.ai, Google Lens ve Yandex Vision gibi araçlar karedeki nesneleri ve yerleri tanıyıp benzer görseller üzerinden tahmin üretiyor. En büyük avantajları erişilebilir olmaları, tarayıcıya fotoğrafı atıp sonucu görüyorsunuz.</p>
+<p>Çıktılarına olduğu gibi güvenmemek gerekiyor. Bu araçlar bazen şaşırtıcı isabetle doğru sokağı buluyor, bazen hiç alakasız bir ülkeyi gösteriyor ve ikisini de aynı kendinden emin tonla söylüyor. Verdiği yeri başka bir kaynakla doğrulamadan not almayın.</p>
+<p>İnsan gözünün hâlâ öne geçtiği yer de burası. Reddit&rsquo;teki WhereIsThis topluluğu bu yüzden işe yarıyor. Bir fotoğrafı oraya bırakıp bu işi meraktan yapan yüzlerce göze açmak, çoğu araçtan daha hızlı sonuç verebiliyor.</p>
+<h2 id="exiftool-ve-identify-aynı-soruyu-sormuyor">ExifTool ve Identify aynı soruyu sormuyor<a hidden class="anchor" aria-hidden="true" href="#exiftool-ve-identify-aynı-soruyu-sormuyor">#</a></h2>
+<p>İki araç arasındaki farkı tek cümleyle söyleyebilirim. ExifTool&rsquo;a &ldquo;bu dosya ne diyor?&rdquo; diye sorarsınız, Identify&rsquo;a &ldquo;görüntünün kendisi ne söylüyor?&rdquo; diye.</p>
+<p>ExifTool dosyanın içindeki etiketleri okur. Nerede, neyle, ne zaman çekilmiş. Identify ise etiketlere hiç bakmadan piksellerin kendisini ölçer ve dosyanın nasıl kaydedildiğine dair bilgileri çıkarır. Sosyal medyadan indirilmiş, EXIF&rsquo;i silinmiş bir fotoğrafta ilk araç susar, ikincisi konuşmaya devam eder.</p>
+<h2 id="identifyın-gösterdiği-exifte-olmayan-veriler">Identify&rsquo;ın gösterdiği, EXIF&rsquo;te olmayan veriler<a hidden class="anchor" aria-hidden="true" href="#identifyın-gösterdiği-exifte-olmayan-veriler">#</a></h2>
+<p>Identify çıktısında ExifTool&rsquo;da hiç göremeyeceğiniz iki tür bilgi var ve hiçbiri EXIF etiketi değil. Bir kısmı doğrudan piksellerden hesaplanıyor, bir kısmı da dosyanın nasıl kodlandığından okunuyor.</p>
+<p>Piksellerden hesaplananlar şunlar.</p>
+<table>
+  <thead>
+      <tr>
+          <th>Alan</th>
+          <th>Ne söyler</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Channel statistics</td>
+          <td>Her renk kanalının (R, G, B) ortalaması, standart sapması, çarpıklığı ve entropisi. Görüntünün kontrastı ve ton dağılımı hakkında fikir verir</td>
+      </tr>
+      <tr>
+          <td>Entropy</td>
+          <td>Bilgi yoğunluğunu ölçer. 0&rsquo;a yakın değerler düz ve sade alanları, 1&rsquo;e yakın değerler yüksek detayı gösterir. 0,9 civarı bir değer detay açısından zengin doğal bir sahne demektir</td>
+      </tr>
+      <tr>
+          <td>Mean, median, standard deviation</td>
+          <td>Görüntünün genel parlaklığı ve dinamik aralığı</td>
+      </tr>
+      <tr>
+          <td>Signature</td>
+          <td>Piksel verisinden üretilen SHA-256 tabanlı parmak izi. Tek bir piksel değişse imza tamamen değişir, dosyanın üzerinde oynanıp oynanmadığını anlamanın en hızlı yolu budur</td>
+      </tr>
+  </tbody>
+</table>
+<p>Dosyanın yapısından okunanlar da bunlar.</p>
+<table>
+  <thead>
+      <tr>
+          <th>Alan</th>
+          <th>Ne söyler</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Quality</td>
+          <td>JPEG&rsquo;in niceleme tablolarından tahmin edilen sıkıştırma kalitesi. Örnekte 96 çıkıyor, yani görece az sıkıştırılmış bir dosya</td>
+      </tr>
+      <tr>
+          <td>Sampling factor, interlace</td>
+          <td>Renk alt örneklemesi ve satır tarama biçimi</td>
+      </tr>
+      <tr>
+          <td>Gamma, chromaticity, rendering intent</td>
+          <td>Renk profili, gama eğrisi, beyaz nokta ve renklerin farklı ekranlarda nasıl eşleneceği</td>
+      </tr>
+  </tbody>
+</table>
+<p>Kullanımı basit.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>identify -verbose resim1.jpg
+</span></span></code></pre></div><p>Kısaltılmış çıktı şuna benziyor.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>Image: resim1.jpg
+</span></span><span style="display:flex;"><span>  Format: JPEG (Joint Photographic Experts Group JFIF format)
+</span></span><span style="display:flex;"><span>  Geometry: 4000x2992+0+0
+</span></span><span style="display:flex;"><span>  Colorspace: sRGB
+</span></span><span style="display:flex;"><span>  Channel statistics:
+</span></span><span style="display:flex;"><span>    Red:   mean: 118.4  standard deviation: 61.2  entropy: 0.94
+</span></span><span style="display:flex;"><span>    Green: mean: 121.0  standard deviation: 58.7  entropy: 0.93
+</span></span><span style="display:flex;"><span>    Blue:  mean: 109.6  standard deviation: 63.1  entropy: 0.92
+</span></span><span style="display:flex;"><span>  Quality: 96
+</span></span><span style="display:flex;"><span>  Sampling factor: 2x2,1x1,1x1
+</span></span><span style="display:flex;"><span>  Interlace: None
+</span></span><span style="display:flex;"><span>  Signature: 9e2f1c…c4a7
+</span></span></code></pre></div><p>Bu değerler OSINT tarafında da işe yarıyor. Bir fotoğrafın yeniden kaydedildiğini, düzenlendiğini ya da üretilmiş olabileceğini çoğu zaman ilk ele veren şey buradaki istatistikler oluyor. Orijinal olduğu söylenen bir karede quality değerinin beklenenden düşük çıkması, dosyanın en az bir kez daha kaydedildiğini gösterir.</p>
+<h2 id="steganografi-ve-gömülü-veriler">Steganografi ve gömülü veriler<a hidden class="anchor" aria-hidden="true" href="#steganografi-ve-gömülü-veriler">#</a></h2>
+<p>Bazı dosyalarda görüntünün dışında da bir şeyler oluyor. <code>strings</code> ve <code>binwalk</code> ile dosyanın içine gömülmüş metinleri veya başka dosyaları arayabilirsiniz. CTF çözerken bu neredeyse refleks hâline geliyor.</p>
+<p>Gizlenmiş veri şüphesi varsa <code>steghide</code> ve <code>zsteg</code> devreye giriyor. İlki JPEG ve BMP tarafında parola korumalı gömülü içeriği çıkarmaya çalışıyor, ikincisi PNG ve BMP dosyalarındaki LSB tekniklerini tarıyor. Sonuç çıkmaması içeride bir şey olmadığı anlamına gelmiyor, sadece bu araçların baktığı yerlerde olmadığı anlamına geliyor.</p>
+<h2 id="nerede-durmak-gerekiyor">Nerede durmak gerekiyor<a hidden class="anchor" aria-hidden="true" href="#nerede-durmak-gerekiyor">#</a></h2>
+<p>Buraya kadar anlattıklarım kendi dijital ayak izinizi denetlemek, güvenlik araştırması yapmak, CTF çözmek veya paylaştığınız bir içeriğin ne kadar bilgi sızdırdığını görmek için değerli. Aynı teknikler bir kişiyi rızası dışında takip etmek için de kullanılabiliyor ve aradaki fark ince bir çizgi değil, kalın bir duvar.</p>
+<p>Birinin fotoğraflarından konumunu çıkarıp o kişiyi izlemek, taciz etmek veya ifşa etmek çoğu ülkede suç. Amaç farkındalık ve savunma olmalı. Kendi fotoğraflarınızı paylaşmadan önce EXIF&rsquo;i temizleyin, kameranın konum etiketini kapatın ve karede arka planda ne göründüğüne bir kez bakın.</p>
+<p>Temizlemek için tek komut yeterli.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>exiftool -all<span style="color:#f92672">=</span> dosya.jpg
+</span></span></code></pre></div><p>Bu yazıdan tek bir şey alacaksanız şu olsun. Paylaşmadan önce kendi fotoğrafınıza bir kez <code>exiftool</code> çalıştırın. Ne kadarını gönüllü olarak verdiğinizi görmek, buradaki cümlelerin hepsinden daha ikna edici olacaktır.</p>
+<h2 id="sık-sorulan-sorular">Sık sorulan sorular<a hidden class="anchor" aria-hidden="true" href="#sık-sorulan-sorular">#</a></h2>
+<h3 id="bir-fotoğrafın-nerede-çekildiği-nasıl-bulunur">Bir fotoğrafın nerede çekildiği nasıl bulunur?<a hidden class="anchor" aria-hidden="true" href="#bir-fotoğrafın-nerede-çekildiği-nasıl-bulunur">#</a></h3>
+<p>Dosyanın EXIF verisi duruyorsa GPS koordinatı doğrudan orada yazar. <code>exiftool</code> ile okuyup Google Haritalar&rsquo;a yapıştırmanız yeterli. EXIF silinmişse tabelalar, mimari, bitki örtüsü ve gölgelerin açısı gibi görsel ipuçlarından çıkarım yapılır.</p>
+<h3 id="sosyal-medyadan-indirilen-fotoğraflarda-exif-bilgisi-kalır-mı">Sosyal medyadan indirilen fotoğraflarda EXIF bilgisi kalır mı?<a hidden class="anchor" aria-hidden="true" href="#sosyal-medyadan-indirilen-fotoğraflarda-exif-bilgisi-kalır-mı">#</a></h3>
+<p>Genelde kalmaz. Instagram, X, Facebook ve mesajlaşma uygulamaları yüklenen görseli yeniden işlerken EXIF bloğunu da temizler. Bu durumda geriye karenin kendisi kalır ve analiz bina, tabela, bitki örtüsü, gölge gibi ipuçları üzerinden yürür.</p>
+<h3 id="fotoğraf-konum-analizi-için-hangi-araçlar-kullanılabilir">Fotoğraf konum analizi için hangi araçlar kullanılabilir?<a hidden class="anchor" aria-hidden="true" href="#fotoğraf-konum-analizi-için-hangi-araçlar-kullanılabilir">#</a></h3>
+<p>Terminalde <code>exiftool</code> ve <code>identify</code>, tarayıcıda exif.tools gibi kurulum gerektirmeyen görüntüleyiciler, görsel arama tarafında ise Google Lens, Yandex Vision ve Picarta.ai işe yarar. Hiçbirinin çıktısını tek başına kesin kabul etmeyin, en az iki ayrı kaynakla doğrulayın.</p>
+<h3 id="fotoğraflarımdaki-exif-ve-konum-bilgisini-nasıl-temizlerim">Fotoğraflarımdaki EXIF ve konum bilgisini nasıl temizlerim?<a hidden class="anchor" aria-hidden="true" href="#fotoğraflarımdaki-exif-ve-konum-bilgisini-nasıl-temizlerim">#</a></h3>
+<p>En pratik yol, <code>exiftool -all= dosya.jpg</code> komutuyla tüm meta veriyi tek seferde silmek. Telefonlarda kamera ayarlarından konum etiketini kapatabilir, paylaşmadan önce ekran görüntüsü alarak da EXIF&rsquo;i sıfırlayabilirsiniz. Ama bina, tabela ve manzara karede kalmaya devam eder.</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="http://localhost:1414/tags/osint/">OSINT</a></li>
+      <li><a href="http://localhost:1414/tags/exif/">EXIF</a></li>
+      <li><a href="http://localhost:1414/tags/siber-g%C3%BCvenlik/">Siber Güvenlik</a></li>
+      <li><a href="http://localhost:1414/tags/foto%C4%9Fraf-analizi/">Fotoğraf Analizi</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="http://localhost:1414/posts/instagram-hesabim-kapatildi-ne-yapabilirim/">
+    <span class="title">« Önceki</span>
+    <span>Instagram Hesabım Kapatıldı, Ne Yapabilirim? (2026)</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <div class="footer-inner">
+        <a class="footer-brand" href="http://localhost:1414/" aria-label="kursadyanik.com ana sayfa">
+            kursadyanik.com
+        </a>
+        <div class="footer-meta">
+            Hiçbir hakkı saklı değildir.
+        </div>
+        <div class="footer-status" data-system-status data-state="checking" aria-live="polite">
+            <span class="status-live-light" data-system-status-light aria-hidden="true"></span>
+            <span class="status-copy">
+                <span class="status-label">System Status</span>
+                <span class="status-value" data-system-status-value>Checking...</span>
+            </span>
+        </div>
+    </div>
+</footer>
+<a href="#top" id="top-link" class="top-link hidden" aria-label="go to top" title="Go to Top (Alt + G)" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-up" aria-hidden="true">
+        <polyline points="17 11 12 6 7 11"></polyline>
+        <polyline points="17 18 12 13 7 18"></polyline>
+    </svg>
+</a>
+
+<script>
+    (function () {
+        var menu = document.getElementById("menu");
+        if (!menu) return;
+
+        var scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        };
+    })();
+
+    document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
+        anchor.addEventListener("click", function (event) {
+            var id = this.getAttribute("href").substr(1);
+            var target = document.querySelector("[id='" + decodeURIComponent(id) + "']");
+            if (!target) return;
+
+            event.preventDefault();
+            if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+                target.scrollIntoView({ behavior: "smooth" });
+            } else {
+                target.scrollIntoView();
+            }
+
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, "#" + id);
+            }
+        });
+    });
+</script>
+<script>
+    (function () {
+        var toplink = document.getElementById("top-link");
+        if (!toplink) return;
+
+        window.addEventListener("scroll", function () {
+            var scrollThreshold = window.innerHeight;
+            if (document.body.scrollTop > scrollThreshold || document.documentElement.scrollTop > scrollThreshold) {
+                toplink.classList.remove("hidden");
+            } else {
+                toplink.classList.add("hidden");
+            }
+        }, { passive: true });
+    })();
+</script>
+<script>
+    (function () {
+        var themeToggle = document.getElementById("theme-toggle");
+        if (!themeToggle) return;
+
+        themeToggle.addEventListener("click", function () {
+            var html = document.querySelector("html");
+            if (html.dataset.theme === "dark") {
+                html.dataset.theme = "light";
+                localStorage.setItem("pref-theme", "light");
+            } else {
+                html.dataset.theme = "dark";
+                localStorage.setItem("pref-theme", "dark");
+            }
+        });
+    })();
+</script>
+
+<script>
+    (function () {
+        var status = document.querySelector("[data-system-status]");
+        var value = document.querySelector("[data-system-status-value]");
+        if (!status || !value) return;
+
+        var label = "Checking";
+        var state = "checking";
+        var lastChecked = new Date();
+        var canProbe = window.location.protocol === "http:" || window.location.protocol === "https:";
+
+        function formatTime(date) {
+            try {
+                return new Intl.DateTimeFormat(document.documentElement.lang || "tr-TR", {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    second: "2-digit"
+                }).format(date);
+            } catch (error) {
+                return date.toLocaleTimeString();
+            }
+        }
+
+        function render() {
+            status.dataset.state = state;
+            value.textContent = label + " · " + formatTime(lastChecked);
+            status.setAttribute("aria-label", "System status: " + label + ". Last check " + formatTime(lastChecked));
+        }
+
+        function setStatus(nextState, nextLabel) {
+            state = nextState;
+            label = nextLabel;
+            lastChecked = new Date();
+            render();
+        }
+
+        async function probe() {
+            if (navigator.onLine === false) {
+                setStatus("offline", "Offline");
+                return;
+            }
+
+            if (!canProbe || typeof fetch === "undefined" || typeof AbortController === "undefined") {
+                setStatus("live", "Live");
+                return;
+            }
+
+            var controller = new AbortController();
+            var timeout = window.setTimeout(function () {
+                controller.abort();
+            }, 4000);
+
+            try {
+                var response = await fetch(window.location.origin + "/", {
+                    method: "HEAD",
+                    cache: "no-store",
+                    signal: controller.signal
+                });
+                window.clearTimeout(timeout);
+                setStatus(response.status < 500 ? "live" : "limited", response.status < 500 ? "Live" : "Degraded");
+            } catch (error) {
+                window.clearTimeout(timeout);
+                setStatus("offline", "Offline");
+            }
+        }
+
+        window.addEventListener("online", probe);
+        window.addEventListener("offline", function () {
+            setStatus("offline", "Offline");
+        });
+
+        render();
+        probe();
+        window.setInterval(render, 1000);
+        window.setInterval(probe, 30000);
+    })();
+</script>
+<script>
+    document.querySelectorAll("pre > code").forEach(function (codeblock) {
+        var container = codeblock.parentNode.parentNode;
+        var copybutton = document.createElement("button");
+        copybutton.classList.add("copy-code");
+        copybutton.innerHTML = 'Kopyala';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'Kopyalandı!';
+            setTimeout(function () {
+                copybutton.innerHTML = 'Kopyala';
+            }, 2000);
+        }
+
+        copybutton.addEventListener("click", function () {
+            if ("clipboard" in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            var range = document.createRange();
+            var selection = window.getSelection();
+            range.selectNodeContents(codeblock);
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand("copy");
+                copyingDone();
+            } catch (error) { }
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            return;
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+
+<script defer src="/js/zoom.js"></script>
+</body>
+
+</html>

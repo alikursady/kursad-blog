@@ -1,3 +1,16 @@
+{{- /* Varsayılan tema karanlık. Daha önce aydınlık seçmiş ziyaretçiler de
+       bir kereye mahsus karanlığa alınır, sonraki seçimleri saklı kalır. */ -}}
+<script>
+  (function () {
+    try {
+      if (!localStorage.getItem("dark-default-2026")) {
+        localStorage.setItem("dark-default-2026", "1");
+        localStorage.removeItem("pref-theme");
+        document.documentElement.dataset.theme = "dark";
+      }
+    } catch (e) {}
+  })();
+</script>
 {{- $custom_css := resources.Get "css/custom.css" | resources.Minify | resources.Fingerprint }}
 <link rel="stylesheet" href="{{ $custom_css.Permalink }}" integrity="{{ $custom_css.Data.Integrity }}">
 {{- with .Params.faqs }}
