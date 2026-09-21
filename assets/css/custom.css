@@ -581,81 +581,6 @@ button#theme-toggle:focus-visible {
 }
 
 /* ---------------------------------------------------------------------------
-   About page hero
-   --------------------------------------------------------------------------- */
-.about-hero {
-    margin: 0.5rem 0 1.75rem;
-}
-
-.post-content .about-hero-title {
-    margin: 0 0 0.3rem;
-    font-size: clamp(2rem, 6vw, 2.75rem);
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    line-height: 1.1;
-    color: var(--primary);
-}
-
-.about-hero-tagline {
-    margin: 0 0 1.1rem;
-    color: var(--secondary);
-    font-size: 1rem;
-}
-
-.about-chips {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-}
-
-.post-content .about-chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.45rem;
-    padding: 0.45rem 0.85rem;
-    border: 1px solid var(--border);
-    border-radius: 999px;
-    background: var(--entry);
-    font-family: 'JetBrains Mono', ui-monospace, monospace;
-    font-size: 0.8rem;
-    color: var(--content);
-    box-shadow: none;
-    text-decoration: none;
-    transition: color var(--transition), border-color var(--transition), box-shadow var(--transition), transform var(--transition);
-}
-
-.post-content a.about-chip:hover {
-    color: var(--accent);
-    border-color: var(--accent);
-    box-shadow: 0 6px 18px var(--accent-soft);
-    transform: translateY(-1px);
-}
-
-.post-content a.about-chip,
-.md-content a.about-chip:not(.anchor) {
-    text-decoration: none;
-}
-
-.about-chip svg {
-    flex: 0 0 auto;
-}
-
-.about-chip-dot {
-    width: 0.5rem;
-    height: 0.5rem;
-    border-radius: 999px;
-    background: #22c55e;
-    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.52), 0 0 10px rgba(34, 197, 94, 0.8);
-    animation: terminal-live-pulse 1.5s ease-out infinite;
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .about-chip-dot {
-        animation: status-live-soft-blink 2.4s ease-in-out infinite;
-    }
-}
-
-/* ---------------------------------------------------------------------------
    About page terminal prompt
    --------------------------------------------------------------------------- */
 .about-terminal {
@@ -1374,8 +1299,8 @@ button#theme-toggle:focus-visible {
         radial-gradient(90% 60% at 88% 114%, rgba(52, 211, 153, 0.06), transparent 60%),
         repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.013) 0 1px, transparent 1px 4px),
         repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.013) 0 1px, transparent 1px 4px),
-        /* Yari saydam: arkadaki yildizlar tuvalin altindan hafifce sizar. */
-        linear-gradient(180deg, rgba(16, 16, 20, 0.87) 0%, rgba(10, 10, 12, 0.84) 55%, rgba(6, 6, 10, 0.8) 100%);
+
+        linear-gradient(180deg, #101014 0%, #0a0a0c 55%, #06060a 100%);
     box-shadow: 0 34px 80px rgba(0, 0, 0, 0.5), inset 0 0 140px rgba(0, 0, 0, 0.8);
 }
 
@@ -1844,50 +1769,4 @@ button#theme-toggle:focus-visible {
     .window-silhouette {
         transition: none;
     }
-}
-
-/* ---------------------------------------------------------------------------
-   Yildiz alani – where am i sayfasinin arka plani
-   --------------------------------------------------------------------------- */
-.star-field {
-    position: fixed;
-    inset: 0;
-    z-index: -1;
-    display: block;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    background:
-        radial-gradient(130% 80% at 50% -10%, rgba(38, 52, 104, 0.4), transparent 58%),
-        radial-gradient(90% 70% at 85% 108%, rgba(16, 46, 68, 0.34), transparent 60%),
-        radial-gradient(70% 50% at 8% 40%, rgba(58, 30, 78, 0.22), transparent 62%),
-        #04050a;
-}
-
-/* Bu sayfa aydinlik temada bile karanlik kalir; gokyuzunun altinda
-   aydinlik bir serit tuhaf duruyor. */
-body:has(.star-field) {
-    --theme: #0f0f10;
-    --entry: #18181b;
-    --primary: #f4f4f5;
-    --secondary: #a1a1aa;
-    --tertiary: #27272a;
-    --content: #d4d4d8;
-    --border: #27272a;
-    --accent: #60a5fa;
-    --accent-soft: rgba(96, 165, 250, 0.12);
-    color-scheme: dark;
-}
-
-/* Sayfa yildizli oldugunda ust ve alt seritler saydamlasir ki gokyuzu sursun. */
-body:has(.star-field) .header {
-    background: rgba(5, 6, 11, 0.62);
-    border-bottom-color: rgba(255, 255, 255, 0.07);
-}
-
-body:has(.star-field) .footer {
-    background: rgba(5, 6, 11, 0.62);
-    border-top-color: rgba(255, 255, 255, 0.07);
-    backdrop-filter: saturate(160%) blur(10px);
-    -webkit-backdrop-filter: saturate(160%) blur(10px);
 }
