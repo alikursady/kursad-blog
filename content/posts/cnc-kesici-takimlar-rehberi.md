@@ -50,7 +50,7 @@ Salgı, İngilizcesiyle runout, takım tezgaha takılıp döndüğünde merkezin
 
 Rijit, yük altında esnemeyen demek. Bir tezgaha rijit denmesi, gövdesinin ve millerinin kesme kuvveti altında kıpırdamadığı anlamına geliyor. Konik ise koni biçiminde, bir uca doğru incelen demek.
 
-HSS, İngilizce High Speed Steel'in kısaltması, Türkçesi yüksek hız çeliği. Bu isim icat edildiği döneme ait; o güne kadarki takım çeliklerinden çok daha hızlı kesebildiği için böyle anılmış. Ucuzdur, kırılmaya karşı esnektir ve körelince tekrar bilenebilir. Karbür ise tungsten karbür tozunun preslenip fırınlanmasıyla yapılan çok sert bir malzeme. HSS'ten kat kat hızlı çalışır ama cam gibi kırılgandır, sağlam tezgah ve düzgün bağlama ister.
+HSS, İngilizce High Speed Steel'in kısaltması, Türkçesi yüksek hız çeliği. Bu isim icat edildiği döneme ait. O güne kadarki takım çeliklerinden çok daha hızlı kesebildiği için böyle anılmış. Ucuzdur, kırılmaya karşı esnektir ve körelince tekrar bilenebilir. Karbür ise tungsten karbür tozunun preslenip fırınlanmasıyla yapılan çok sert bir malzeme. HSS'ten kat kat hızlı çalışır ama cam gibi kırılgandır, sağlam tezgah ve düzgün bağlama ister.
 
 Kaplama, takımın üstüne fabrikada geçirilen çok ince bir sertlik tabakası. Gözle görülen tek farkı rengi.
 
@@ -103,7 +103,7 @@ Bu hesap yaklaşık yüzde 75 diş dolgusu verir, yani dişin teorik derinliğin
 
 Kılavuzun gövdesinde ISO2 ya da 6H gibi bir işaret görürsünüz. Bu, açacağı dişin tolerans sınıfı.
 
-6H normal geçmedir, en yaygın kullanılan sınıf. 6G daha gevşek geçme sağlar; parçaya kaplama yapılacaksa kaplama kalınlığına yer bırakmak için tercih edilir. Aşındırıcı malzemelerde ve talaşsız kılavuzlarda 6HX ya da 6GX gibi daha geniş toleranslı sınıflar kullanılıyor.
+6H normal geçmedir, en yaygın kullanılan sınıf. 6G daha gevşek geçme sağlar. Parçaya kaplama yapılacaksa kaplamanın kalınlığına yer bırakmak için onu tercih ediyorsunuz. Aşındırıcı malzemelerde ve talaşsız kılavuzlarda 6HX ya da 6GX gibi daha geniş toleranslı sınıflar kullanılıyor.
 
 Kutunun üstündeki DIN numaraları ise sapın kalınlığıyla ilgili. DIN 371 kalın saplı makine kılavuzu, pratikte M10 ve altında yaygın. DIN 376 ince saplı, genelde M12 ve üzeri için. DIN 374 de ince hatveli dişlerde, mesela M8x1.0 gibi bir dişte kullanılıyor.
 
@@ -117,7 +117,7 @@ Kesin çap değerleri üreticiye ve ana malzemeye göre biraz oynuyor, o yüzden
 
 ### Talaşsız kılavuz ve diğerleri
 
-Talaşsız kılavuz diş kesmiyor. Malzemeyi soğuk şekillendirerek dişi bastırıyor, yani metali kesip almak yerine ittirip yerine oturtuyor. Hiç talaş üretmediği için kör delikte büyük avantaj sağlıyor, daha pürüzsüz ve daha sağlam bir diş veriyor, daha uzun ömürlü. Buna karşılık yüksek tork istiyor ve kırılgan malzemede kullanılamıyor. Alüminyum, bakır ve yumuşak çelikte ilk tercih.
+Talaşsız kılavuz diş kesmiyor. Malzemeyi soğuk şekillendirerek dişi bastırıyor, yani metali kesip almak yerine ittirip yerine oturtuyor. Hiç talaş üretmediği için kör delikte büyük avantaj sağlıyor, daha pürüzsüz ve daha sağlam bir diş veriyor, daha uzun ömürlü. Bedeli de var, yüksek tork istiyor ve kırılgan malzemede kullanılamıyor. Alüminyum, bakır ve yumuşak çelikte ilk tercih.
 
 NPT ve BSP boru kılavuzları konik diş açar, sızdırmazlık gereken bağlantılarda kullanılır. Bir de sol diş kılavuzlar var, tezgahta G74 çevrimiyle çekiliyorlar. Normal diş için G84 kullanılıyor.
 
@@ -170,7 +170,7 @@ Bir de küresel takım yüzeyde küçük tarak izleri bırakır. Yan yana iki pa
 
 Düz köşeli parmak frezenin köşesine küçük bir yuvarlaklık eklenmiş hali. R0.5 ya da R1 gibi.
 
-Keskin köşe, kesme kuvvetinin tek bir noktada yığıldığı yerdir ve takımlar genellikle oradan kırılır. Radyüs bu yükü daha geniş bir yaya yayıyor, kenar da çok daha dayanıklı oluyor. Zor malzemelerde ve takımın parça içinde sürekli dairesel hareketle ilerlediği stratejilerde neredeyse standart hale geldi.
+Keskin köşe, kesme kuvvetinin tek bir noktada yığıldığı yerdir ve takımlar genellikle oradan kırılır. Radyüs bu yükü daha geniş bir yaya yayıyor, kenar da çok daha dayanıklı oluyor. Zor malzemelerde ve takımın parça içinde sürekli dairesel hareketle ilerlediği stratejilerde artık standart sayılıyor.
 
 ### Mikro freze
 
@@ -198,7 +198,7 @@ Kılavuza alternatif bir yöntem. Takım deliğin içinde daire çizerken aynı 
 
 Kılavuza göre üstün olduğu yerler var. En önemlisi kırıldığında deliği bozmaması. Kopan parça küçük bir karbür parçasıdır, kolayca çıkar. Pahalı bir titanyum parçanın içinde kırılan kılavuz çoğu zaman parçayı hurdaya çıkarır, diş frezesinde böyle bir risk yok. Ayrıca aynı hatveye sahip farklı çaplarda tek takımla çalışabiliyorsunuz ve kör delikte dişi dibe kadar indirebiliyorsunuz.
 
-Buna karşılık programlaması karmaşık, tezgahın rijitliğine ve salgıya duyarlı. Yumuşak malzemede yüksek adetli işlerde kılavuz hâlâ üç beş kat hızlı.
+Öbür taraftan programlaması karmaşık, tezgahın rijitliğine ve salgıya duyarlı. Yumuşak malzemede yüksek adetli işlerde kılavuz hâlâ üç beş kat hızlı.
 
 ### Kanal testeresi
 
@@ -254,7 +254,7 @@ Mantığı tarama frezesindekiyle aynı. Aşınan ucu değiştiriyorsunuz, pahal
 
 Birkaç şartı var. İçten yüksek basınçlı soğutma zorunlu, susuz çalıştırırsanız takımı bozarsınız. Delik hassasiyeti masif karbür kadar iyi değil, çap toleransı 0,25 mm civarında kalıyor. Genelde 3xD'yi geçmiyor ve deliğin dibini düz bırakıyor. Kesme kuvveti de dengesiz olduğu için tezgahtan hem güç hem rijitlik istiyor.
 
-Hassas bir delik gerekiyorsa doğru sıra şöyle. U-Drill ile kaba delip ardından rayba ya da bara çekmek. Bara, deliğin içine sokulup tek ağızla çevresini kazıyarak çapı büyüten takım; hem ölçüyü hem deliğin yerini düzeltebiliyor.
+Hassas bir delik gerekiyorsa doğru sıra şöyle. U-Drill ile kaba delip ardından rayba ya da bara çekmek. Bara, deliğin içine sokulup tek ağızla çevresini kazıyarak çapı büyüten takım. Hem ölçüyü hem deliğin yerini düzeltebiliyor.
 
 ## Rayba
 
@@ -305,7 +305,7 @@ Sıcak geçme tutucu, takımı ısıtılıp genleştirilmiş bir yuvaya geçirip
 
 Hidrolik tutucu da düşük salgı verir ve ek olarak titreşimi sönümler. Bitirme pasolarında yüzey kalitesine katkısı belli oluyor.
 
-Weldon tipi, yani yandan vidayla sıkan tutucular en yüksek torku iletir ve kaba işlerde takımın çekilip çıkmasını engeller. Buna karşılık salgısı yüksektir, hassas iş için uygun değil.
+Weldon tipi, yani yandan vidayla sıkan tutucular en yüksek torku iletir ve kaba işlerde takımın çekilip çıkmasını engeller. Salgısı ise yüksek kalır, hassas iş için uygun değil.
 
 Senkron kılavuz çekemeyen tezgahlarda ise kompanzasyonlu kılavuz tutucu kullanılıyor, yukarıda bahsetmiştim.
 
@@ -360,7 +360,7 @@ RY-HSS-10-H7         Ø10 HSS rayba, H7 tolerans
 TR-AL-63-Z5          Ø63 alüminyum tarama kafası, 5 uç
 ```
 
-Kodun ikinci alanını ISO 513 malzeme gruplarına bağlarsanız sistem uluslararası standartla da konuşmaya başlıyor. ISO, uluslararası standartları belirleyen kuruluş; 513 numaralı standardı da iş parçası malzemelerini altı renkli gruba ayırıyor. Bu renkleri bütün büyük üreticiler uç kutularının üstüne basıyor.
+Kodun ikinci alanını ISO 513 malzeme gruplarına bağlarsanız sistem uluslararası standartla da konuşmaya başlıyor. ISO, uluslararası standartları belirleyen kuruluş. 513 numaralı standardı iş parçası malzemelerini altı renkli gruba ayırıyor. Bu renkleri bütün büyük üreticiler uç kutularının üstüne basıyor.
 
 | Grup | Renk | Malzeme |
 |---|---|---|
@@ -390,7 +390,7 @@ Aşağıdaki değerler karbür takım ve bol soğutma varsayımıyla verilmiş, 
 | Paslanmaz 304 ve 316 | 60 ile 120 | 0,03 ile 0,06 mm |
 | Titanyum Ti-6Al-4V | 45 ile 60 | 0,03 ile 0,06 mm |
 
-Zor malzemelerde birkaç ek not var. 7075 alüminyum hızlı işlenir ama yapışma riski yüksektir, keskin ve kaplamasız takımla bol soğutma gerekir. Paslanmaz ve titanyumda kesme hızı düşük tutulur, paso derinliği sabit kalmalı ve içten yüksek basınçlı soğutma neredeyse zorunlu. Titanyumda ayrıca takımı parçanın içinde durdurmamak önemli, beklerken malzeme sertleşiyor ve bir sonraki temasta takım anında köreliyor.
+Zor malzemelerde birkaç ek not var. 7075 alüminyum hızlı işlenir ama yapışma riski yüksektir, keskin ve kaplamasız takımla bol soğutma gerekir. Paslanmaz ve titanyumda kesme hızı düşük tutulur, paso derinliği sabit kalmalı ve içten yüksek basınçlı soğutma olmadan iş yürümüyor. Titanyumda ayrıca takımı parçanın içinde durdurmamak önemli, beklerken malzeme sertleşiyor ve bir sonraki temasta takım anında köreliyor.
 
 ## Sık sorulan sorular
 
