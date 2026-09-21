@@ -1,7 +1,7 @@
 baseURL = "https://kursadyanik.com/"
 languageCode = "tr-TR"
 defaultContentLanguage = "tr"
-title = "Information Security & Research"
+title = "kursadyanik.com"
 theme = "PaperMod"
 buildFuture = false
 enableRobotsTXT = true
@@ -23,7 +23,7 @@ copyright = "© 2026 kursadyanik.com"
 
 [params]
   env = "production"
-  title = "Information Security & Research"
+  title = "kursadyanik.com"
   mainSections = ["posts"]
   ShowReadingTime = true
   ShowPostNavLinks = true

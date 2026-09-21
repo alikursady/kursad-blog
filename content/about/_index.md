@@ -8,8 +8,7 @@ disableAnchoredHeadings: true
 ---
 
 <div class="about-hero">
-  <h2 class="about-hero-title">kursadyanik</h2>
-  <p class="about-hero-tagline">Information Security &amp; Research</p>
+  <h2 class="about-hero-title">kursadyanik.com</h2>
   <div class="about-chips">
     <a class="about-chip about-chip-mail" href="mailto:kursad@keemail.me" rel="nofollow">
       <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
@@ -59,8 +58,7 @@ disableAnchoredHeadings: true
 
     // Oturum bir kez akar; satırlar silinmez, yukarı kaydırıp okunabilir.
     var session = [
-      { cmd: "whoami", out: ["operator — information security & research"] },
-      { cmd: "uname -a", out: ["KursadOS 1.0 quiet-mode #1 SMP (curiosity-driven build)"] },
+      { cmd: "whoami", out: ["operator, kursadyanik.com"] },
       { cmd: "cat ./description.txt", out: ["i have no idea what i'm doing"] },
       { cmd: "status --brief", out: ["site: online", "mode: quiet", "notes: public"] },
       { cmd: "contact --show", out: ["email: kursad@keemail.me", "response: async, eventually"] },
@@ -133,7 +131,7 @@ disableAnchoredHeadings: true
       if (index >= session.length) {
         commandEl.textContent = "";
         window.setTimeout(function () {
-          addLine("session idle — scroll up to read the log", "terminal-muted");
+          addLine("session idle, scroll up to read the log", "terminal-muted");
         }, reducedMotion ? 0 : 500);
         return;
       }

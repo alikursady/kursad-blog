@@ -1,6 +1,6 @@
 ---
 title: "Elsewhere"
-summary: "kursadyanik.com — diğer profiller, siteler ve bağlantılar."
+summary: "kursadyanik.com, diğer profiller, siteler ve bağlantılar."
 layout: "elsewhere"
 hideMeta: true
 elsewhere_links:
