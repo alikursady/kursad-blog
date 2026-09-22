@@ -1,0 +1,114 @@
+{{- /* PaperMod'un head bölümünün yerini alır. Başlık, açıklama ve yapısal
+       veri buradan yönetiliyor. */ -}}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+{{- $production := or hugo.IsProduction (eq site.Params.env "production") }}
+{{- if and $production (ne .Params.robotsNoIndex true) }}
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+{{- else }}
+<meta name="robots" content="noindex, nofollow">
+{{- end }}
+
+{{- /* Başlık. Ana sayfada site adının önüne yazarın adı geçer, arama
+       sonuçlarında isimle bulunabilmesi için. */ -}}
+{{- $title := site.Title }}
+{{- if .IsHome }}
+  {{- with site.Params.homeTitle }}{{ $title = . }}{{ end }}
+{{- else if eq .Kind "term" }}
+  {{- $title = printf "%s yazıları | %s" .Title site.Title }}
+{{- else if .Title }}
+  {{- $title = printf "%s | %s" .Title site.Title }}
+{{- end }}
+<title>{{ $title }}</title>
+
+{{- /* Açıklama ve anahtar kelimeler */ -}}
+{{- $description := "" }}
+{{- with .Description }}
+  {{- $description = . }}
+{{- else }}
+  {{- if or .IsPage .IsSection }}
+    {{- $description = .Summary | default site.Params.description }}
+  {{- else }}
+    {{- $description = site.Params.description }}
+  {{- end }}
+{{- end }}
+<meta name="description" content="{{ $description | plainify | htmlUnescape | chomp }}">
+
+{{- $keywords := site.Params.keywords }}
+{{- if not .IsHome }}
+  {{- with .Params.keywords }}{{ $keywords = . }}{{ else }}{{ with .Params.tags }}{{ $keywords = . }}{{ end }}{{ end }}
+{{- end }}
+{{- with $keywords }}
+<meta name="keywords" content="{{ delimit . ", " }}">
+{{- end }}
+
+{{- with partial "author.html" . }}
+<meta name="author" content="{{ . }}">
+{{- end }}
+<link rel="canonical" href="{{ with .Params.canonicalURL }}{{ trim . " " }}{{ else }}{{ .Permalink }}{{ end }}">
+
+{{- /* Yazı tipleri harici sunucudan geldiği için bağlantı önceden açılıyor. */ -}}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=JetBrains+Mono:wght@400;500&family=Caveat:wght@400..700&display=swap">
+
+{{- /* Tema stilleri. Sıra önemli, uzantı dosyaları çekirdekten sonra gelir. */ -}}
+{{- $themeVars := resources.Get "css/core/theme-vars.css" }}
+{{- $reset := resources.Get "css/core/reset.css" }}
+{{- $media := resources.Get "css/core/zmedia.css" }}
+{{- $license := resources.Get "css/core/license.css" }}
+{{- $common := resources.Match "css/common/*.css" | resources.Concat "assets/css/common.css" }}
+{{- $chromaStyles := resources.Get "css/includes/chroma-styles.css" }}
+{{- $chromaMod := resources.Get "css/includes/chroma-mod.css" }}
+{{- $core := slice $themeVars $reset $common $chromaStyles $chromaMod $media | resources.Concat "assets/css/core.css" | resources.Minify }}
+{{- $extended := resources.Match "css/extended/*.css" | resources.Concat "assets/css/extended.css" | resources.Minify }}
+{{- $stylesheet := slice $license $core $extended | resources.Concat "assets/css/stylesheet.css" | fingerprint }}
+<link crossorigin="anonymous" href="{{ $stylesheet.RelPermalink }}" integrity="{{ $stylesheet.Data.Integrity }}" rel="preload stylesheet" as="style">
+
+{{- /* Simgeler */ -}}
+<link rel="icon" href="{{ site.Params.assets.favicon | default "favicon.ico" | absURL }}">
+<link rel="apple-touch-icon" href="{{ site.Params.assets.apple_touch_icon | default "favicon.ico" | absURL }}">
+<link rel="mask-icon" href="{{ site.Params.assets.safari_pinned_tab | default "safari-pinned-tab.svg" | absURL }}">
+<meta name="theme-color" content="{{ site.Params.assets.theme_color | default "#0f0f10" }}">
+
+{{- /* RSS ve dil alternatifleri */ -}}
+{{- range .AlternativeOutputFormats }}
+<link rel="{{ .Rel }}" type="{{ .MediaType.Type | html }}" href="{{ .Permalink | safeURL }}" title="{{ site.Title }}">
+{{- end }}
+{{- range .AllTranslations }}
+<link rel="alternate" hreflang="{{ .Lang }}" href="{{ .Permalink }}">
+{{- end }}
+
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+    </style>
+</noscript>
+
+{{- /* Siteye özel stil */ -}}
+{{- $custom := resources.Get "css/custom.css" | resources.Minify | fingerprint }}
+<link rel="stylesheet" href="{{ $custom.RelPermalink }}" integrity="{{ $custom.Data.Integrity }}">
+
+{{- /* Tema seçimi sayfa boyanmadan uygulanmalı, bu yüzden satır içinde. */ -}}
+{{- $boot := resources.Get "js/theme-boot.js" | js.Build (dict "minify" true) }}
+<script>{{ $boot.Content | safeJS }}</script>
+
+{{- /* Sayfa betikleri tek pakette toplanır. */ -}}
+{{- $opts := dict
+      "minify" true
+      "target" "es2017"
+      "params" (dict
+        "copyLabel" (i18n "code_copy" | default "Kopyala")
+        "copiedLabel" (i18n "code_copied" | default "Kopyalandı!"))
+}}
+{{- $site := resources.Get "js/site.js" | js.Build $opts | fingerprint }}
+<script defer src="{{ $site.RelPermalink }}" integrity="{{ $site.Data.Integrity }}"></script>
+
+{{- if $production }}
+{{- partial "social_meta.html" . }}
+{{- partial "schema.html" . }}
+{{- end -}}

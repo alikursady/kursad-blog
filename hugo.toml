@@ -13,8 +13,23 @@ copyright = "Hiçbir hakkı saklı değildir."
     [markup.goldmark.renderer]
       unsafe = true
 
+# Yapay zeka asistanlari icin duz metin icerik haritasi.
+[outputFormats]
+  [outputFormats.llms]
+    mediaType = "text/plain"
+    baseName = "llms"
+    isPlainText = true
+    notAlternative = true
+
+[outputs]
+  home = ["HTML", "RSS", "llms"]
+
+[imaging]
+  quality = 82
+  resampleFilter = "Lanczos"
+
 [sitemap]
-  changefreq = "monthly"
+  changefreq = "weekly"
   priority = 0.5
   filename = "sitemap.xml"
 
@@ -24,6 +39,8 @@ copyright = "Hiçbir hakkı saklı değildir."
 [params]
   env = "production"
   title = "kursadyanik.com"
+  homeTitle = "blog | kursadyanik.com"
+  author = "Kürşad Yanık"
   mainSections = ["posts"]
   ShowReadingTime = true
   ShowPostNavLinks = true
@@ -35,26 +52,62 @@ copyright = "Hiçbir hakkı saklı değildir."
   disableSpecial1stPost = true
 
   description = "i have no idea what i'm doing"
-  keywords = ["siber güvenlik", "cybersecurity", "osint", "açık kaynak istihbaratı", "bilgi güvenliği", "ctf", "güvenlik araştırması"]
-  images = ["/images/anime-bg.jpg"]
+
+  keywords = [
+    "Kürşad Yanık",
+    "siber güvenlik",
+    "cybersecurity",
+    "OSINT",
+    "açık kaynak istihbaratı",
+    "bilgi güvenliği",
+    "CTF",
+    "güvenlik araştırması",
+    "kalite kontrol",
+    "CNC",
+    "CNC makine",
+    "makine mühendisliği",
+    "bilgisayar mühendisliği",
+  ]
 
   # Tarih formatı: gönderi ve listelerde (gg.aa.yyyy)
   DateFormat = "02.01.2006"
+
+# Yapısal veride (JSON-LD) kullanılan kayıt. Yalnızca ad ve konu
+# başlıklarından oluşur, kişisel bilgi taşımaz.
+[params.profile]
+  name = "Kürşad Yanık"
+  alternateNames = ["Kursad Yanik"]
+  knowsAbout = [
+    "siber güvenlik",
+    "cybersecurity",
+    "OSINT",
+    "açık kaynak istihbaratı",
+    "open source intelligence",
+    "bilgi güvenliği",
+    "information security",
+    "CTF",
+    "capture the flag",
+    "güvenlik araştırması",
+    "kalite kontrol",
+    "quality control",
+    "CNC",
+    "CNC makine",
+    "talaşlı imalat",
+    "kesici takım",
+    "makine mühendisliği",
+    "bilgisayar mühendisliği",
+  ]
 
 [params.label]
   text = "kursadyanik.com"
 
 [params.assets]
   favicon = "favicon.ico"
-  favicon16x16 = "favicon.ico"
-  favicon32x32 = "favicon.ico"
   apple_touch_icon = "favicon.ico"
   safari_pinned_tab = "safari-pinned-tab.svg"
   theme_color = "#0f0f10"
-  msapplication_TileColor = "#0f0f10"
-
-[params.schema]
-  publisherType = "Organization"
+  # Yazısı olmayan sayfalarda paylaşım görseli buradan üretilir.
+  socialCover = "images/anime-bg.jpg"
 
 [menu]
   [[menu.main]]

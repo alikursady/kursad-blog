@@ -1,0 +1,20 @@
+{{- /* Yapay zekâ asistanlarının siteyi tek dosyadan okuyabilmesi için düz
+       metin içerik haritası. llms.txt biçimini izler. */ -}}
+{{- $profile := site.Params.profile -}}
+# {{ site.Title }}
+
+{{ with $profile.alternateNames }}Sitede geçen adlar: {{ $profile.name }}, {{ delimit . ", " }}.
+{{ end }}
+{{- with $profile.knowsAbout }}Yazılan konular: {{ delimit . ", " }}.
+{{ end }}
+## Yazılar
+{{ range (where site.RegularPages "Type" "in" site.Params.mainSections).ByDate.Reverse }}
+- [{{ .Title }}]({{ .Permalink }}): {{ with .Description }}{{ . | plainify }}{{ else }}{{ .Summary | plainify }}{{ end }}
+{{- end }}
+
+## Sayfalar
+{{ range site.Sections }}
+{{- if not (in site.Params.mainSections .Type) }}
+- [{{ .Title }}]({{ .Permalink }}){{ with .Description }}: {{ . | plainify }}{{ end }}
+{{- end }}
+{{- end }}

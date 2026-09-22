@@ -1,12 +1,11 @@
 /*
- * Custom styles – modern, minimal cybersecurity/personal tech blog
- * Overrides PaperMod; preserves Hugo structure and semantics.
+ * kursadyanik.com özel stilleri.
+ * PaperMod temasının üzerine biniyor, tema dosyalarına dokunmuyor.
+ * Yazı tipleri head bölümünde <link> ile yükleniyor.
  */
 
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=JetBrains+Mono:wght@400;500&family=Caveat:wght@400..700&display=swap');
-
 /* ---------------------------------------------------------------------------
-   Design tokens (override theme vars where needed)
+   Renk ve ölçü değişkenleri
    --------------------------------------------------------------------------- */
 :root {
     --theme: #fafafa;
@@ -44,13 +43,13 @@
     color-scheme: dark;
 }
 
-/* List page background */
+/* Liste sayfasının zemini */
 .list {
     background: var(--theme);
 }
 
 /* ---------------------------------------------------------------------------
-   Base – typography & body
+   Temel tipografi ve gövde
    --------------------------------------------------------------------------- */
 body {
     font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -92,7 +91,7 @@ a:focus-visible {
 }
 
 /* ---------------------------------------------------------------------------
-   Layout – centered container
+   Ortalanmış içerik sütunu
    --------------------------------------------------------------------------- */
 .main {
     max-width: calc(var(--container-max) + var(--gap) * 2);
@@ -103,7 +102,7 @@ a:focus-visible {
 }
 
 /* ---------------------------------------------------------------------------
-   Header / Navbar – sticky, minimal, professional
+   Üst menü
    --------------------------------------------------------------------------- */
 .header {
     position: sticky;
@@ -284,7 +283,7 @@ button#theme-toggle:focus-visible {
 }
 
 /* ---------------------------------------------------------------------------
-   Homepage / Blog list – premium cards
+   Ana sayfa ve yazı listesi
    --------------------------------------------------------------------------- */
 .first-entry,
 .post-entry {
@@ -381,7 +380,7 @@ button#theme-toggle:focus-visible {
     color: var(--secondary);
 }
 
-/* Ensure single post content is never clamped */
+/* Yazı gövdesi hiçbir yerde kırpılmasın */
 .post-content,
 .post-content .entry-content {
     -webkit-line-clamp: unset !important;
@@ -390,14 +389,45 @@ button#theme-toggle:focus-visible {
     overflow: visible !important;
 }
 
-/* Home info block (if used) */
-.first-entry.home-info {
-    text-align: left;
-    max-width: 100%;
+/* Ana sayfa giriş bloğu */
+.home-intro {
+    margin-bottom: 48px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--border);
+}
+
+.home-intro h1 {
+    margin: 0 0 16px;
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    color: var(--primary);
+}
+
+.home-intro p {
+    margin: 0 0 12px;
+    color: var(--secondary);
+    font-size: 1.02rem;
+}
+
+.home-intro p:last-child {
+    margin-bottom: 0;
+}
+
+.home-intro a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color var(--transition);
+}
+
+.home-intro a:hover {
+    border-bottom-color: var(--accent);
 }
 
 /* ---------------------------------------------------------------------------
-   Page header (non-home list pages)
+   Liste sayfalarının başlığı
    --------------------------------------------------------------------------- */
 .page-header {
     margin-bottom: var(--content-gap);
@@ -409,7 +439,7 @@ button#theme-toggle:focus-visible {
 }
 
 /* ---------------------------------------------------------------------------
-   Single post – readability & polish
+   Yazı sayfası
    --------------------------------------------------------------------------- */
 .post-single {
     max-width: var(--container-max);
@@ -572,7 +602,7 @@ button#theme-toggle:focus-visible {
     color: var(--primary);
 }
 
-/* Copy code button in code blocks */
+/* Kod bloklarındaki kopyala düğmesi */
 .copy-code {
     font-family: 'DM Sans', sans-serif;
     border-radius: 6px;
@@ -581,7 +611,7 @@ button#theme-toggle:focus-visible {
 }
 
 /* ---------------------------------------------------------------------------
-   About page terminal prompt
+   About sayfasındaki terminal
    --------------------------------------------------------------------------- */
 .about-terminal {
     margin: 0.25rem 0 1.75rem;
@@ -868,7 +898,7 @@ button#theme-toggle:focus-visible {
 }
 
 /* ---------------------------------------------------------------------------
-   Pagination
+   Sayfalama
    --------------------------------------------------------------------------- */
 .pagination a {
     border-radius: 6px;
@@ -882,7 +912,7 @@ button#theme-toggle:focus-visible {
 }
 
 /* ---------------------------------------------------------------------------
-   Footer
+   Alt bilgi
    --------------------------------------------------------------------------- */
 .footer {
     background: var(--theme);
@@ -1104,7 +1134,7 @@ button#theme-toggle:focus-visible {
 }
 
 /* ---------------------------------------------------------------------------
-   Scrollbar & selection
+   Kaydırma çubuğu ve seçim
    --------------------------------------------------------------------------- */
 ::-webkit-scrollbar {
     width: 10px;
@@ -1127,7 +1157,7 @@ button#theme-toggle:focus-visible {
 }
 
 /* ---------------------------------------------------------------------------
-   Responsive
+   Dar ekranlar
    --------------------------------------------------------------------------- */
 @media (max-width: 768px) {
     :root {
@@ -1263,7 +1293,7 @@ button#theme-toggle:focus-visible {
 }
 
 /* ---------------------------------------------------------------------------
-   where am i – karalanmış tuval sayfası (tema ne olursa olsun karanlık)
+   where am i sayfası, karalanmış tuval (tema ne olursa olsun karanlık)
    --------------------------------------------------------------------------- */
 .canvas-page {
     --ink: #edeae4;

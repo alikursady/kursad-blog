@@ -1,0 +1,34 @@
+{{- if or hugo.IsProduction (eq site.Params.env "production") -}}
+User-agent: *
+Allow: /
+
+# Yapay zekâ asistanlarının siteyi okumasına ve kaynak göstermesine izin var.
+User-agent: Google-Extended
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+Sitemap: {{ "sitemap.xml" | absURL }}
+{{- else -}}
+User-agent: *
+Disallow: /
+{{- end }}
