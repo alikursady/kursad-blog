@@ -390,42 +390,6 @@ button#theme-toggle:focus-visible {
 }
 
 /* Ana sayfa giriş bloğu */
-.home-intro {
-    margin-bottom: 48px;
-    padding-bottom: 32px;
-    border-bottom: 1px solid var(--border);
-}
-
-.home-intro h1 {
-    margin: 0 0 16px;
-    font-size: 2rem;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    line-height: 1.2;
-    color: var(--primary);
-}
-
-.home-intro p {
-    margin: 0 0 12px;
-    color: var(--secondary);
-    font-size: 1.02rem;
-}
-
-.home-intro p:last-child {
-    margin-bottom: 0;
-}
-
-.home-intro a {
-    color: var(--accent);
-    text-decoration: none;
-    border-bottom: 1px solid transparent;
-    transition: border-color var(--transition);
-}
-
-.home-intro a:hover {
-    border-bottom-color: var(--accent);
-}
-
 /* ---------------------------------------------------------------------------
    Liste sayfalarının başlığı
    --------------------------------------------------------------------------- */
