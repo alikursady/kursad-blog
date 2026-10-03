@@ -1,24 +1,8 @@
-{{- /* Sitenin tamamı tek bir JSON-LD grafiği olarak yayımlanır. Kişi, site ve
-       sayfa kayıtları @id üzerinden birbirine bağlı olduğu için arama
-       motorları hepsini aynı varlığın parçası sayar. */ -}}
+{{- /* Sitenin tamamı tek bir JSON-LD grafiği olarak yayımlanır. Site ve sayfa
+       kayıtları @id üzerinden birbirine bağlıdır. Bilerek kişi kaydı yoktur,
+       sitede ad ya da kişisel bilgi yayımlanmaz. */ -}}
 
-{{- $personID := printf "%s#person" site.Home.Permalink }}
 {{- $siteID := printf "%s#website" site.Home.Permalink }}
-{{- $profile := site.Params.profile }}
-
-{{- /* Kişi */ -}}
-{{- $person := dict
-      "@type" "Person"
-      "@id" $personID
-      "name" $profile.name
-      "alternateName" $profile.alternateNames
-      "url" site.Home.Permalink
-      "knowsAbout" $profile.knowsAbout
-      "knowsLanguage" (slice "tr" "en")
-}}
-{{- with $profile.sameAs }}
-  {{- $person = merge $person (dict "sameAs" .) }}
-{{- end }}
 
 {{- /* Site */ -}}
 {{- $website := dict
@@ -28,11 +12,12 @@
       "name" site.Title
       "description" site.Params.description
       "inLanguage" site.Language.Lang
-      "publisher" (dict "@id" $personID)
-      "author" (dict "@id" $personID)
 }}
+{{- with site.Params.topics }}
+  {{- $website = merge $website (dict "keywords" .) }}
+{{- end }}
 
-{{- $graph := slice $person $website }}
+{{- $graph := slice $website }}
 
 {{- /* Ana sayfa */ -}}
 {{- if .IsHome }}
@@ -43,7 +28,6 @@
       "name" (site.Params.homeTitle | default site.Title)
       "description" site.Params.description
       "isPartOf" (dict "@id" $siteID)
-      "about" (dict "@id" $personID)
       "inLanguage" site.Language.Lang) }}
 {{- end }}
 
@@ -61,8 +45,6 @@
       "wordCount" .WordCount
       "inLanguage" site.Language.Lang
       "isPartOf" (dict "@id" $siteID)
-      "author" (dict "@id" $personID)
-      "publisher" (dict "@id" $personID)
       "mainEntityOfPage" (dict "@type" "WebPage" "@id" .Permalink)
   }}
   {{- with .Params.keywords | default .Params.tags }}

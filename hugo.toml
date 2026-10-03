@@ -40,7 +40,6 @@ copyright = "Hiçbir hakkı saklı değildir."
   env = "production"
   title = "kursadyanik.com"
   homeTitle = "blog | kursadyanik.com"
-  author = "Kürşad Yanık"
   mainSections = ["posts"]
   ShowReadingTime = true
   ShowPostNavLinks = true
@@ -54,7 +53,6 @@ copyright = "Hiçbir hakkı saklı değildir."
   description = "i have no idea what i'm doing"
 
   keywords = [
-    "Kürşad Yanık",
     "siber güvenlik",
     "cybersecurity",
     "OSINT",
@@ -68,12 +66,9 @@ copyright = "Hiçbir hakkı saklı değildir."
   # Tarih formatı: gönderi ve listelerde (gg.aa.yyyy)
   DateFormat = "02.01.2006"
 
-# Yapısal veride (JSON-LD) kullanılan kayıt. Yalnızca ad ve yazıların konu
-# başlıklarından oluşur, kişisel bilgi taşımaz.
-[params.profile]
-  name = "Kürşad Yanık"
-  alternateNames = ["Kursad Yanik"]
-  knowsAbout = [
+  # Yazıların konu başlıkları. JSON-LD'de site anahtar kelimesi ve llms.txt'te
+  # konu listesi olarak kullanılır. Sitede bilerek ad ya da kişisel bilgi yok.
+  topics = [
     "siber güvenlik",
     "cybersecurity",
     "OSINT",

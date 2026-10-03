@@ -1,10 +1,10 @@
 ---
-title: "Kürşad Yanık"
+title: "blog"
 disableAnchoredHeadings: true
 ---
 
 <div class="home-intro">
 
-# Kürşad Yanık
+# i have no idea what i'm doing
 
 </div>
