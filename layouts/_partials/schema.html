@@ -5,7 +5,6 @@
 {{- $personID := printf "%s#person" site.Home.Permalink }}
 {{- $siteID := printf "%s#website" site.Home.Permalink }}
 {{- $profile := site.Params.profile }}
-{{- $aboutPage := site.GetPage "/about" }}
 
 {{- /* Kişi */ -}}
 {{- $person := dict
@@ -17,9 +16,6 @@
       "knowsAbout" $profile.knowsAbout
       "knowsLanguage" (slice "tr" "en")
 }}
-{{- with $aboutPage }}
-  {{- $person = merge $person (dict "mainEntityOfPage" (dict "@type" "ProfilePage" "@id" .Permalink)) }}
-{{- end }}
 {{- with $profile.sameAs }}
   {{- $person = merge $person (dict "sameAs" .) }}
 {{- end }}
@@ -48,19 +44,6 @@
       "description" site.Params.description
       "isPartOf" (dict "@id" $siteID)
       "about" (dict "@id" $personID)
-      "inLanguage" site.Language.Lang) }}
-{{- end }}
-
-{{- /* About sayfası kişinin resmi profil sayfası sayılır. */ -}}
-{{- if and $aboutPage (eq .Permalink $aboutPage.Permalink) }}
-  {{- $graph = $graph | append (dict
-      "@type" "ProfilePage"
-      "@id" .Permalink
-      "url" .Permalink
-      "name" .Title
-      "description" (.Description | default .Summary | plainify)
-      "isPartOf" (dict "@id" $siteID)
-      "mainEntity" (dict "@id" $personID)
       "inLanguage" site.Language.Lang) }}
 {{- end }}
 

@@ -62,17 +62,13 @@ copyright = "Hiçbir hakkı saklı değildir."
     "bilgi güvenliği",
     "CTF",
     "güvenlik araştırması",
-    "kalite kontrol",
     "CNC",
-    "CNC makine",
-    "makine mühendisliği",
-    "bilgisayar mühendisliği",
   ]
 
   # Tarih formatı: gönderi ve listelerde (gg.aa.yyyy)
   DateFormat = "02.01.2006"
 
-# Yapısal veride (JSON-LD) kullanılan kayıt. Yalnızca ad ve konu
+# Yapısal veride (JSON-LD) kullanılan kayıt. Yalnızca ad ve yazıların konu
 # başlıklarından oluşur, kişisel bilgi taşımaz.
 [params.profile]
   name = "Kürşad Yanık"
@@ -88,14 +84,9 @@ copyright = "Hiçbir hakkı saklı değildir."
     "CTF",
     "capture the flag",
     "güvenlik araştırması",
-    "kalite kontrol",
-    "quality control",
     "CNC",
-    "CNC makine",
     "talaşlı imalat",
     "kesici takım",
-    "makine mühendisliği",
-    "bilgisayar mühendisliği",
   ]
 
 [params.label]
@@ -108,22 +99,3 @@ copyright = "Hiçbir hakkı saklı değildir."
   theme_color = "#0f0f10"
   # Yazısı olmayan sayfalarda paylaşım görseli buradan üretilir.
   socialCover = "images/anime-bg.jpg"
-
-[menu]
-  [[menu.main]]
-    identifier = "blog"
-    name = "Blog"
-    url = "/"
-    weight = 1
-
-  [[menu.main]]
-    identifier = "whereami"
-    name = "where am i"
-    url = "/where-am-i/"
-    weight = 2
-
-  [[menu.main]]
-    identifier = "about"
-    name = "About"
-    url = "/about/"
-    weight = 3

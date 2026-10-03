@@ -5,8 +5,6 @@ import initThemeToggle from "./modules/theme-toggle.js";
 import initCodeCopy from "./modules/code-copy.js";
 import initImageZoom from "./modules/image-zoom.js";
 import initSystemStatus from "./modules/system-status.js";
-import initAboutTerminal from "./modules/about-terminal.js";
-import initWhereAmI from "./modules/where-am-i.js";
 
 // Her modül kendi elemanını bulamazsa sessizce çıkar, bu yüzden tek paket
 // bütün sayfalarda güvenle çalışır.
@@ -18,8 +16,6 @@ const modules = [
   initCodeCopy,
   initImageZoom,
   initSystemStatus,
-  initAboutTerminal,
-  initWhereAmI,
 ];
 
 modules.forEach((init) => {
