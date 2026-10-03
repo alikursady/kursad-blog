@@ -11,10 +11,11 @@
 {{ range (where site.RegularPages "Type" "in" site.Params.mainSections).ByDate.Reverse }}
 - [{{ .Title }}]({{ .Permalink }}): {{ with .Description }}{{ . | plainify }}{{ else }}{{ .Summary | plainify }}{{ end }}
 {{- end }}
+{{- $pages := where site.Sections "Type" "not in" site.Params.mainSections }}
+{{- with $pages }}
 
 ## Sayfalar
-{{ range site.Sections }}
-{{- if not (in site.Params.mainSections .Type) }}
+{{ range . }}
 - [{{ .Title }}]({{ .Permalink }}){{ with .Description }}: {{ . | plainify }}{{ end }}
 {{- end }}
 {{- end }}
