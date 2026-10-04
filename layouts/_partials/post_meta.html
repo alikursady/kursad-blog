@@ -1,9 +1,6 @@
 {{- $scratch := newScratch }}
 
-{{- if not .Date.IsZero -}}
-{{- $dateFormat := site.Params.DateFormat | default "02.01.2006" }}
-{{- $scratch.Add "meta" (slice (printf "<span title='%s'>%s</span>" (.Date) (time.Format $dateFormat .Date))) }}
-{{- end }}
+{{- /* Yazı tarihi bilerek gösterilmiyor. */}}
 
 {{- if (.Param "ShowReadingTime") -}}
 {{- $scratch.Add "meta" (slice (printf "<span>%s</span>" (i18n "read_time" .ReadingTime | default (printf "%d min" .ReadingTime)))) }}
