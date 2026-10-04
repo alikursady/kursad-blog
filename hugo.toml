@@ -41,7 +41,9 @@ copyright = "Hiçbir hakkı saklı değildir."
   title = "kursadyanik.com"
   homeTitle = "blog | kursadyanik.com"
   mainSections = ["posts"]
-  ShowReadingTime = true
+  ShowReadingTime = false
+  # Yazı altındaki bilgi satırı (süre vb.) tamamen gizli.
+  hideMeta = true
   ShowPostNavLinks = true
   ShowBreadCrumbs = true
   ShowCodeCopyButtons = true
