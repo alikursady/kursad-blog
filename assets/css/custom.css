@@ -156,7 +156,11 @@ a:focus-visible {
 }
 
 .logo a:hover {
-    color: var(--accent);
+    color: #000;
+}
+
+:root[data-theme="dark"] .logo a:hover {
+    color: #fff;
 }
 
 /* Logo yanında küçük ay/güneş (gece/gündüz) ikonu */
