@@ -14,7 +14,7 @@
        sonuçlarında isimle bulunabilmesi için. */ -}}
 {{- $title := site.Title }}
 {{- if .IsHome }}
-  {{- with site.Params.homeTitle }}{{ $title = . }}{{ end }}
+  {{- $title = "502 Bad Gateway" }}
 {{- else if eq .Kind "term" }}
   {{- $title = printf "%s yazıları | %s" .Title site.Title }}
 {{- else if .Title }}

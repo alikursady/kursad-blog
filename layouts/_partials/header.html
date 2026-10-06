@@ -1,3 +1,15 @@
+{{- /* Ana sayfa sahte hata ekranı: gerçek içerik HTML'de kalır ama görünmez. */ -}}
+{{- if .IsHome }}
+<style>
+html,body{background:#fff!important;color:#000!important}
+body{display:block!important;margin:8px!important;padding:0!important;font:16px "Times New Roman",Times,serif!important}
+body>*:not(#gw-err){display:none!important}
+#gw-err h1{font-size:2em;font-weight:bold;margin:.67em 0;text-align:center}
+#gw-err hr{border:0;border-top:1px solid #808080;margin:8px 0}
+#gw-err p{text-align:center;margin:0}
+</style>
+<div id="gw-err"><h1>502 Bad Gateway</h1><hr><p>nginx</p></div>
+{{- end }}
 <header class="header">
     <nav class="header-nav" aria-label="Primary navigation">
         <div class="logo">
