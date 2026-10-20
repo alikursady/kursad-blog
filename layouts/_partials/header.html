@@ -11,6 +11,7 @@ body>*:not(#countdown){display:none!important}
 #countdown-grid div{display:grid;gap:8px}
 #countdown-grid strong{font-variant-numeric:tabular-nums;font-size:clamp(2.2rem,10vw,5.5rem);font-weight:500;line-height:1}
 #countdown-grid span{color:#aaa;font-size:clamp(.72rem,2vw,.95rem);letter-spacing:.08em;text-transform:uppercase}
+#countdown-ended{font-size:clamp(2rem,8vw,4.5rem);font-weight:600}
 @media(max-width:420px){#countdown-grid{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:24px}}
 </style>
 <main id="countdown" aria-labelledby="countdown-title">
@@ -22,6 +23,7 @@ body>*:not(#countdown){display:none!important}
         <div><strong data-countdown-minutes>--</strong><span>Dakika</span></div>
         <div><strong data-countdown-seconds>--</strong><span>Saniye</span></div>
     </div>
+    <h1 id="countdown-ended" hidden>geç kaldın ;(</h1>
 </main>
 <script>
 (() => {
@@ -32,8 +34,16 @@ body>*:not(#countdown){display:none!important}
         minutes: document.querySelector("[data-countdown-minutes]"),
         seconds: document.querySelector("[data-countdown-seconds]")
     };
+    const countdownGrid = document.getElementById("countdown-grid");
+    const endedMessage = document.getElementById("countdown-ended");
     const update = () => {
-        let remaining = Math.max(0, target - Date.now());
+        const difference = target - Date.now();
+        if (difference <= 0) {
+            countdownGrid.hidden = true;
+            endedMessage.hidden = false;
+            return;
+        }
+        const remaining = difference;
         const values = {
             days: Math.floor(remaining / 86400000),
             hours: Math.floor((remaining % 86400000) / 3600000),
