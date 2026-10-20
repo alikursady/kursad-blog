@@ -1,60 +1,38 @@
-{{- /* Ana sayfada 24 Kasım 2026'ya geri sayım göster. */ -}}
+{{- /* Ana sayfa: karanlık tuval ve 24 Kasım 2026 12.00'ye geri sayım.
+       Resim static/images/tuval/ altında, efektler assets/js/tuval.js'te. */ -}}
 {{- if .IsHome }}
-<style>
-html,body{min-height:100%;background:#000!important;color:#fff!important}
-body{display:grid!important;min-height:100vh;place-items:center;margin:0!important;padding:24px!important;box-sizing:border-box;font-family:system-ui,-apple-system,"Segoe UI",sans-serif!important}
-body>*:not(#countdown){display:none!important}
-#countdown{width:min(100%,760px);text-align:center}
-#countdown h1{margin:0 0 12px;font-size:clamp(1.5rem,5vw,2.5rem);font-weight:600;letter-spacing:.04em}
-#countdown time{display:block;margin-bottom:clamp(28px,7vh,56px);color:#aaa;font-size:clamp(.95rem,2.5vw,1.1rem)}
-#countdown-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(10px,3vw,28px)}
-#countdown-grid div{display:grid;gap:8px}
-#countdown-grid strong{font-variant-numeric:tabular-nums;font-size:clamp(2.2rem,10vw,5.5rem);font-weight:500;line-height:1}
-#countdown-grid span{color:#aaa;font-size:clamp(.72rem,2vw,.95rem);letter-spacing:.08em;text-transform:uppercase}
-#countdown-ended{font-size:clamp(2rem,8vw,4.5rem);font-weight:600}
-@media(max-width:420px){#countdown-grid{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:24px}}
-</style>
-<main id="countdown" aria-labelledby="countdown-title">
-    <h1 id="countdown-title">Geri Sayım</h1>
-    <div id="countdown-grid" role="timer" aria-live="off">
-        <div><strong data-countdown-days>--</strong><span>Gün</span></div>
-        <div><strong data-countdown-hours>--</strong><span>Saat</span></div>
-        <div><strong data-countdown-minutes>--</strong><span>Dakika</span></div>
-        <div><strong data-countdown-seconds>--</strong><span>Saniye</span></div>
+{{- $tuvalCSS := resources.Get "css/tuval.css" | resources.Minify | fingerprint }}
+<link rel="stylesheet" href="{{ $tuvalCSS.RelPermalink }}" integrity="{{ $tuvalCSS.Data.Integrity }}">
+<link rel="preload" href="{{ "fonts/cormorant-garamond-latin-300-normal.woff2" | relURL }}" as="font" type="font/woff2" crossorigin>
+<main id="tuval">
+    <div class="tv-sahne" data-tv-sahne>
+        <picture>
+            <source media="(max-aspect-ratio: 4/5)" type="image/webp" sizes="125vw"
+                srcset="{{ "images/tuval/tuval-dikey-720.webp" | relURL }} 720w, {{ "images/tuval/tuval-dikey-1080.webp" | relURL }} 1080w, {{ "images/tuval/tuval-dikey-1536.webp" | relURL }} 1536w">
+            <source media="(max-aspect-ratio: 4/5)" type="image/jpeg" srcset="{{ "images/tuval/tuval-dikey-1080.jpg" | relURL }}">
+            <source type="image/webp" sizes="115vw"
+                srcset="{{ "images/tuval/tuval-yatay-1280.webp" | relURL }} 1280w, {{ "images/tuval/tuval-yatay-1920.webp" | relURL }} 1920w, {{ "images/tuval/tuval-yatay-2752.webp" | relURL }} 2752w">
+            <img class="tv-resim" data-tv-resim src="{{ "images/tuval/tuval-yatay-1920.jpg" | relURL }}" width="2752" height="1536"
+                fetchpriority="high" decoding="async"
+                alt="Karanlık bir yağlı boya tablo: fırtınalı bir gecede taş bir evin kare damında arkası dönük duran bir adam. Damın dört köşesindeki taşlara iplerle bağlı dört kırmızı dilek feneri yanıyor; gökyüzü şimşekler, kargalar ve uzakta yanan bir şehirle girdap gibi dönüyor.">
+        </picture>
+        <canvas class="tv-efekt" data-tv-efekt aria-hidden="true"></canvas>
     </div>
-    <h1 id="countdown-ended" hidden>geç kaldın ;(</h1>
+    <div class="tv-simsek" data-tv-simsek aria-hidden="true"></div>
+    <div class="tv-golge" aria-hidden="true"></div>
+    <div class="tv-gren" aria-hidden="true"></div>
+    <section class="tv-sayac" aria-label="Geri sayım">
+        <div class="tv-izgara" data-tv-izgara role="timer" aria-live="off">
+            <div class="tv-birim"><strong data-countdown-days>--</strong><span>gün</span></div>
+            <div class="tv-birim"><strong data-countdown-hours>--</strong><span>saat</span></div>
+            <div class="tv-birim"><strong data-countdown-minutes>--</strong><span>dakika</span></div>
+            <div class="tv-birim"><strong data-countdown-seconds>--</strong><span>saniye</span></div>
+        </div>
+        <p class="tv-bitti" data-tv-bitti hidden>geç kaldın ;(</p>
+    </section>
 </main>
-<script>
-(() => {
-    const target = new Date("2026-11-24T12:00:00+03:00").getTime();
-    const fields = {
-        days: document.querySelector("[data-countdown-days]"),
-        hours: document.querySelector("[data-countdown-hours]"),
-        minutes: document.querySelector("[data-countdown-minutes]"),
-        seconds: document.querySelector("[data-countdown-seconds]")
-    };
-    const countdownGrid = document.getElementById("countdown-grid");
-    const endedMessage = document.getElementById("countdown-ended");
-    const update = () => {
-        const difference = target - Date.now();
-        if (difference <= 0) {
-            countdownGrid.hidden = true;
-            endedMessage.hidden = false;
-            return;
-        }
-        const remaining = difference;
-        const values = {
-            days: Math.floor(remaining / 86400000),
-            hours: Math.floor((remaining % 86400000) / 3600000),
-            minutes: Math.floor((remaining % 3600000) / 60000),
-            seconds: Math.floor((remaining % 60000) / 1000)
-        };
-        Object.entries(values).forEach(([unit, value]) => { fields[unit].textContent = String(value).padStart(2, "0"); });
-    };
-    update();
-    window.setInterval(update, 1000);
-})();
-</script>
+{{- $tuvalJS := resources.Get "js/tuval.js" | js.Build (dict "minify" true "target" "es2017") | fingerprint }}
+<script defer src="{{ $tuvalJS.RelPermalink }}" integrity="{{ $tuvalJS.Data.Integrity }}"></script>
 {{- end }}
 <header class="header">
     <nav class="header-nav" aria-label="Primary navigation">
