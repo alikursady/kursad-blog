@@ -1,15 +1,51 @@
-{{- /* Ana sayfa sahte hata ekranı: gerçek içerik HTML'de kalır ama görünmez. */ -}}
+{{- /* Ana sayfada 24 Kasım 2026'ya geri sayım göster. */ -}}
 {{- if .IsHome }}
 <style>
-html,body{background:#fff!important;color:#000!important}
-body{display:block!important;margin:8px!important;padding:0!important;font:16px "Times New Roman",Times,serif!important}
-body>*:not(#gw-err){display:none!important}
-#gw-err,#gw-err *{color:#000!important;font-family:"Times New Roman",Times,serif!important;opacity:1!important;background:none!important;-webkit-text-fill-color:#000!important}
-#gw-err h1{font-size:2em;font-weight:bold;margin:.67em 0;text-align:center}
-#gw-err hr{border:0;border-top:1px solid #808080;margin:8px 0}
-#gw-err p{text-align:center;margin:0}
+html,body{min-height:100%;background:#000!important;color:#fff!important}
+body{display:grid!important;min-height:100vh;place-items:center;margin:0!important;padding:24px!important;box-sizing:border-box;font-family:system-ui,-apple-system,"Segoe UI",sans-serif!important}
+body>*:not(#countdown){display:none!important}
+#countdown{width:min(100%,760px);text-align:center}
+#countdown h1{margin:0 0 12px;font-size:clamp(1.5rem,5vw,2.5rem);font-weight:600;letter-spacing:.04em}
+#countdown time{display:block;margin-bottom:clamp(28px,7vh,56px);color:#aaa;font-size:clamp(.95rem,2.5vw,1.1rem)}
+#countdown-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(10px,3vw,28px)}
+#countdown-grid div{display:grid;gap:8px}
+#countdown-grid strong{font-variant-numeric:tabular-nums;font-size:clamp(2.2rem,10vw,5.5rem);font-weight:500;line-height:1}
+#countdown-grid span{color:#aaa;font-size:clamp(.72rem,2vw,.95rem);letter-spacing:.08em;text-transform:uppercase}
+@media(max-width:420px){#countdown-grid{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:24px}}
 </style>
-<div id="gw-err"><h1>502 Bad Gateway</h1><hr><p>nginx</p></div>
+<main id="countdown" aria-labelledby="countdown-title">
+    <h1 id="countdown-title">Geri Sayım</h1>
+    <time datetime="2026-11-24T12:00:00+03:00">24 Kasım 2026 · 12:00</time>
+    <div id="countdown-grid" role="timer" aria-live="off">
+        <div><strong data-countdown-days>--</strong><span>Gün</span></div>
+        <div><strong data-countdown-hours>--</strong><span>Saat</span></div>
+        <div><strong data-countdown-minutes>--</strong><span>Dakika</span></div>
+        <div><strong data-countdown-seconds>--</strong><span>Saniye</span></div>
+    </div>
+</main>
+<script>
+(() => {
+    const target = new Date("2026-11-24T12:00:00+03:00").getTime();
+    const fields = {
+        days: document.querySelector("[data-countdown-days]"),
+        hours: document.querySelector("[data-countdown-hours]"),
+        minutes: document.querySelector("[data-countdown-minutes]"),
+        seconds: document.querySelector("[data-countdown-seconds]")
+    };
+    const update = () => {
+        let remaining = Math.max(0, target - Date.now());
+        const values = {
+            days: Math.floor(remaining / 86400000),
+            hours: Math.floor((remaining % 86400000) / 3600000),
+            minutes: Math.floor((remaining % 3600000) / 60000),
+            seconds: Math.floor((remaining % 60000) / 1000)
+        };
+        Object.entries(values).forEach(([unit, value]) => { fields[unit].textContent = String(value).padStart(2, "0"); });
+    };
+    update();
+    window.setInterval(update, 1000);
+})();
+</script>
 {{- end }}
 <header class="header">
     <nav class="header-nav" aria-label="Primary navigation">
