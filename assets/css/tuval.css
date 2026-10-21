@@ -81,6 +81,10 @@ body > *:not(#tuval) {
   height: 100%;
 }
 
+.tv-sahne picture {
+  position: relative;
+}
+
 .tv-resim {
   object-fit: cover;
   object-position: 50% 50%;
@@ -93,9 +97,6 @@ body > *:not(#tuval) {
    duvar zaten siyah olduğu için kalan boşluk fotoğrafın devamı gibi görünür.
    Dört fenerin hiçbiri kenardan kesilmez. */
 @media (max-aspect-ratio: 4/5) {
-  .tv-sahne picture {
-    position: relative;
-  }
   .tv-resim {
     position: absolute;
     left: 0;
@@ -111,12 +112,19 @@ body > *:not(#tuval) {
   filter: brightness(1);
 }
 
-.tv-efekt {
+.tv-efekt,
+.tv-katman {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   pointer-events: none;
+}
+
+/* Şimşeğin ışığı fotoğrafa eklenir; yalnızca çakarken görünür */
+.tv-flas {
+  mix-blend-mode: screen;
+  visibility: hidden;
 }
 
 /* Kenarlarda objektif kararması, altta sayaç için koyulaşan zemin */

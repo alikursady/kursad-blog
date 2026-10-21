@@ -1,5 +1,6 @@
-{{- /* Ana sayfa: zifiri gecede taş evin damı ve 24 Kasım 2026 12.00'ye geri sayım.
-       Fotoğraf static/images/tuval/ altında, efektler assets/js/tuval.js'te. */ -}}
+{{- /* Ana sayfa: gece, taş evin damı ve 24 Kasım 2026 12.00'ye geri sayım.
+       Fotoğraf static/images/tuval/ altında; fenerlerin rüzgârda sallanması ve
+       dağların ardındaki şimşek assets/js/tuval.js'te. */ -}}
 {{- if .IsHome }}
 {{- $tuvalCSS := resources.Get "css/tuval.css" | resources.Minify | fingerprint }}
 <link rel="stylesheet" href="{{ $tuvalCSS.RelPermalink }}" integrity="{{ $tuvalCSS.Data.Integrity }}">
@@ -16,6 +17,8 @@
                 fetchpriority="high" decoding="async"
                 alt="Zifiri karanlık, rüzgârsız bir gece. Eski bir Anadolu köy evinin düz damında, arkası dönük bir adam tek başına duruyor. Damın dört köşesindeki taşlara iplerle bağlı dört kırmızı dilek feneri havada asılı duruyor; etrafı yalnızca onların ışığı aydınlatıyor.">
         </picture>
+        <canvas class="tv-katman" data-tv-yama aria-hidden="true"></canvas>
+        <canvas class="tv-katman tv-flas" data-tv-flas aria-hidden="true"></canvas>
         <canvas class="tv-efekt" data-tv-efekt aria-hidden="true"></canvas>
     </div>
     <div class="tv-golge" aria-hidden="true"></div>
