@@ -1,54 +1,51 @@
-/* Ana sayfa: karanlık tuval ve geri sayım.
+/* Ana sayfa: zifiri gecede taş evin damı ve geri sayım.
    Sadece ana sayfada yüklenir (layouts/_partials/header.html). */
 
 @font-face {
-  font-family: "Cormorant Garamond";
+  font-family: "Jost";
   font-style: normal;
-  font-weight: 300;
+  font-weight: 200;
   font-display: swap;
-  src: url("/fonts/cormorant-garamond-latin-300-normal.woff2") format("woff2");
+  src: url("/fonts/jost-latin-200-normal.woff2") format("woff2");
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 @font-face {
-  font-family: "Cormorant Garamond";
+  font-family: "Jost";
   font-style: normal;
-  font-weight: 300;
+  font-weight: 200;
   font-display: swap;
-  src: url("/fonts/cormorant-garamond-latin-ext-300-normal.woff2") format("woff2");
+  src: url("/fonts/jost-latin-ext-200-normal.woff2") format("woff2");
   unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 @font-face {
-  font-family: "Cormorant Garamond";
-  font-style: italic;
-  font-weight: 400;
+  font-family: "Jost";
+  font-style: normal;
+  font-weight: 300;
   font-display: swap;
-  src: url("/fonts/cormorant-garamond-latin-400-italic.woff2") format("woff2");
+  src: url("/fonts/jost-latin-300-normal.woff2") format("woff2");
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 @font-face {
-  font-family: "Cormorant Garamond";
-  font-style: italic;
-  font-weight: 400;
+  font-family: "Jost";
+  font-style: normal;
+  font-weight: 300;
   font-display: swap;
-  src: url("/fonts/cormorant-garamond-latin-ext-400-italic.woff2") format("woff2");
+  src: url("/fonts/jost-latin-ext-300-normal.woff2") format("woff2");
   unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 
 :root {
-  --tv-zift: #050302;      /* bitüm siyahı, tuvalin en karanlık yeri */
-  --tv-umber: #2a1a10;     /* yanık toprak */
-  --tv-fildisi: #ecdfc6;   /* eski vernik altında fildişi */
-  --tv-fener: #c8281a;     /* fener kağıdı kırmızısı */
-  --tv-kor: #ff7a3c;       /* fenerin içindeki alev */
-  --tv-alev: 0.8;          /* JS her karede günceller, 0..1 */
+  --tv-gece: #000;                         /* fotoğrafın kenarlarındaki siyah */
+  --tv-yazi: rgba(244, 238, 228, 0.92);   /* fener ışığında kâğıt beyazı */
+  --tv-yazi-soluk: rgba(244, 238, 228, 0.5);
 }
 
 html,
 body {
   min-height: 100% !important;
   height: 100% !important;
-  background: var(--tv-zift) !important;
-  color: var(--tv-fildisi) !important;
+  background: var(--tv-gece) !important;
+  color: var(--tv-yazi) !important;
   overflow: hidden !important;
 }
 
@@ -66,7 +63,7 @@ body > *:not(#tuval) {
   position: fixed;
   inset: 0;
   overflow: hidden;
-  background: var(--tv-zift);
+  background: var(--tv-gece);
   isolation: isolate;
 }
 
@@ -88,13 +85,30 @@ body > *:not(#tuval) {
   object-fit: cover;
   object-position: 50% 50%;
   opacity: 0;
-  filter: brightness(0.15) saturate(0.6);
-  transition: opacity 2.6s cubic-bezier(0.2, 0.6, 0.2, 1), filter 3.4s cubic-bezier(0.2, 0.6, 0.2, 1);
+  filter: brightness(0.2);
+  transition: opacity 2.8s cubic-bezier(0.2, 0.6, 0.2, 1), filter 4.2s cubic-bezier(0.2, 0.6, 0.2, 1);
 }
 
+/* Dikey ekranda fotoğraf ekran genişliğine oturur; üstteki gökyüzü ve alttaki
+   duvar zaten siyah olduğu için kalan boşluk fotoğrafın devamı gibi görünür.
+   Dört fenerin hiçbiri kenardan kesilmez. */
+@media (max-aspect-ratio: 4/5) {
+  .tv-sahne picture {
+    position: relative;
+  }
+  .tv-resim {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    height: auto;
+    translate: 0 -50%;
+  }
+}
+
+/* Göz karanlığa alışır gibi: önce siyah, sonra fenerler, sonra dam */
 #tuval.tv-yandi .tv-resim {
   opacity: 1;
-  filter: brightness(1) saturate(1);
+  filter: brightness(1);
 }
 
 .tv-efekt {
@@ -105,44 +119,33 @@ body > *:not(#tuval) {
   pointer-events: none;
 }
 
-/* Şimşek anında tuvalin üstüne düşen soğuk ışık */
-.tv-simsek {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0;
-  mix-blend-mode: screen;
-  background: radial-gradient(ellipse 70% 60% at var(--tv-simsek-x, 50%) 18%, rgba(214, 214, 236, 0.85), rgba(150, 150, 190, 0.25) 45%, rgba(40, 30, 40, 0) 75%);
-}
-
-/* Kenarlarda yanık vernik, altta sayaç için koyulaşan zemin */
+/* Kenarlarda objektif kararması, altta sayaç için koyulaşan zemin */
 .tv-golge {
   position: absolute;
   inset: 0;
   pointer-events: none;
   background:
-    radial-gradient(ellipse 85% 75% at 50% 44%, rgba(5, 3, 2, 0) 52%, rgba(5, 3, 2, 0.78) 100%),
-    linear-gradient(to top, rgba(5, 3, 2, 0.94) 0%, rgba(5, 3, 2, 0.72) 14%, rgba(5, 3, 2, 0.28) 30%, rgba(5, 3, 2, 0) 44%);
+    radial-gradient(ellipse 90% 80% at 50% 45%, rgba(0, 0, 0, 0) 55%, rgba(0, 0, 0, 0.6) 100%),
+    linear-gradient(to top, rgba(0, 0, 0, 0.88) 0%, rgba(0, 0, 0, 0.55) 13%, rgba(0, 0, 0, 0) 34%);
 }
 
-/* Yağlı boya grenini andıran canlı doku. Yalnızca karartır, siyahları açmaz;
-   karışım modu kullanmadığı için her karede ucuz. */
+/* Yüksek ISO'da çekilmiş gibi canlı kumlanma. Yalnızca karartır, siyahları açmaz. */
 .tv-gren {
   position: absolute;
   inset: -60px;
   pointer-events: none;
-  opacity: 0.32;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.02 0 0 0 0 0.01 0 0 0 0 0.005 1.7 0 0 0 -0.62'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  animation: tv-gren 0.9s steps(6) infinite;
+  opacity: 0.26;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1.8 0 0 0 -0.7'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: tv-gren 0.5s steps(5) infinite;
   will-change: transform;
 }
 
 @keyframes tv-gren {
   0% { transform: translate(0, 0); }
-  20% { transform: translate(-18px, 11px); }
-  40% { transform: translate(14px, -21px); }
-  60% { transform: translate(-25px, -7px); }
-  80% { transform: translate(21px, 17px); }
+  20% { transform: translate(-23px, 13px); }
+  40% { transform: translate(17px, -29px); }
+  60% { transform: translate(-31px, -9px); }
+  80% { transform: translate(27px, 21px); }
   100% { transform: translate(0, 0); }
 }
 
@@ -150,93 +153,76 @@ body > *:not(#tuval) {
 .tv-sayac {
   position: absolute;
   left: 50%;
-  bottom: clamp(18px, 5.5vh, 60px);
-  transform: translateX(-50%);
-  width: min(100% - 32px, 980px);
+  bottom: clamp(24px, 6.5vh, 68px);
+  translate: -50% 10px;
   margin: 0;
+  font-family: "Jost", "Futura", "Century Gothic", "Avenir Next", sans-serif;
   text-align: center;
-  font-family: "Cormorant Garamond", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  white-space: nowrap;
   opacity: 0;
-  translate: 0 14px;
-  transition: opacity 2.2s ease 1.9s, translate 2.2s cubic-bezier(0.2, 0.6, 0.2, 1) 1.9s;
+  transition: opacity 2.4s ease 2.6s, translate 2.4s cubic-bezier(0.2, 0.6, 0.2, 1) 2.6s;
 }
 
 #tuval.tv-yandi .tv-sayac {
   opacity: 1;
-  translate: 0 0;
+  translate: -50% 0;
 }
 
 .tv-izgara {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  align-items: end;
+  display: flex;
+  align-items: flex-end;
+  gap: clamp(28px, 5.2vw, 84px);
 }
 
 .tv-birim {
-  position: relative;
   display: grid;
   justify-items: center;
-  gap: 0.15em;
-  padding: 0 clamp(4px, 1.4vw, 22px);
-}
-
-/* Birimler arasında fener ipini andıran ince çizgi */
-.tv-birim + .tv-birim::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 18%;
-  bottom: 22%;
-  width: 1px;
-  background: linear-gradient(to bottom, rgba(200, 40, 26, 0), rgba(200, 40, 26, 0.55) 45%, rgba(236, 223, 198, 0.12) 80%, rgba(200, 40, 26, 0));
+  gap: 0.55rem;
 }
 
 .tv-birim strong {
   display: block;
-  font-weight: 300;
-  font-style: normal;
-  font-size: clamp(3rem, 8.4vw, 7.4rem);
-  line-height: 0.92;
-  letter-spacing: 0.01em;
-  font-variant-numeric: lining-nums tabular-nums;
-  font-feature-settings: "lnum" 1, "tnum" 1;
-  color: var(--tv-fildisi);
-  text-shadow:
-    0 0 calc(10px + 26px * var(--tv-alev)) rgba(255, 74, 30, calc(0.18 + 0.32 * var(--tv-alev))),
-    0 1px 0 rgba(0, 0, 0, 0.75),
-    0 6px 28px rgba(0, 0, 0, 0.85);
+  font-weight: 200;
+  font-size: clamp(2.8rem, 6.2vw, 5.8rem);
+  line-height: 0.9;
+  letter-spacing: 0.02em;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+  color: var(--tv-yazi);
+  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.85);
 }
 
-.tv-birim span {
+.tv-hane {
+  display: inline-block;
+}
+
+/* Değişen rakam bir anda değil, usulca belirir */
+.tv-hane.tv-yeni {
+  animation: tv-yeni 0.7s ease-out;
+}
+
+@keyframes tv-yeni {
+  from { opacity: 0.15; }
+  to { opacity: 1; }
+}
+
+.tv-birim span.tv-ad {
   display: block;
-  font-style: italic;
-  font-weight: 400;
-  font-size: clamp(1rem, 1.7vw, 1.4rem);
-  letter-spacing: 0.03em;
-  color: rgba(236, 223, 198, 0.62);
-  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.9);
-}
-
-/* Rakam değişince mum ışığı gibi bir an söner, geri gelir */
-.tv-birim strong.tv-titrek {
-  animation: tv-titrek 0.6s ease-out;
-}
-
-@keyframes tv-titrek {
-  0% { opacity: 0.45; filter: blur(1.2px); }
-  35% { opacity: 0.9; filter: blur(0.3px); }
-  55% { opacity: 0.78; }
-  100% { opacity: 1; filter: blur(0); }
+  font-weight: 300;
+  font-size: clamp(0.78rem, 0.95vw, 0.95rem);
+  letter-spacing: 0.14em;
+  color: var(--tv-yazi-soluk);
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.9);
 }
 
 .tv-bitti {
   margin: 0;
-  font-style: italic;
-  font-weight: 400;
-  font-size: clamp(2.6rem, 7vw, 6rem);
+  font-weight: 200;
+  font-size: clamp(2.4rem, 6vw, 5.2rem);
   line-height: 1;
-  color: var(--tv-fildisi);
-  text-shadow: 0 0 30px rgba(255, 74, 30, 0.45), 0 6px 28px rgba(0, 0, 0, 0.85);
+  letter-spacing: 0.02em;
+  color: var(--tv-yazi);
+  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.85);
 }
 
 .tv-bitti[hidden],
@@ -244,18 +230,19 @@ body > *:not(#tuval) {
   display: none;
 }
 
-@media (max-width: 520px) {
+@media (max-width: 560px) {
   .tv-sayac {
-    bottom: clamp(16px, 4.5vh, 40px);
+    bottom: clamp(20px, 5vh, 44px);
   }
-  .tv-birim {
-    padding: 0 2px;
+  .tv-izgara {
+    gap: clamp(14px, 6vw, 30px);
   }
   .tv-birim strong {
-    font-size: clamp(2.5rem, 14vw, 4rem);
+    font-size: clamp(2.3rem, 11.5vw, 3.6rem);
   }
-  .tv-birim span {
-    font-size: 0.98rem;
+  .tv-birim span.tv-ad {
+    font-size: 0.74rem;
+    letter-spacing: 0.1em;
   }
 }
 
@@ -267,7 +254,7 @@ body > *:not(#tuval) {
   .tv-sayac {
     transition: none;
   }
-  .tv-birim strong.tv-titrek {
+  .tv-hane.tv-yeni {
     animation: none;
   }
 }
