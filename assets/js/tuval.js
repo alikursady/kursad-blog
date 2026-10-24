@@ -1,6 +1,11 @@
 // Ana sayfa: gece, Anadolu köy evinin düz damı. Fotoğraf statik; üstündeki
 // katmanlar dört feneri hafif bir esintide ipleri ucunda sallar, alevlerini
-// titretir, fener ışığında toz uçurur ve dağların ardında şimşek çaktırır.
+// titretir, fener ışığında toz uçurur, çok hafif bir yağmur yağdırır ve
+// köyün ardındaki dağlara yıldırım düşürür.
+//
+// Yağmur ve yıldırım, işletim sisteminde "animasyonları azalt" açık olsa da
+// çalışır (Windows'ta animasyon efektleri kapalıyken tarayıcı bunu bildirir).
+// Işığa duyarlılık için bir çakmada en fazla üç parlama olur.
 
 const HEDEF = new Date("2026-11-24T12:00:00+03:00").getTime();
 
@@ -9,6 +14,9 @@ const HEDEF = new Date("2026-11-24T12:00:00+03:00").getTime();
 // yama/fener: [levhadaki x, y, genişlik, yükseklik, fotoğraftaki x, y]
 // baglanti: ipin taşa bağlandığı nokta (fener bunun etrafında sallanır)
 // alev: alevin yeri, R: fenerin yarıçapı, boy: bağlantıdan fenerin tepesine (px)
+// gok: yalnızca gökyüzü; uzak: gökyüzü ve dağın yamacı (evlerin ve adamın gerisi)
+// adam: adamın fotoğraftaki yatay aralığı (yıldırım onun hizasına düşmez)
+// cati: damın yüzeyi [üst, alt, sol, sağ], damlaların sıçradığı yer
 const SAHNELER = {
   yatay: {
     w: 2752,
@@ -16,6 +24,9 @@ const SAHNELER = {
     levha: "/images/tuval/tuval-yatay-fenerler.webp",
     flas: "/images/tuval/tuval-yatay-simsek.webp",
     gok: "/images/tuval/tuval-yatay-gok.png",
+    uzak: "/images/tuval/tuval-yatay-uzak.png",
+    adam: [1250, 1520],
+    cati: [0.47, 0.76, 0.06, 0.86],
     dam: [0.5, 0.58, 0.42],
     toz: [0.2, 0.72],
     fenerler: [
@@ -31,6 +42,9 @@ const SAHNELER = {
     levha: "/images/tuval/tuval-dikey-fenerler.webp",
     flas: "/images/tuval/tuval-dikey-simsek.webp",
     gok: "/images/tuval/tuval-dikey-gok.png",
+    uzak: "/images/tuval/tuval-dikey-uzak.png",
+    adam: [730, 905],
+    cati: [0.46, 0.57, 0.0, 0.97],
     dam: [0.5, 0.5, 0.55],
     toz: [0.34, 0.6],
     fenerler: [
@@ -384,70 +398,87 @@ function tuvaliKur(kok) {
     });
   }
 
-  // ---- Şimşek ------------------------------------------------------------
-  let gokSirt = null; // her sütunda dağ sırtının yüksekliği (fotoğrafa oranla)
-  let maskeTuval = null; // gökyüzü maskesi, ekran yerleşimine göre
+  // ---- Şimşek ve yıldırım ----------------------------------------------
+  // Fotoğrafa göre her sütunda: gökyüzünün bittiği yer (dağ sırtı) ve uzak
+  // kısmın bittiği yer (dağın yamacı biter, evler başlar).
+  let gokSirt = null;
+  let uzakAlt = null;
+  let maskeTuval = null; // gökyüzü maskesi, ekran yerleşimine göre (yarım çözünürlük)
+  let uzakTuval = null; // gökyüzü + dağ yamacı maskesi, aynı şekilde
   let gokKatman = null; // ışıyan gök, yarım çözünürlükte
+  let yildirimTuval = null; // o çakmanın yıldırımı, bir kez çizilip her karede kullanılır
   let simsek = null;
-  let sonrakiSimsek = performance.now() + rastgele(5500, 9000);
+  let sonrakiSimsek = performance.now() + rastgele(4500, 6500);
+  // Bu karedeki gök parlaklığı; yağmur da bununla aydınlanır
+  let flasGucu = 0;
 
-  function sirtCikar(maske) {
+  function profilCikar(maske) {
     const c = document.createElement("canvas");
     c.width = maske.naturalWidth;
     c.height = maske.naturalHeight;
     const p = c.getContext("2d");
     p.drawImage(maske, 0, 0);
     const v = p.getImageData(0, 0, c.width, c.height).data;
-    const sirt = new Float32Array(c.width);
+    const profil = new Float32Array(c.width);
     for (let x = 0; x < c.width; x++) {
       let y = 0;
       while (y < c.height && v[(y * c.width + x) * 4 + 3] > 127) y++;
-      sirt[x] = y / c.height;
+      profil[x] = y / c.height;
     }
-    return sirt;
+    return profil;
   }
 
-  function maskeHazirla() {
-    const v = varlik[sahneAdi()];
-    if (!v.gok) {
-      maskeTuval = null;
-      return;
-    }
-    const mg = Math.ceil(gen / 2);
-    const my = Math.ceil(yuk / 2);
-    maskeTuval = maskeTuval || document.createElement("canvas");
-    maskeTuval.width = mg;
-    maskeTuval.height = my;
-    const p = maskeTuval.getContext("2d");
+  function ekranMaskesi(eski, resimEl, mg, my) {
+    const c = eski || document.createElement("canvas");
+    c.width = mg;
+    c.height = my;
+    const p = c.getContext("2d");
     p.clearRect(0, 0, mg, my);
     // Fotoğrafın üstünde kalan siyah boşluk da gökyüzünün devamı
     p.fillStyle = "#fff";
     p.fillRect(0, 0, mg, Math.max(0, yer.y / 2) + 1);
-    p.drawImage(v.gok, yer.x / 2, yer.y / 2, yer.w / 2, yer.h / 2);
+    p.drawImage(resimEl, yer.x / 2, yer.y / 2, yer.w / 2, yer.h / 2);
+    return c;
+  }
+
+  function maskeHazirla() {
+    const v = varlik[sahneAdi()];
+    if (!v.gok || !v.uzak) {
+      maskeTuval = null;
+      uzakTuval = null;
+      return;
+    }
+    const mg = Math.ceil(gen / 2);
+    const my = Math.ceil(yuk / 2);
+    maskeTuval = ekranMaskesi(maskeTuval, v.gok, mg, my);
+    uzakTuval = ekranMaskesi(uzakTuval, v.uzak, mg, my);
     gokKatman = gokKatman || document.createElement("canvas");
     gokKatman.width = mg;
     gokKatman.height = my;
   }
 
-  function sirtY(fx) {
-    // ekran x'inden (0..1, fotoğrafa göre) dağ sırtının ekran y'si
-    const sirt = gokSirt[sahneAdi()];
-    const i = Math.max(0, Math.min(sirt.length - 1, Math.round(fx * (sirt.length - 1))));
-    return yer.y + sirt[i] * yer.h;
+  function profilDegeri(profil, fx) {
+    return profil[Math.max(0, Math.min(profil.length - 1, Math.round(fx * (profil.length - 1))))];
   }
 
-  function kirikCizgi(x0, y0, x1, y1, derinlik) {
+  function kirikCizgi(x0, y0, x1, y1, derinlik, puruz = 0.2) {
     let noktalar = [
       [x0, y0],
       [x1, y1],
     ];
-    let sapma = Math.hypot(x1 - x0, y1 - y0) * 0.2;
+    let sapma = Math.hypot(x1 - x0, y1 - y0) * puruz;
+    // Sapma çizgiye dik yönde; dikey bir yıldırım sağa sola kırılır
+    const uz = Math.hypot(x1 - x0, y1 - y0) || 1;
+    const nx = -(y1 - y0) / uz;
+    const ny = (x1 - x0) / uz;
     for (let d = 0; d < derinlik; d++) {
       const yeni = [noktalar[0]];
       for (let i = 0; i < noktalar.length - 1; i++) {
         const [ax, ay] = noktalar[i];
         const [bx, by] = noktalar[i + 1];
-        yeni.push([(ax + bx) / 2 + rastgele(-sapma, sapma), (ay + by) / 2 + rastgele(-sapma, sapma) * 0.3]);
+        const s = rastgele(-sapma, sapma);
+        const b = rastgele(-sapma, sapma) * 0.25;
+        yeni.push([(ax + bx) / 2 + nx * s + (ny * b), (ay + by) / 2 + ny * s - nx * b]);
         yeni.push([bx, by]);
       }
       noktalar = yeni;
@@ -456,42 +487,141 @@ function tuvaliKur(kok) {
     return noktalar;
   }
 
+  function olcu() {
+    return Math.max(0.8, Math.min(1.5, Math.min(gen, yuk) / 650));
+  }
+
+  // Yıldırımın düşeceği yer: üstünde gök görünen, fenerlerin ve adamın hizasında
+  // olmayan bir nokta. Çoğu zaman köyün ardındaki dağın yamacına, bazen de
+  // dağın arkasına düşer.
+  function hedefSec(sirt, alt, k) {
+    const engeller = sahne.fenerler.map((f) => [f.fener[4] - 60, f.fener[4] + f.fener[2] + 60]);
+    engeller.push(sahne.adam);
+    const isikYaricap = 30 * k;
+    for (let deneme = 0; deneme < 40; deneme++) {
+      const x = rastgele(0.14, 0.86) * gen;
+      const fx = (x - yer.x) / yer.w;
+      if (fx < 0.02 || fx > 0.98) continue;
+      const px = fx * sahne.w;
+      if (engeller.some(([a, b]) => px > a && px < b)) continue;
+      const sY = yer.y + profilDegeri(sirt, fx) * yer.h;
+      if (sY < 0.09 * yuk) continue;
+      const aY = yer.y + profilDegeri(alt, fx) * yer.h;
+      const pay = aY - 1.4 * isikYaricap - sY;
+      if (pay > 26 * k && Math.random() < 0.7) {
+        return { x, sY, y: sY + rastgele(0.4, 0.95) * pay, onde: true };
+      }
+      return { x, sY, y: sY + 6, onde: false };
+    }
+    return null;
+  }
+
+  function yildirimUret(h, k) {
+    const ustY = -0.03 * yuk;
+    const boy = h.y - ustY;
+    const ustX = h.x + rastgele(-0.12, 0.12) * boy;
+    const ana = kirikCizgi(ustX, ustY, h.x, h.y, 7, 0.14);
+    const dallar = [];
+    const adet = Math.floor(rastgele(2, 6));
+    for (let i = 0; i < adet; i++) {
+      const j = Math.floor(rastgele(0.08, 0.72) * (ana.length - 1));
+      const [bx, by] = ana[j];
+      const uz = rastgele(0.12, 0.34) * boy * (1 - (0.5 * j) / ana.length);
+      const aci = (Math.random() < 0.5 ? -1 : 1) * rastgele(0.35, 0.95);
+      const dal = kirikCizgi(bx, by, bx + Math.sin(aci) * uz, by + Math.cos(aci) * uz, 5, 0.2);
+      dallar.push({ yol: dal, kalin: rastgele(0.4, 0.6) });
+      if (Math.random() < 0.45) {
+        const [cx, cy] = dal[Math.floor(dal.length * rastgele(0.25, 0.6))];
+        const uz2 = uz * rastgele(0.3, 0.55);
+        const aci2 = aci + rastgele(-0.6, 0.6);
+        dallar.push({ yol: kirikCizgi(cx, cy, cx + Math.sin(aci2) * uz2, cy + Math.cos(aci2) * uz2, 4, 0.22), kalin: 0.3 });
+      }
+    }
+    return { ana, dallar, ustY, boy, k };
+  }
+
+  // Kanal bir kez çizilir: geniş soluk hale, mavimsi parıltı ve beyaz çekirdek.
+  // Sonra evlerin ve adamın önüne geçmesin diye uzak maskesiyle kırpılır.
+  const KANAL = [
+    [15, 110, 125, 255, 0.07],
+    [6.5, 150, 165, 255, 0.17],
+    [2.7, 210, 218, 255, 0.6],
+    [1.2, 255, 255, 255, 0.97],
+  ];
+
+  function yildirimHazirla(y) {
+    yildirimTuval = yildirimTuval || document.createElement("canvas");
+    const c = yildirimTuval;
+    c.width = tuval.width;
+    c.height = tuval.height;
+    const p = c.getContext("2d");
+    p.setTransform(oran, 0, 0, oran, 0, 0);
+    p.lineCap = "round";
+    p.lineJoin = "round";
+    p.globalCompositeOperation = "lighter";
+    for (const [w, r, g, b, a] of KANAL) {
+      p.strokeStyle = `rgba(${r},${g},${b},${a})`;
+      p.lineWidth = w * y.k;
+      cizgi(p, y.ana);
+    }
+    // Dallar ana kanaldan uzaklaştıkça söner
+    for (const d of y.dallar) {
+      const [sx, sy] = d.yol[0];
+      const [ex, ey] = d.yol[d.yol.length - 1];
+      for (const [w, r, g, b, a] of KANAL) {
+        const grad = p.createLinearGradient(sx, sy, ex, ey);
+        grad.addColorStop(0, `rgba(${r},${g},${b},${a * 0.85})`);
+        grad.addColorStop(1, `rgba(${r},${g},${b},0)`);
+        p.strokeStyle = grad;
+        p.lineWidth = Math.max(0.5, w * y.k * d.kalin);
+        cizgi(p, d.yol);
+      }
+    }
+    p.setTransform(1, 0, 0, 1, 0, 0);
+    p.globalCompositeOperation = "destination-in";
+    p.drawImage(uzakTuval, 0, 0, c.width, c.height);
+    p.globalCompositeOperation = "source-over";
+  }
+
   function simsekBaslat(simdi) {
-    const sirt = gokSirt && gokSirt[sahneAdi()];
-    if (!sirt || !maskeTuval) {
-      sonrakiSimsek = simdi + 4000;
+    const ad = sahneAdi();
+    const sirt = gokSirt && gokSirt[ad];
+    const alt = uzakAlt && uzakAlt[ad];
+    if (!sirt || !alt || !maskeTuval || !uzakTuval) {
+      sonrakiSimsek = simdi + 1500;
       return;
     }
-    // Dağların ardında, göğün göründüğü bir yer seç
-    let fx = 0.5;
-    for (let deneme = 0; deneme < 20; deneme++) {
-      fx = rastgele(0.08, 0.92);
-      if (sirt[Math.round(fx * (sirt.length - 1))] > 0.08) break;
-    }
-    const [x] = ekrana(fx * sahne.w, 0);
-    const sY = sirtY(fx);
-    const darbeler = [{ t: 0, sure: rastgele(70, 110), guc: rastgele(0.75, 1) }];
-    darbeler.push({ t: rastgele(140, 230), sure: rastgele(50, 80), guc: rastgele(0.4, 0.7) });
-    if (Math.random() < 0.55) darbeler.push({ t: rastgele(380, 560), sure: rastgele(90, 150), guc: rastgele(0.5, 0.9) });
+    const k = olcu();
+    // Çoğu çakmada yıldırım yere iner; arada bir de yalnızca bulutlar aydınlanır
+    const hedef = Math.random() < 0.82 ? hedefSec(sirt, alt, k) : null;
+    let x;
+    let sY;
     let yildirim = null;
-    if (Math.random() < 0.42) {
-      const ustY = Math.max(0, sY - rastgele(0.35, 0.6) * yer.h * (sahne === SAHNELER.dikey ? 0.5 : 1));
-      const altX = x + rastgele(-0.04, 0.04) * gen;
-      const ana = kirikCizgi(x / 2, ustY / 2, altX / 2, (sY + 0.03 * yer.h) / 2, 6);
-      const dallar = [];
-      const dalSayisi = Math.floor(rastgele(1, 4));
-      for (let i = 0; i < dalSayisi; i++) {
-        const bas = ana[Math.floor(rastgele(ana.length * 0.15, ana.length * 0.7))];
-        const uz = rastgele(0.04, 0.12) * yuk * 0.5;
-        const aci = rastgele(-1.1, 1.1);
-        dallar.push(kirikCizgi(bas[0], bas[1], bas[0] + Math.sin(aci) * uz, bas[1] + Math.cos(aci) * uz * 0.7, 4));
+    let onder = 0;
+    if (hedef) {
+      x = hedef.x;
+      sY = hedef.sY;
+      yildirim = yildirimUret(hedef, k);
+      yildirim.hedef = hedef;
+      yildirimHazirla(yildirim);
+      // Önce ince öncü kanal basamak basamak iner, sonra asıl parlama
+      onder = rastgele(90, 140);
+    } else {
+      let fx = 0.5;
+      for (let deneme = 0; deneme < 20; deneme++) {
+        fx = rastgele(0.08, 0.92);
+        if (profilDegeri(sirt, fx) > 0.08) break;
       }
-      yildirim = { ana, dallar };
+      x = ekrana(fx * sahne.w, 0)[0];
+      sY = yer.y + profilDegeri(sirt, fx) * yer.h;
     }
-    simsek = { bas: simdi, x: x / 2, y: sY / 2, darbeler, yildirim, bulutlar: bulutKatmani() };
+    // En fazla üç parlama, aralarında en az ~130 ms
+    const darbeler = [{ t: onder, sure: rastgele(80, 120), guc: rastgele(0.85, 1) }];
+    darbeler.push({ t: onder + rastgele(130, 220), sure: rastgele(55, 85), guc: rastgele(0.45, 0.75) });
+    if (Math.random() < 0.55) darbeler.push({ t: onder + rastgele(380, 560), sure: rastgele(90, 150), guc: rastgele(0.5, 0.85) });
+    simsek = { bas: simdi, x: x / 2, y: sY / 2, darbeler, yildirim, onder, bulutlar: bulutKatmani() };
     flasTuval.style.visibility = "visible";
-    // Bir sonraki çakma: arada en az birkaç saniye
-    sonrakiSimsek = simdi + rastgele(9000, 22000);
+    sonrakiSimsek = simdi + rastgele(7000, 16000);
   }
 
   // Bu çakmada görünecek bulutlar: gökyüzü boyunca, en alçak sırtın biraz altına kadar
@@ -517,6 +647,7 @@ function tuvaliKur(kok) {
     return bulutTuval;
   }
 
+  // Gökyüzünün ve köyün aydınlanması
   function simsekGucu(gecen) {
     let toplam = 0;
     for (const d of simsek.darbeler) {
@@ -527,21 +658,47 @@ function tuvaliKur(kok) {
     return Math.min(1, toplam);
   }
 
+  // Kanalın kendi parlaklığı ve öncü inerken ne kadarının göründüğü
+  function kanalGucu(gecen) {
+    if (gecen < simsek.onder) {
+      const f = gecen / simsek.onder;
+      return [0.22 + 0.2 * f, Math.ceil(f * 7) / 7];
+    }
+    let g = 0;
+    for (const d of simsek.darbeler) {
+      const u = gecen - d.t;
+      if (u < 0) continue;
+      g = Math.max(g, d.guc * Math.exp(-u / (d.sure * 0.8)));
+    }
+    // Kanal bir süre sönük bir iz olarak kalır
+    g = Math.max(g, 0.16 * Math.exp(-(gecen - simsek.onder) / 300));
+    return [Math.min(1, g * 1.1), 1];
+  }
+
+  function simsekBitir() {
+    simsek = null;
+    flasGucu = 0;
+    fctx.setTransform(1, 0, 0, 1, 0, 0);
+    fctx.clearRect(0, 0, flasTuval.width, flasTuval.height);
+    flasTuval.style.visibility = "hidden";
+  }
+
+  // Gök ve köy (flaş katmanı). Yıldırımın kendisi efekt katmanına çizilir.
   function simsekCiz(simdi) {
     const gecen = simdi - simsek.bas;
-    if (gecen > 1400) {
-      simsek = null;
-      fctx.clearRect(0, 0, flasTuval.width, flasTuval.height);
-      flasTuval.style.visibility = "hidden";
+    const son = simsek.darbeler[simsek.darbeler.length - 1].t;
+    if (gecen > son + 950) {
+      simsekBitir();
       return;
     }
     const a = simsekGucu(gecen);
+    flasGucu = a;
     const fo = flasTuval.width / gen;
     fctx.setTransform(fo, 0, 0, fo, 0, 0);
     fctx.clearRect(0, 0, gen, yuk);
     if (a < 0.003) return;
 
-    // Gök: dağların ardından yayılan soğuk ışık, bulutların arasından
+    // Gök: yıldırımın düştüğü yerden yayılan soğuk ışık, bulutların arasından
     const g = gokKatman.getContext("2d");
     const gw = gokKatman.width;
     const gh = gokKatman.height;
@@ -559,35 +716,199 @@ function tuvaliKur(kok) {
     // Bulut dokusu tek katmanda: destination-in her çizimde katmanın dışını siler
     g.globalCompositeOperation = "destination-in";
     g.drawImage(simsek.bulutlar, 0, 0);
-    if (simsek.yildirim && a > 0.2) {
-      g.globalCompositeOperation = "source-over";
-      g.lineCap = "round";
-      g.lineJoin = "round";
-      const parla = Math.min(1, a * 1.3);
-      g.strokeStyle = `rgba(200,205,255,${0.35 * parla})`;
-      g.lineWidth = 3.2;
-      cizgi(g, simsek.yildirim.ana);
-      g.strokeStyle = `rgba(250,250,255,${0.95 * parla})`;
-      g.lineWidth = 1.1;
-      cizgi(g, simsek.yildirim.ana);
-      g.lineWidth = 0.7;
-      g.strokeStyle = `rgba(235,235,255,${0.6 * parla})`;
-      simsek.yildirim.dallar.forEach((d) => cizgi(g, d));
-    }
-    // Dağların önü kapatsın
-    g.globalCompositeOperation = "destination-in";
+    // Dağlar önü kapatsın
     g.drawImage(maskeTuval, 0, 0);
 
     fctx.globalCompositeOperation = "source-over";
     // Köy bir anlığına soğuk bir ışıkla görünür
     const flas = varlik[sahneAdi()].flas;
     if (flas) {
-      fctx.globalAlpha = a * 0.55;
+      fctx.globalAlpha = a * (simsek.yildirim ? 0.7 : 0.55);
       fctx.drawImage(flas, yer.x, yer.y, yer.w, yer.h);
     }
     fctx.globalAlpha = Math.min(1, a * 1.05);
     fctx.drawImage(gokKatman, 0, 0, gen, yuk);
     fctx.globalAlpha = 1;
+  }
+
+  // Yıldırım kanalı ve düştüğü yerdeki parlama (efekt katmanı, fenerlerin arkasında)
+  function yildirimCiz(simdi) {
+    const y = simsek && simsek.yildirim;
+    if (!y || !yildirimTuval) return;
+    const gecen = simdi - simsek.bas;
+    const [parla, acilim] = kanalGucu(gecen);
+    if (parla < 0.01) return;
+    ctx.globalCompositeOperation = "lighter";
+    ctx.globalAlpha = parla;
+    if (acilim >= 1) {
+      ctx.drawImage(yildirimTuval, 0, 0, gen, yuk);
+    } else {
+      // Öncü kanal yukarıdan aşağı basamak basamak iner
+      const inis = Math.max(1, y.ustY + acilim * (y.hedef.y - y.ustY) + 4);
+      const kaynak = Math.min(yildirimTuval.height, Math.round(inis * oran));
+      if (kaynak > 0) ctx.drawImage(yildirimTuval, 0, 0, yildirimTuval.width, kaynak, 0, 0, gen, kaynak / oran);
+    }
+    // Yamaçta, yıldırımın değdiği yer bir an parlar (yere yayılan, yassı bir ışık)
+    if (acilim >= 1 && y.hedef.onde) {
+      const R = 30 * y.k;
+      const { x, y: hy } = y.hedef;
+      const g = ctx.createRadialGradient(0, 0, 0, 0, 0, R);
+      g.addColorStop(0, "rgba(235,238,255,0.8)");
+      g.addColorStop(0.25, "rgba(170,180,255,0.3)");
+      g.addColorStop(1, "rgba(120,130,255,0)");
+      ctx.save();
+      ctx.translate(x, hy);
+      ctx.scale(1, 0.5);
+      ctx.globalAlpha = parla * 0.7;
+      ctx.fillStyle = g;
+      ctx.fillRect(-R, -R, R * 2, R * 2);
+      ctx.restore();
+    }
+    ctx.globalAlpha = 1;
+    ctx.globalCompositeOperation = "source-over";
+  }
+
+  // ---- Yağmur --------------------------------------------------------------
+  // Çok hafif bir yağmur: ince, eğik çizgiler. Karanlıkta zor seçilir; fenerlerin
+  // yakınında kızıl, şimşek çaktığında soğuk bir beyazla görünür. Fenerlerin
+  // aydınlattığı damda damlalar küçük sıçramalar yapar.
+  const damlalar = [];
+  const sicramalar = [];
+  let yagmurGiris = 0;
+  const IZ = 0.024; // çizginin boyu: düşüş hızı × bu süre (objektifin pozlaması gibi)
+  const DAMLA_KATLARI = [
+    // [yakınlık alt, üst, saydamlık, kalınlık]
+    [0, 0.58, 0.065, 0.6],
+    [0.58, 0.8, 0.095, 0.8],
+    [0.8, 2, 0.13, 1.05],
+  ];
+
+  function yagmurDiz() {
+    damlalar.length = 0;
+    sicramalar.length = 0;
+    const adet = Math.round(Math.max(40, Math.min(150, (gen * yuk) / 12000)));
+    for (let i = 0; i < adet; i++) damlalar.push(yeniDamla(true));
+  }
+
+  function yeniDamla(ilk) {
+    const z = 0.35 + 0.65 * Math.pow(Math.random(), 0.8);
+    const d = {
+      x: rastgele(-0.3 * yuk, gen),
+      y: ilk ? rastgele(-0.1 * yuk, yuk) : rastgele(-0.3 * yuk, -0.03 * yuk),
+      z,
+      hiz: yuk * (0.55 + 0.6 * z) * rastgele(0.92, 1.08),
+      vx: 0,
+      son: Infinity,
+    };
+    // Uzaktaki damlaların bir kısmı dama iner
+    if (z < 0.8 && Math.random() < 0.5) {
+      const [ust, alt] = sahne.cati;
+      d.son = yer.y + rastgele(ust, alt) * yer.h;
+    }
+    return d;
+  }
+
+  function fenerIsigi(x, y, alevler, yayilim) {
+    let isik = 0;
+    for (const [ax, ay, R] of alevler) {
+      const ux = (x - ax) / (R * yayilim);
+      const uy = (y - (ay - R * 0.8)) / (R * yayilim);
+      isik += Math.exp(-(ux * ux + uy * uy));
+    }
+    return isik;
+  }
+
+  function yagmurCiz(t, dt, r, alevler) {
+    yagmurGiris = Math.min(1, yagmurGiris + dt / 5);
+    const yogun = yagmurGiris * (0.85 + 0.15 * Math.sin(t * 0.045 + 1.7));
+    if (yogun <= 0.01) return;
+    const egim = Math.tan(0.07 + 0.11 * Math.min(1.4, r));
+    const [, , sol, sag] = sahne.cati;
+    const catiSol = yer.x + sol * yer.w;
+    const catiSag = yer.x + sag * yer.w;
+
+    for (let i = 0; i < damlalar.length; i++) {
+      const d = damlalar[i];
+      d.vx = d.hiz * egim * (0.85 + 0.3 * d.z);
+      d.x += d.vx * dt;
+      d.y += d.hiz * dt;
+      if (d.y >= d.son) {
+        if (d.x > catiSol && d.x < catiSag && sicramalar.length < 24) {
+          const isik = fenerIsigi(d.x, d.y, alevler, 4.2);
+          if (isik > 0.06) sicramalar.push({ x: d.x, y: d.y, z: d.z, omur: 0, isik: Math.min(1, isik) });
+        }
+        damlalar[i] = yeniDamla(false);
+        continue;
+      }
+      if (d.y - d.hiz * IZ > yuk + 4 || d.x > gen + 60) damlalar[i] = yeniDamla(false);
+    }
+
+    // Karanlıkta zor seçilen soğuk çizgiler
+    ctx.globalCompositeOperation = "source-over";
+    ctx.strokeStyle = "rgb(196,206,222)";
+    ctx.lineCap = "butt";
+    for (const [z0, z1, alfa, kalin] of DAMLA_KATLARI) {
+      ctx.beginPath();
+      for (const d of damlalar) {
+        if (d.z < z0 || d.z >= z1) continue;
+        ctx.moveTo(d.x, d.y);
+        ctx.lineTo(d.x - d.vx * IZ, d.y - d.hiz * IZ);
+      }
+      ctx.globalAlpha = alfa * yogun;
+      ctx.lineWidth = kalin;
+      ctx.stroke();
+    }
+
+    // Fenerin ışığına giren damlalar kızıl parlar
+    ctx.globalCompositeOperation = "lighter";
+    ctx.strokeStyle = "rgb(255,176,124)";
+    for (const d of damlalar) {
+      const isik = fenerIsigi(d.x, d.y - d.hiz * IZ * 0.5, alevler, 3.4);
+      if (isik < 0.04) continue;
+      ctx.globalAlpha = Math.min(0.6, isik * 0.7) * (0.45 + 0.55 * d.z) * yogun;
+      ctx.lineWidth = 0.6 + 0.6 * d.z;
+      ctx.beginPath();
+      ctx.moveTo(d.x, d.y);
+      ctx.lineTo(d.x - d.vx * IZ, d.y - d.hiz * IZ);
+      ctx.stroke();
+    }
+
+    // Şimşek çakınca bütün damlalar bir anlığına görünür
+    if (flasGucu > 0.02) {
+      ctx.strokeStyle = "rgb(214,222,255)";
+      ctx.lineWidth = 0.9;
+      ctx.beginPath();
+      for (const d of damlalar) {
+        ctx.moveTo(d.x, d.y);
+        ctx.lineTo(d.x - d.vx * IZ, d.y - d.hiz * IZ);
+      }
+      ctx.globalAlpha = Math.min(1, flasGucu) * 0.36 * yogun;
+      ctx.stroke();
+    }
+
+    // Damdaki küçük sıçramalar
+    for (let i = sicramalar.length - 1; i >= 0; i--) {
+      const s = sicramalar[i];
+      s.omur += dt;
+      const p = s.omur / 0.16;
+      if (p >= 1) {
+        sicramalar.splice(i, 1);
+        continue;
+      }
+      const g = s.isik * yogun;
+      const b = 1.1 + 1.3 * s.z;
+      if (p < 0.35) {
+        ctx.globalAlpha = (1 - p / 0.35) * 0.55 * g;
+        ctx.drawImage(zerre, s.x - b * 1.4, s.y - b * 0.7, b * 2.8, b * 1.4);
+      }
+      ctx.globalAlpha = (1 - p) * 0.8 * g;
+      const yuks = 5 * s.z * Math.sin(Math.PI * p);
+      const yan = (2 + 6 * p) * s.z;
+      ctx.drawImage(zerre, s.x - yan - b / 2, s.y - yuks - b / 2, b, b);
+      ctx.drawImage(zerre, s.x + yan - b / 2, s.y - yuks * 0.8 - b / 2, b, b);
+    }
+    ctx.globalAlpha = 1;
+    ctx.globalCompositeOperation = "source-over";
   }
 
   function cizgi(p, noktalar) {
@@ -641,6 +962,9 @@ function tuvaliKur(kok) {
     yamalariCiz();
     maskeHazirla();
     tozDiz();
+    yagmurDiz();
+    // Yarıda kalan çakma eski boyuta göre çizilmişti
+    if (simsek) simsekBitir();
     varliklariYukle();
   }
 
@@ -658,12 +982,15 @@ function tuvaliKur(kok) {
         })
         .catch(() => {});
       window.setTimeout(() => {
-        Promise.all([resimYukle(s.gok), resimYukle(s.flas)])
-          .then(([gok, flas]) => {
+        Promise.all([resimYukle(s.gok), resimYukle(s.uzak), resimYukle(s.flas)])
+          .then(([gok, uzak, flas]) => {
             v.gok = gok;
+            v.uzak = uzak;
             v.flas = flas;
             gokSirt = gokSirt || {};
-            gokSirt[ad] = sirtCikar(gok);
+            uzakAlt = uzakAlt || {};
+            gokSirt[ad] = profilCikar(gok);
+            uzakAlt[ad] = profilCikar(uzak);
             if (sahneAdi() === ad) maskeHazirla();
           })
           .catch(() => {});
@@ -687,6 +1014,11 @@ function tuvaliKur(kok) {
 
     ctx.globalCompositeOperation = "source-over";
     ctx.clearRect(0, 0, gen, yuk);
+
+    // Şimşek: gök ve köy flaş katmanında, yıldırım kanalı bu katmanda en arkada
+    if (!simsek && simdi > sonrakiSimsek) simsekBaslat(simdi);
+    if (simsek) simsekCiz(simdi);
+    if (simsek) yildirimCiz(simdi);
 
     // Fenerler, ipleriyle birlikte bağlandıkları taşın etrafında
     if (levha) {
@@ -777,14 +1109,8 @@ function tuvaliKur(kok) {
     ctx.globalAlpha = 1;
     ctx.globalCompositeOperation = "source-over";
 
-    // Şimşek (hareketi azalt açıksa çakmaz)
-    if (!sakin) {
-      if (!simsek && simdi > sonrakiSimsek) simsekBaslat(simdi);
-      if (simsek) simsekCiz(simdi);
-    } else if (simsek) {
-      simsek = null;
-      flasTuval.style.visibility = "hidden";
-    }
+    // En önde, objektife en yakın katman: yağmur
+    yagmurCiz(t, dt, r, alevler);
   }
 
   function dongu(simdi) {

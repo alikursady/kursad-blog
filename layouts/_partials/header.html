@@ -1,6 +1,6 @@
 {{- /* Ana sayfa: gece, taş evin damı ve 24 Kasım 2026 12.00'ye geri sayım.
-       Fotoğraf static/images/tuval/ altında; fenerlerin rüzgârda sallanması ve
-       dağların ardındaki şimşek assets/js/tuval.js'te. */ -}}
+       Fotoğraf static/images/tuval/ altında; fenerlerin rüzgârda sallanması,
+       hafif yağmur ve köyün ardına düşen yıldırım assets/js/tuval.js'te. */ -}}
 {{- if .IsHome }}
 {{- $tuvalCSS := resources.Get "css/tuval.css" | resources.Minify | fingerprint }}
 <link rel="stylesheet" href="{{ $tuvalCSS.RelPermalink }}" integrity="{{ $tuvalCSS.Data.Integrity }}">
