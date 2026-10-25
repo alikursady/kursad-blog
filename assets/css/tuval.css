@@ -127,6 +127,41 @@ body > *:not(#tuval) {
   visibility: hidden;
 }
 
+/* Gökyüzüne, dağların üstüne yazılmış soluk not. Bakınca okunur ama hemen
+   göze çarpmaz; şimşek çakınca bulutlarla birlikte biraz aydınlanır.
+   Yeri ve boyu tuval.js'te fotoğrafa göre ayarlanır; bunlar yedek değerler. */
+.tv-not {
+  position: absolute;
+  left: 30%;
+  top: 9%;
+  translate: -50% -50%;
+  margin: 0;
+  font-family: "Jost", "Futura", "Century Gothic", "Avenir Next", sans-serif;
+  font-weight: 300;
+  font-size: 15px;
+  line-height: 1.65;
+  letter-spacing: 0.14em;
+  text-align: center;
+  white-space: nowrap;
+  color: rgba(226, 230, 244, calc(0.26 + 0.3 * var(--tv-not-isik, 0)));
+  pointer-events: none;
+  user-select: none;
+  opacity: 0;
+  transition: opacity 5s ease 4.5s;
+}
+
+#tuval.tv-yandi .tv-not {
+  opacity: 1;
+}
+
+@media (max-aspect-ratio: 4/5) {
+  .tv-not {
+    left: 50%;
+    top: 22%;
+    font-size: 12px;
+  }
+}
+
 /* Kenarlarda objektif kararması, altta sayaç için koyulaşan zemin */
 .tv-golge {
   position: absolute;
@@ -259,7 +294,8 @@ body > *:not(#tuval) {
     animation: none;
   }
   .tv-resim,
-  .tv-sayac {
+  .tv-sayac,
+  .tv-not {
     transition: none;
   }
   .tv-hane.tv-yeni {
