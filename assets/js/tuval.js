@@ -7,7 +7,7 @@
 // çalışır (Windows'ta animasyon efektleri kapalıyken tarayıcı bunu bildirir).
 // Işığa duyarlılık için bir çakmada en fazla üç parlama olur.
 
-const HEDEF = new Date("2026-11-24T12:00:00+03:00").getTime();
+const HEDEF = new Date("2026-11-24T00:00:00+03:00").getTime();
 
 // Fenerler fotoğraftan kesildi: "levha" her fenerin ipiyle birlikte kendisini
 // ve arkasında kalan boşluğu dolduran parçayı (yama) taşır.
