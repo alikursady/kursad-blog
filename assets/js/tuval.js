@@ -25,8 +25,6 @@ const SAHNELER = {
     flas: "/images/tuval/tuval-yatay-simsek.webp",
     gok: "/images/tuval/tuval-yatay-gok.png",
     uzak: "/images/tuval/tuval-yatay-uzak.png",
-    // not: gökyüzündeki yazının ortası (fotoğrafa oranla) ve fotoğraf pikseliyle boyu
-    not: [0.3, 0.1, 28],
     adam: [1250, 1520],
     cati: [0.47, 0.76, 0.06, 0.86],
     dam: [0.5, 0.58, 0.42],
@@ -45,7 +43,6 @@ const SAHNELER = {
     flas: "/images/tuval/tuval-dikey-simsek.webp",
     gok: "/images/tuval/tuval-dikey-gok.png",
     uzak: "/images/tuval/tuval-dikey-uzak.png",
-    not: [0.5, 0.19, 34],
     adam: [730, 905],
     cati: [0.46, 0.57, 0.0, 0.97],
     dam: [0.5, 0.5, 0.55],
@@ -296,36 +293,6 @@ function tuvaliKur(kok) {
       objectFit: "fill",
       translate: "none",
     });
-  }
-
-  // Gökyüzündeki not: fotoğrafla birlikte yerleşir, ekrandan taşmaz
-  const notEl = kok.querySelector("[data-tv-not]");
-  let notIsik = 0;
-
-  function notuYerlestir() {
-    if (!notEl) return;
-    const [fx, fy, f] = sahne.not;
-    const boy = Math.max(12, Math.min(19, f * yer.s));
-    notEl.style.fontSize = `${boy.toFixed(1)}px`;
-    const w = notEl.offsetWidth;
-    const h = notEl.offsetHeight;
-    // Sahne ekrandan biraz büyük ve hafifçe ölçekleniyor; kenarda kesilmesin
-    const kenarX = 0.057 * gen + 10 + Math.max(14, boy);
-    const kenarY = 0.04 * yuk + 6 + Math.max(14, boy);
-    let x = yer.x + fx * yer.w;
-    let y = yer.y + fy * yer.h;
-    x = Math.max(kenarX + w / 2, Math.min(gen - kenarX - w / 2, x));
-    y = Math.max(kenarY + h / 2, y);
-    notEl.style.left = `${x.toFixed(1)}px`;
-    notEl.style.top = `${y.toFixed(1)}px`;
-  }
-
-  function notuAydinlat() {
-    if (!notEl) return;
-    const v = Math.round(Math.min(1, flasGucu) * 40) / 40;
-    if (v === notIsik) return;
-    notIsik = v;
-    notEl.style.setProperty("--tv-not-isik", String(v));
   }
 
   function ekrana(px, py) {
@@ -992,7 +959,6 @@ function tuvaliKur(kok) {
     yctx.imageSmoothingQuality = "high";
     sahne = dikeyMi.matches ? SAHNELER.dikey : SAHNELER.yatay;
     yerlesimiHesapla();
-    notuYerlestir();
     yamalariCiz();
     maskeHazirla();
     tozDiz();
@@ -1053,7 +1019,6 @@ function tuvaliKur(kok) {
     if (!simsek && simdi > sonrakiSimsek) simsekBaslat(simdi);
     if (simsek) simsekCiz(simdi);
     if (simsek) yildirimCiz(simdi);
-    notuAydinlat();
 
     // Fenerler, ipleriyle birlikte bağlandıkları taşın etrafında
     if (levha) {
@@ -1181,8 +1146,6 @@ function tuvaliKur(kok) {
   }
 
   boyutla();
-  // Yazı tipi geç gelirse notun genişliği değişir
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(notuYerlestir).catch(() => {});
   let boyutZamani = 0;
   window.addEventListener("resize", () => {
     window.clearTimeout(boyutZamani);
