@@ -5,6 +5,8 @@ title = "kursadyanik.com"
 theme = "PaperMod"
 buildFuture = false
 enableRobotsTXT = true
+# Etiketler yazıldığı gibi görünsün ("talaşlı imalat" -> "Talaşlı Imalat" olmasın).
+capitalizeListTitles = false
 rssLimit = 20
 copyright = "Hiçbir hakkı saklı değildir."
 
@@ -86,6 +88,16 @@ copyright = "Hiçbir hakkı saklı değildir."
     "kesici takım",
   ]
 
+[menu]
+  [[menu.main]]
+    name = "Yazılar"
+    url = "/posts/"
+    weight = 10
+  [[menu.main]]
+    name = "Etiketler"
+    url = "/tags/"
+    weight = 20
+
 [params.label]
   text = "kursadyanik.com"
 
@@ -93,6 +105,6 @@ copyright = "Hiçbir hakkı saklı değildir."
   favicon = "favicon.ico"
   apple_touch_icon = "favicon.ico"
   safari_pinned_tab = "safari-pinned-tab.svg"
-  theme_color = "#0f0f10"
+  theme_color = "#14121b"
   # Yazısı olmayan sayfalarda paylaşım görseli buradan üretilir.
   socialCover = "images/anime-bg.jpg"

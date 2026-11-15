@@ -5,6 +5,7 @@ import initThemeToggle from "./modules/theme-toggle.js";
 import initCodeCopy from "./modules/code-copy.js";
 import initImageZoom from "./modules/image-zoom.js";
 import initSystemStatus from "./modules/system-status.js";
+import initReadingProgress from "./modules/reading-progress.js";
 
 // Her modül kendi elemanını bulamazsa sessizce çıkar, bu yüzden tek paket
 // bütün sayfalarda güvenle çalışır.
@@ -16,6 +17,7 @@ const modules = [
   initCodeCopy,
   initImageZoom,
   initSystemStatus,
+  initReadingProgress,
 ];
 
 modules.forEach((init) => {

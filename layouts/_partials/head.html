@@ -10,11 +10,10 @@
 <meta name="robots" content="noindex, nofollow">
 {{- end }}
 
-{{- /* Başlık. Ana sayfada site adının önüne yazarın adı geçer, arama
-       sonuçlarında isimle bulunabilmesi için. */ -}}
+{{- /* Başlık. Ana sayfada hugo.toml'daki homeTitle kullanılır. */ -}}
 {{- $title := site.Title }}
 {{- if .IsHome }}
-  {{- $title = "502 Bad Gateway" }}
+  {{- $title = site.Params.homeTitle | default site.Title }}
 {{- else if eq .Kind "term" }}
   {{- $title = printf "%s yazıları | %s" .Title site.Title }}
 {{- else if .Title }}
@@ -48,10 +47,9 @@
 {{- end }}
 <link rel="canonical" href="{{ with .Params.canonicalURL }}{{ trim . " " }}{{ else }}{{ .Permalink }}{{ end }}">
 
-{{- /* Yazı tipleri harici sunucudan geldiği için bağlantı önceden açılıyor. */ -}}
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=JetBrains+Mono:wght@400;500&family=Caveat:wght@400..700&display=swap">
+{{- /* Yazı tipleri static/fonts altından gelir; en çok kullanılan ikisi önden yüklenir. */ -}}
+<link rel="preload" href="{{ "fonts/dm-sans-latin-wght-normal.woff2" | relURL }}" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{{ "fonts/fraunces-latin-opsz-normal.woff2" | relURL }}" as="font" type="font/woff2" crossorigin>
 
 {{- /* Tema stilleri. Sıra önemli, uzantı dosyaları çekirdekten sonra gelir. */ -}}
 {{- $themeVars := resources.Get "css/core/theme-vars.css" }}
@@ -70,7 +68,7 @@
 <link rel="icon" href="{{ site.Params.assets.favicon | default "favicon.ico" | absURL }}">
 <link rel="apple-touch-icon" href="{{ site.Params.assets.apple_touch_icon | default "favicon.ico" | absURL }}">
 <link rel="mask-icon" href="{{ site.Params.assets.safari_pinned_tab | default "safari-pinned-tab.svg" | absURL }}">
-<meta name="theme-color" content="{{ site.Params.assets.theme_color | default "#0f0f10" }}">
+<meta name="theme-color" content="{{ site.Params.assets.theme_color | default "#14121b" }}">
 
 {{- /* RSS ve dil alternatifleri */ -}}
 {{- range .AlternativeOutputFormats }}
@@ -90,7 +88,7 @@
 </noscript>
 
 {{- /* Siteye özel stil */ -}}
-{{- $custom := resources.Get "css/custom.css" | resources.Minify | fingerprint }}
+{{- $custom := slice (resources.Get "css/fonts.css") (resources.Get "css/custom.css") | resources.Concat "css/site.css" | resources.Minify | fingerprint }}
 <link rel="stylesheet" href="{{ $custom.RelPermalink }}" integrity="{{ $custom.Data.Integrity }}">
 
 {{- /* Tema seçimi sayfa boyanmadan uygulanmalı, bu yüzden satır içinde. */ -}}
