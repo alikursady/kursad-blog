@@ -6,7 +6,7 @@
     {{ partial "breadcrumbs.html" . }}
     {{- with (.GetTerms "categories") }}
     <div class="yazi-ust">
-      {{- range . }}<a class="yazi-kategori ton-{{ partial "ton.html" .LinkTitle }}" href="{{ .Permalink }}">{{ .LinkTitle }}</a>{{ end }}
+      {{- range . }}<a class="yazi-kategori" href="{{ .Permalink }}">{{ .LinkTitle }}</a>{{ end }}
     </div>
     {{- end }}
     <h1 class="post-title entry-hint-parent">{{ .Title }}{{ if .Draft }} <span class="entry-hint">(taslak)</span>{{ end }}</h1>
@@ -39,12 +39,6 @@
   {{- partial "extend_post_content.html" . }}
 
   <footer class="post-footer">
-    {{- if in site.Params.mainSections .Type }}
-    <p class="yazi-sonu">
-      <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12 20.500s-7.500-4.600-7.500-10.200A4.300 4.300 0 0 1 12 7.600a4.300 4.300 0 0 1 7.500 2.700c0 5.600-7.500 10.200-7.500 10.200z"/></svg>
-      Buraya kadar okuduğun için teşekkürler.
-    </p>
-    {{- end }}
     {{- $tags := .Language.Params.Taxonomies.tag | default "tags" }}
     <ul class="post-tags">
       {{- range ($.GetTerms $tags) }}

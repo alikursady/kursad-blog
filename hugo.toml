@@ -105,6 +105,6 @@ copyright = "Hiçbir hakkı saklı değildir."
   favicon = "favicon.ico"
   apple_touch_icon = "favicon.ico"
   safari_pinned_tab = "safari-pinned-tab.svg"
-  theme_color = "#14121b"
+  theme_color = "#141413"
   # Yazısı olmayan sayfalarda paylaşım görseli buradan üretilir.
   socialCover = "images/anime-bg.jpg"

@@ -1,22 +1,15 @@
-{{- /* Liste sayfalarındaki yazı kartı. */ -}}
-{{- $kat := "" }}{{ $katSayfa := "" }}
-{{- with (.GetTerms "categories") }}{{ with index . 0 }}{{ $kat = .LinkTitle }}{{ $katSayfa = . }}{{ end }}{{ end }}
-{{- $ton := partial "ton.html" $kat }}
-<article class="post-entry yazi-karti ton-{{ $ton }}">
-  <div class="yazi-ikon" aria-hidden="true">{{ partial "kategori_ikon.html" $ton }}</div>
-  <div class="yazi-govde">
-    {{- with $kat }}<span class="yazi-kategori">{{ . }}</span>{{ end }}
-    <header class="entry-header">
-      <h2 class="entry-hint-parent">{{ .Title }}{{ if .Draft }} <span class="entry-hint">(taslak)</span>{{ end }}</h2>
-    </header>
-    {{- if (ne (.Param "hideSummary") true) }}
-    <div class="entry-content">
-      <p>{{ .Summary | plainify | htmlUnescape }}{{ if .Truncated }}...{{ end }}</p>
-    </div>
-    {{- end }}
-    <span class="yazi-oku">Yazıyı oku
-      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-    </span>
+{{- /* Liste sayfalarındaki yazı satırı. */ -}}
+<article class="post-entry yazi">
+  {{- with (.GetTerms "categories") }}{{ with index . 0 }}
+  <span class="yazi-kategori">{{ .LinkTitle }}</span>
+  {{- end }}{{ end }}
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">{{ .Title }}{{ if .Draft }} <span class="entry-hint">(taslak)</span>{{ end }}</h2>
+  </header>
+  {{- if (ne (.Param "hideSummary") true) }}
+  <div class="entry-content">
+    <p>{{ .Summary | plainify | htmlUnescape }}{{ if .Truncated }}...{{ end }}</p>
   </div>
+  {{- end }}
   <a class="entry-link" aria-label="{{ .Title | plainify }} yazısını oku" href="{{ .Permalink }}"></a>
 </article>

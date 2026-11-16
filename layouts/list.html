@@ -9,31 +9,16 @@
 
 {{- if .IsHome }}
 {{- if eq $paginator.PageNumber 1 }}
-<section class="karsilama" aria-labelledby="karsilama-baslik">
-  <div class="karsilama-isik" aria-hidden="true"><i></i><i></i><i></i></div>
-  {{- with site.Params.description }}
-  <p class="not-kagidi" aria-label="Sitenin mottosu"><span>{{ . }}</span></p>
-  {{- end }}
-  <p class="karsilama-selam">
-    selam, hoş geldin
-    <svg class="el" viewBox="0 0 32 32" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 15V7.500a1.800 1.800 0 0 1 3.600 0V14M14.600 13V5.800a1.800 1.800 0 0 1 3.600 0V13M18.200 13.500V7.500a1.800 1.800 0 0 1 3.600 0v9M21.800 14.500v-3a1.800 1.800 0 0 1 3.600 0v7.500c0 5-3.400 9-8.400 9-3.600 0-5.600-1.500-7.400-4.200L6 18.200a1.900 1.900 0 0 1 3.100-2.100L11 18.500"/><path d="M4 9.500c-.5-2 .2-3.900 1.800-5M26.500 4c1.300.5 2.300 1.500 2.800 2.800"/></svg>
+<section class="giris">
+  <h1>Merak ettiğim şeyleri kurcalayıp buraya yazıyorum.</h1>
+  <p class="giris-konular">
+    {{- range $i, $k := site.Taxonomies.categories.ByCount }}
+    {{- if $i }}<span aria-hidden="true">·</span>{{ end }}
+    <a href="{{ .Page.Permalink }}">{{ .Page.LinkTitle }}</a>
+    {{- end }}
   </p>
-  <h1 id="karsilama-baslik">Merak ettiğim şeyleri <em>kurcalayıp</em> buraya yazıyorum.</h1>
-  <div class="karsilama-alt">
-    <ul class="konu-listesi" aria-label="Kategoriler">
-      {{- range site.Taxonomies.categories.ByCount }}
-      <li class="ton-{{ partial "ton.html" .Page.LinkTitle }}"><a href="{{ .Page.Permalink }}">{{ .Page.LinkTitle }}</a></li>
-      {{- end }}
-      {{- with site.GetPage "/tags" }}<li><a class="hepsi" href="{{ .Permalink }}">tüm etiketler</a></li>{{ end }}
-    </ul>
-  </div>
 </section>
 {{- end }}
-<div class="bolum-basligi">
-  <h2>Son yazılar</h2>
-  <span class="bolum-cizgi" aria-hidden="true"></span>
-  <span class="bolum-sayi">{{ len $pages }} yazı</span>
-</div>
 {{- else if .Title }}
 <header class="page-header">
   {{- partial "breadcrumbs.html" . }}

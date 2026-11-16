@@ -1,8 +1,0 @@
-{{- /* Kategori adına göre renk tonu döndürür. Girdi: kategori adı. */ -}}
-{{- $ad := lower . -}}
-{{- $ton := "bal" -}}
-{{- if in $ad "siber" }}{{ $ton = "lavanta" }}
-{{- else if in $ad "malat" }}{{ $ton = "nane" }}
-{{- else if in $ad "sosyal" }}{{ $ton = "seftali" }}
-{{- end -}}
-{{- return $ton -}}
