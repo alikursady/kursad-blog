@@ -1020,34 +1020,38 @@ h1, h2, h3 {
     font-weight: 500;
 }
 
-/* --- Ana sayfa girişi --- */
-.giris {
-    padding: clamp(1rem, 5vw, 2.5rem) 0 clamp(2rem, 6vw, 3rem);
-}
-
-.giris h1 {
-    max-width: 20ch;
-    margin: 0 0 1rem;
-    font-size: clamp(1.9rem, 5.6vw, 2.7rem);
-    line-height: 1.15;
-    letter-spacing: -0.022em;
-    text-wrap: balance;
-}
-
-.giris-konular {
+/* --- Ana sayfanın üst satırı --- */
+.liste-ust {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.25rem 0.6rem;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.4rem 1.5rem;
+    padding-bottom: 0.9rem;
+}
+
+.liste-ust h1 {
     margin: 0;
-    font-size: 0.92rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
     color: var(--secondary);
 }
 
-.giris-konular a {
+.liste-konular {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.2rem 1.1rem;
+    font-size: 0.9rem;
+}
+
+.liste-konular a {
     color: var(--secondary);
 }
 
-.giris-konular a:hover {
+.liste-konular a:hover {
     color: var(--accent);
 }
 
@@ -1108,6 +1112,64 @@ a.yazi-kategori:hover {
     font-size: 0.98rem;
     -webkit-line-clamp: 2;
     line-clamp: 2;
+}
+
+/* Görselli satır: küçük görsel sağda */
+.yazi-gorselli:not(.yazi-one) {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: flex-start;
+    gap: 1.5rem;
+}
+
+.yazi-metin {
+    flex: 1;
+    min-width: 0;
+}
+
+.yazi-gorsel {
+    flex: 0 0 auto;
+    width: 9rem;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border-radius: var(--radius);
+    background: var(--tertiary);
+}
+
+.yazi-gorsel img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.yazi:hover .yazi-gorsel img {
+    transform: scale(1.03);
+}
+
+/* Öne çıkan (en yeni) yazı */
+.yazi-one {
+    padding-top: 1.75rem;
+    padding-bottom: 2rem;
+}
+
+.yazi-one .yazi-gorsel {
+    width: 100%;
+    aspect-ratio: 2 / 1;
+    margin-bottom: 1.25rem;
+}
+
+.yazi-one .entry-header h2 {
+    font-size: clamp(1.6rem, 4.6vw, 2.1rem);
+    line-height: 1.18;
+    letter-spacing: -0.02em;
+}
+
+.yazi-one .entry-content {
+    font-size: 1.04rem;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
 }
 
 .entry-link:focus-visible {
@@ -1488,6 +1550,19 @@ a.yazi-kategori:hover {
         font-size: 1.25rem;
     }
 
+    .yazi-one .entry-header h2 {
+        font-size: 1.55rem;
+    }
+
+    .yazi-gorselli:not(.yazi-one) {
+        gap: 1rem;
+    }
+
+    .yazi-gorselli:not(.yazi-one) .yazi-gorsel {
+        width: 5.5rem;
+        aspect-ratio: 1;
+    }
+
     .paginav {
         grid-template-columns: 1fr;
     }
@@ -1495,5 +1570,11 @@ a.yazi-kategori:hover {
     .paginav .next {
         grid-column: 1;
         text-align: left;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .yazi-gorsel img {
+        transition: none;
     }
 }

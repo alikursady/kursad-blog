@@ -8,17 +8,14 @@
 {{- $paginator := .Paginate $pages }}
 
 {{- if .IsHome }}
-{{- if eq $paginator.PageNumber 1 }}
-<section class="giris">
-  <h1>Merak ettiğim şeyleri kurcalayıp buraya yazıyorum.</h1>
-  <p class="giris-konular">
-    {{- range $i, $k := site.Taxonomies.categories.ByCount }}
-    {{- if $i }}<span aria-hidden="true">·</span>{{ end }}
+<div class="liste-ust">
+  <h1>Son yazılar</h1>
+  <nav class="liste-konular" aria-label="Kategoriler">
+    {{- range site.Taxonomies.categories.ByCount }}
     <a href="{{ .Page.Permalink }}">{{ .Page.LinkTitle }}</a>
     {{- end }}
-  </p>
-</section>
-{{- end }}
+  </nav>
+</div>
 {{- else if .Title }}
 <header class="page-header">
   {{- partial "breadcrumbs.html" . }}
@@ -34,8 +31,9 @@
 {{- end }}
 
 <div class="yazi-listesi">
-{{- range $paginator.Pages }}
-{{ partial "yazi_karti.html" . }}
+{{- $ilkSayfa := and .IsHome (eq $paginator.PageNumber 1) }}
+{{- range $i, $p := $paginator.Pages }}
+{{ partial "yazi_karti.html" (dict "sayfa" $p "one" (and $ilkSayfa (eq $i 0))) }}
 {{- end }}
 </div>
 

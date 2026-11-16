@@ -1,15 +1,26 @@
-{{- /* Liste sayfalarındaki yazı satırı. */ -}}
-<article class="post-entry yazi">
-  {{- with (.GetTerms "categories") }}{{ with index . 0 }}
-  <span class="yazi-kategori">{{ .LinkTitle }}</span>
-  {{- end }}{{ end }}
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">{{ .Title }}{{ if .Draft }} <span class="entry-hint">(taslak)</span>{{ end }}</h2>
-  </header>
-  {{- if (ne (.Param "hideSummary") true) }}
-  <div class="entry-content">
-    <p>{{ .Summary | plainify | htmlUnescape }}{{ if .Truncated }}...{{ end }}</p>
-  </div>
+{{- /* Liste sayfalarındaki yazı satırı. Girdi: dict "sayfa" . "one" bool.
+       "one" doğruysa yazı büyük görselle öne çıkarılır. Görsel, yazının
+       images alanındaki ilk dosyadır; yoksa satır görselsiz kalır. */ -}}
+{{- $p := .sayfa }}
+{{- $one := .one | default false }}
+{{- $gorsel := "" }}
+{{- with $p.Params.images }}{{ $gorsel = index . 0 }}{{ end }}
+<article class="post-entry yazi{{ if $one }} yazi-one{{ end }}{{ if $gorsel }} yazi-gorselli{{ end }}">
+  {{- with $gorsel }}
+  <div class="yazi-gorsel"><img src="{{ . | relURL }}" alt="" loading="{{ if $one }}eager{{ else }}lazy{{ end }}" decoding="async"></div>
   {{- end }}
-  <a class="entry-link" aria-label="{{ .Title | plainify }} yazısını oku" href="{{ .Permalink }}"></a>
+  <div class="yazi-metin">
+    {{- with ($p.GetTerms "categories") }}{{ with index . 0 }}
+    <span class="yazi-kategori">{{ .LinkTitle }}</span>
+    {{- end }}{{ end }}
+    <header class="entry-header">
+      <h2 class="entry-hint-parent">{{ $p.Title }}{{ if $p.Draft }} <span class="entry-hint">(taslak)</span>{{ end }}</h2>
+    </header>
+    {{- if (ne ($p.Param "hideSummary") true) }}
+    <div class="entry-content">
+      <p>{{ $p.Summary | plainify | htmlUnescape }}{{ if $p.Truncated }}...{{ end }}</p>
+    </div>
+    {{- end }}
+  </div>
+  <a class="entry-link" aria-label="{{ $p.Title | plainify }} yazısını oku" href="{{ $p.Permalink }}"></a>
 </article>
