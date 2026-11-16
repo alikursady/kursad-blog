@@ -1122,7 +1122,7 @@ h1, h2, h3 {
 }
 
 .karsilama h1 {
-    margin: 0 0 1.1rem;
+    margin: 0 0 1.6rem;
     max-width: 17ch;
     font-size: clamp(2.15rem, 7.2vw, 3.6rem);
     font-weight: 600;
